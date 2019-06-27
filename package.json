@@ -1,6 +1,6 @@
 {
   "name": "hyperiot-core",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.config.json",
@@ -9,7 +9,11 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
+  "private": false,
+  "publishConfig": {
+   "registry": "https://nexus.acsoftware.it/nexus/repository/acs-npm/",
+   "always-auth": "true"
+  },
   "dependencies": {
     "@angular/animations": "~7.1.0",
     "@angular/common": "~7.1.0",
