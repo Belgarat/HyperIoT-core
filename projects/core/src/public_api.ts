@@ -5,6 +5,17 @@
 export * from './lib/core.service';
 export * from './lib/core.component';
 export * from './lib/core.module';
+
+export {
+    HyperiotBaseModule,
+    WidgetComponent,
+    WidgetChartComponent,
+    TimeSeries,
+    DataPacket,
+    DataChannelService,
+    PlotlyModule, PlotlyJS
+} from './lib/hyperiot-base/hyperiot-base.module';
+
 export { AreasService, Area } from './lib/hyperiot-client/area-client/api-module/index';
 export { AssetscategoriesService, AssetCategory, HyperIoTAssetOwnerImpl } from './lib/hyperiot-client/asset-category-client/api-module/index';
 export { AssetstagsService, AssetTag } from './lib/hyperiot-client/asset-tag-client/api-module/index';

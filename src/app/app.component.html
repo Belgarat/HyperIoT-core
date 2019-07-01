@@ -1,11 +1,13 @@
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
 
-  <label>
+    <label>
     text:
     <input type="text" formControlName="text">
   </label>
 
-  <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
 </form>
 
 <button (click)="click()">GET STATUS</button>
+
+<router-outlet></router-outlet>

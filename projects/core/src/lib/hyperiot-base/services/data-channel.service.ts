@@ -2,24 +2,6 @@ import { Injectable } from '@angular/core';
 import { DataPacket } from '../widgets/data/data-packet';
 import { Subject } from 'rxjs';
 
-export class ChannelData {
-  packet: DataPacket;
-  subject: Subject<[any, any]>;
-  _interval: any;
-
-  constructor(packet: DataPacket) {
-    this.packet = packet;
-    this.subject = new Subject<any>();
-    // TODO: this is just for testing purpose:
-    //       simulate incoming data from websocket packet stream
-    const startDate = new Date();
-    this._interval = setInterval(() => {
-      this.subject.next([new Date(startDate.getTime()), 20 + (Math.random() * 15)]);
-      startDate.setMinutes(startDate.getMinutes() + 5);
-    }, 1000);
-  }
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -58,4 +40,22 @@ export class DataChannelService {
     delete this.dataChannels[widgetId];
   }
 
+}
+
+export class ChannelData {
+  packet: DataPacket;
+  subject: Subject<[any, any]>;
+  _interval: any;
+
+  constructor(packet: DataPacket) {
+    this.packet = packet;
+    this.subject = new Subject<any>();
+    // TODO: this is just for testing purpose:
+    //       simulate incoming data from websocket packet stream
+    const startDate = new Date();
+    this._interval = setInterval(() => {
+      this.subject.next([new Date(startDate.getTime()), 20 + (Math.random() * 15)]);
+      startDate.setMinutes(startDate.getMinutes() + 5);
+    }, 1000);
+  }
 }

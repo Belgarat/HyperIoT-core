@@ -5,7 +5,7 @@ import { DataPacket } from './data/data-packet';
 import { PartialObserver } from 'rxjs';
 
 @Component({
-  selector: 'app-widget',
+  selector: 'hyperiot-widget',
   template: ''
 })
 export class WidgetComponent implements OnDestroy {
