@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { CoreModule, HyperiotBaseModule, PlotlyModule } from '@hyperiot/core';
+import { CoreModule } from 'projects/core/src/lib/core.module';
+import { HyperiotBaseModule, PlotlyModule } from 'projects/core/src/lib/hyperiot-base/hyperiot-base.module';
 import { AuthenticationService } from 'projects/core/src/public_api';
 
 import { AppRoutingModule } from './app-routing.module';

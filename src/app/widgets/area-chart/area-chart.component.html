@@ -1,5 +1,11 @@
 <p>area-chart works!</p>
 
 <div class="chart-view">
-    <plotly-plot divId="graph" [data]="graph.data" [layout]="graph.layout" [useResizeHandler]="true" [style]="{position: 'relative', width: '100%', height: '100%'}" #plotlyGraph></plotly-plot>
+    <plotly-plot
+        divId="graph"
+        [data]="graph.data"
+        [layout]="graph.layout"
+        [useResizeHandler]="true"
+        [config]="{displayModeBar: false}"
+        [style]="{position: 'relative', width: '100%', height: '100%'}"></plotly-plot>
 </div>

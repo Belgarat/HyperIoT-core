@@ -41,19 +41,22 @@ export class WidgetChartComponent extends WidgetComponent {
   }
 
   /**
-   * Adds a new time serie to the chart data
+   * Adds time series to the chart data
    *
-   * @param timeSeriesData Time series data
+   * @param timeSeriesData Array of time series
    */
-  addTimeSeries(timeSeriesData: TimeSeries) {
-    const timeSerie = {
-      x: timeSeriesData.x,
-      y: timeSeriesData.y,
-      fill: 'tozeroy',
-      type: 'scatter',
-      line: { simplify: false, width: 4, smoothing: 1.3 },
-      connectgaps: true
-    };
-    this.graph.data.push(timeSerie);
+  addTimeSeries(timeSeriesData: TimeSeries[]) {
+    timeSeriesData.forEach(ts => {
+      const timeSerie = {
+        name: ts.name,
+        x: ts.x,
+        y: ts.y,
+        fill: 'tozeroy',
+        type: 'scatter',
+        line: { simplify: false, width: 4, smoothing: 1.3 },
+        connectgaps: true
+      };
+      this.graph.data.push(timeSerie);
+    });
   }
 }

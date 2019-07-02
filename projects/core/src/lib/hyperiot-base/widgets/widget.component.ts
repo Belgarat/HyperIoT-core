@@ -27,7 +27,7 @@ export class WidgetComponent implements OnDestroy {
    */
   setDataChannel(widgetId: string, packetFilter: DataPacket, observerCallback: PartialObserver<[any, any]> | any) {
     this.unsubscribeDataChannel();
-    this.dataChannel = this.dataChannelService.addDataChannel('my-widget', new DataPacket(1, ['temperature', 'humidity']));
+    this.dataChannel = this.dataChannelService.addDataChannel(widgetId, packetFilter);
     this.dataChannel.subject.subscribe(observerCallback);
   }
 

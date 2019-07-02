@@ -1,5 +1,9 @@
 export class TimeSeries {
     /**
+     * Serie name
+     */
+    name: string;
+    /**
      * X-Axis time values
      */
     x: Date[];
@@ -8,7 +12,8 @@ export class TimeSeries {
      */
     y: number[];
 
-    constructor() {
+    constructor(name: string) {
+        this.name = name;
         this.x = [];
         this.y = [];
     }
