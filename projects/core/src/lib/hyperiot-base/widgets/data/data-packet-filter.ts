@@ -1,4 +1,4 @@
-export class DataPacket {
+export class DataPacketFilter {
     packetId: number;
     fields: string[];
 

@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { DataPacket } from '../widgets/data/data-packet';
+import { DataPacketFilter } from '../widgets/data/data-packet-filter';
 import { Subject } from 'rxjs';
-import { HPacket, HPacketField } from '../../hyperiot-client/h-packet-client/api-module';
 
-export class ChannelData {
-  packet: DataPacket;
+export class DataChannel {
+  packet: DataPacketFilter;
   subject: Subject<[any, any]>;
   _interval: any;
 
-  constructor(packet: DataPacket) {
+  constructor(packet: DataPacketFilter) {
     this.packet = packet;
     this.subject = new Subject<any>();
   }
@@ -17,21 +16,20 @@ export class ChannelData {
 @Injectable({
   providedIn: 'root'
 })
-export class DataChannelService {
+export class DataStreamService {
   /**
    * List of data channels requested by widgets.
    * Once connected to the main data stream (via websocket)
-   * this service will filter the incoming data based on
-   * the requested data channels and will only send (emit) data
-   * that are explicitly requested by widgets or other components.
+   * this service will deliver incoming data to the widgets
+   * based on data filters specified in the StreamSubscription.
    */
-  dataChannels: { [id: string]: ChannelData; } = {};
+  dataChannels: { [id: string]: DataChannel; } = {};
   /**
    * Connection status
    */
   isConnected: boolean;
 
-  private wsUrl = '/hyperiot/ws/project';
+  private wsUrl = 'ws://' + location.hostname + (location.port ? ':' + location.port : '') + '/hyperiot/ws/project';
   private ws: WebSocket;
 
   constructor() { }
@@ -62,15 +60,15 @@ export class DataChannelService {
   }
 
   /**
-   * Adds a new data channel for subscribing to packet streaming events.
+   * Adds a new data channel that can be used for subscribing to data streaming events.
    *
    * @param widgetId The widget identifier.
-   * @param dataPacket Data packet which defines the packet id and packet fields to receive.
+   * @param dataPacketFilter Data packet filter which defines the packet id and packet fields to receive.
    */
-  addDataChannel(widgetId: string, dataPacket: DataPacket): ChannelData {
+  addDataStream(widgetId: string, dataPacketFilter: DataPacketFilter): DataChannel {
     // TODO: maybe allow an array of data packets to be passed in,
     //       so that a widget can receive packets from multiple sources.
-    const channelData = new ChannelData(dataPacket);
+    const channelData = new DataChannel(dataPacketFilter);
     return this.dataChannels[widgetId] = channelData;
   }
   /**
@@ -98,7 +96,7 @@ export class DataChannelService {
     packet = JSON.parse(packet.payload);
     for (const id in this.dataChannels) {
       if (this.dataChannels.hasOwnProperty(id)) {
-        const channelData: ChannelData = this.dataChannels[id];
+        const channelData: DataChannel = this.dataChannels[id];
         // check if message is valid for the current
         // channel, if so emit a new event
         if (packet.id == channelData.packet.packetId) {

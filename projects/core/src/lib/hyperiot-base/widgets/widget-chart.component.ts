@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { WidgetComponent } from './widget.component';
 import { PlotlyService } from 'angular-plotly.js';
-import { DataChannelService } from '../services/data-channel.service';
+import { DataStreamService } from '../services/data-stream.service';
 import { TimeSeries } from './data/time-series';
 
 @Component({
@@ -36,8 +36,8 @@ export class WidgetChartComponent extends WidgetComponent {
     }
   };
 
-  constructor(public dataChannelService: DataChannelService, public plotly: PlotlyService) {
-    super(dataChannelService);
+  constructor(public dataStreamService: DataStreamService, public plotly: PlotlyService) {
+    super(dataStreamService);
   }
 
   /**

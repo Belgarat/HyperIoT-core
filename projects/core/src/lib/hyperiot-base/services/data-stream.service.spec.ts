@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DataChannelService } from './data-channel.service';
+import { DataStreamService } from './data-stream.service';
 
-describe('DataChannelService', () => {
+describe('DataStreamService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: DataChannelService = TestBed.get(DataChannelService);
+    const service: DataStreamService = TestBed.get(DataStreamService);
     expect(service).toBeTruthy();
   });
 });

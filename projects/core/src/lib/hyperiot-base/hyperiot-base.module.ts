@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DataChannelService } from './services/data-channel.service';
+import { DataStreamService } from './services/data-stream.service';
 import { WidgetComponent } from './widgets/widget.component';
 import { WidgetChartComponent } from './widgets/widget-chart.component';
 
@@ -18,15 +18,15 @@ import { WidgetChartComponent } from './widgets/widget-chart.component';
     WidgetChartComponent
   ],
   providers: [
-    DataChannelService
+    DataStreamService
   ]
 })
 export class HyperiotBaseModule { }
 
-export * from './services/data-channel.service';
+export * from './services/data-stream.service';
 export * from './widgets/widget.component';
 export * from './widgets/widget-chart.component';
-export * from './widgets/data/data-packet';
+export * from './widgets/data/data-packet-filter';
 export * from './widgets/data/time-series';
 
 import * as PlotlyJS from 'plotly.js/dist/plotly.js';

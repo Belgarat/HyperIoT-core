@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {
-  DataPacket,
+  DataPacketFilter,
   WidgetChartComponent,
   TimeSeries
 } from 'projects/core/src/lib/hyperiot-base/hyperiot-base.module';
@@ -22,7 +22,7 @@ export class AreaChartComponent extends WidgetChartComponent implements OnInit {
     // Bind time series to the chart
     this.addTimeSeries(this.chartData);
     // Create the real time data channel
-    this.setDataChannel('my-widget', new DataPacket(14, ['temperature', 'humidity']), (eventData) => {
+    this.subscribeRealTimeStream(new DataPacketFilter(14, ['temperature', 'humidity']), (eventData) => {
       console.log(eventData);
       const date = eventData[0];
       const field = eventData[1];
@@ -36,10 +36,7 @@ export class AreaChartComponent extends WidgetChartComponent implements OnInit {
       });
     });
     // TODO: the connection should happen somewhere else in the main page
-    this.dataChannelService.connect('ws://' +
-      location.hostname +
-      (location.port ? ':' + location.port : '') +
-      '/hyperiot/ws/project');
+    this.dataStreamService.connect();
   }
 
   private relayout(lastEventDate: Date) {
