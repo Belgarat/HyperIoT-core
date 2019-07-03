@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Input } from '@angular/core';
 
 import { DataChannel, DataStreamService } from '../services/data-stream.service';
 import { DataPacketFilter } from './data/data-packet-filter';
@@ -10,7 +10,7 @@ import { PartialObserver } from 'rxjs';
 })
 export abstract class WidgetComponent implements OnDestroy {
   protected dataChannel: DataChannel;
-  widgetId: string;
+  @Input() widgetId: string;
 
   /**
    * Contructor
@@ -23,10 +23,25 @@ export abstract class WidgetComponent implements OnDestroy {
     this.unsubscribeRealTimeStream();
   }
 
+  /**
+   * Pause the real-time data stream
+   */
   abstract pause(): void;
+
+  /**
+   * Resume the real-time data stream
+   */
   abstract play(): void;
 
-  // TODO: implement methods for getting offline data as well
+  /**
+   * Get widget data in the specified date range
+   *
+   * @param dataPacketFilter Packet id and fields to fetch
+   * @param startDate Data range start date
+   * @param endDate Data range end date
+   * @returns A futurable or the requested data
+   */
+  abstract getOfflineData(dataPacketFilter: DataPacketFilter, startDate: Date, endDate: Date): any;
 
   /**
    * Set the real-time data stream the widget will receive data from

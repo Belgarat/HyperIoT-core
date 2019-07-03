@@ -4,7 +4,7 @@ import { WidgetComponent } from './widget.component';
 import { PlotlyService } from 'angular-plotly.js';
 import { DataStreamService } from '../services/data-stream.service';
 import { TimeSeries } from './data/time-series';
-import { EventEmitter } from 'protractor';
+import { DataPacketFilter } from './data/data-packet-filter';
 
 interface BufferedData {
   series: TimeSeries;
@@ -50,15 +50,12 @@ export class WidgetChartComponent extends WidgetComponent {
     super(dataStreamService);
   }
 
-  /**
-   * Pause new data visualization
-   */
+  // Base class abstract methods implementation
+
   pause(): void {
     this.isPaused = true;
   }
-  /**
-   * Restore new data visualization
-   */
+
   play(): void {
     this.isPaused = false;
     if (this.dataBuffer != null) {
@@ -69,6 +66,12 @@ export class WidgetChartComponent extends WidgetComponent {
       this.dataBuffer = [];
     }
   }
+
+  getOfflineData(dataPacketFilter: DataPacketFilter, startDate: Date, endDate: Date): any {
+    // TODO: ...
+  }
+
+  // WidgetChartComponent public methods
 
   /**
    * Adds new time series to the chart
@@ -116,13 +119,15 @@ export class WidgetChartComponent extends WidgetComponent {
     }
   }
 
+  // Private methods
+
   private relayout(lastEventDate: Date) {
     // set x range to the last 30 seconds of data
     const rangeEnd = new Date(lastEventDate);
     const rangeStart = new Date(rangeEnd.getTime() - (1 * 30 * 1000));
     // relayout x-axis range with new data
     const Plotly = this.plotly.getPlotly();
-    const graph = this.plotly.getInstanceByDivId('graph');
+    const graph = this.plotly.getInstanceByDivId(this.widgetId);
     Plotly.relayout(graph, {'xaxis.range': [rangeStart, rangeEnd]});
   }
 }

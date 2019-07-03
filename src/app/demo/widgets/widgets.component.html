@@ -1,6 +1,18 @@
 <p>widgets works!</p>
 
-<app-area-chart></app-area-chart>
+<app-area-chart
+    [widgetId]="'widget-a'"
+    [packetId]="14"
+    [packetFields]="['temperature', 'humidity']"
+    #areaChart1>
+</app-area-chart>
+
+<app-area-chart
+    [widgetId]="'widget-b'"
+    [packetId]="23"
+    [packetFields]="['temperature', 'humidity']"
+    #areaChart2>
+</app-area-chart>
 
 <button (click)="onPauseClick()">Pause</button>
 <button (click)="onPlayClick()">Play</button>

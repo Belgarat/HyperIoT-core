@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import {
   DataPacketFilter,
@@ -12,17 +12,21 @@ import {
   styleUrls: ['./area-chart.component.css']
 })
 export class AreaChartComponent extends WidgetChartComponent implements OnInit {
+  @Input() packetId: number;
+  @Input() packetFields: string[];
   private chartData: TimeSeries[] = [];
 
   ngOnInit() {
     // Create time series to display for this chart
-    const temperatureSerie = new TimeSeries('temperature');
-    const humiditySerie = new TimeSeries('humidity');
-    this.chartData.push(temperatureSerie, humiditySerie);
+    const seriesItems: TimeSeries[] = [];
+    this.packetFields.forEach((pf) => {
+      seriesItems.push(new TimeSeries(pf));
+    });
+    this.chartData.push(...seriesItems);
     // Bind time series to the chart
     this.addTimeSeries(this.chartData);
     // Create the real time data channel
-    this.subscribeRealTimeStream(new DataPacketFilter(14, ['temperature', 'humidity']), (eventData) => {
+    this.subscribeRealTimeStream(new DataPacketFilter(this.packetId, this.packetFields), (eventData) => {
       const date = eventData[0];
       const field = eventData[1];
       Object.keys(field).map((k) => {
@@ -32,7 +36,5 @@ export class AreaChartComponent extends WidgetChartComponent implements OnInit {
         }
       });
     });
-    // TODO: the connection should happen somewhere else in the main page
-    this.dataStreamService.connect();
   }
 }
