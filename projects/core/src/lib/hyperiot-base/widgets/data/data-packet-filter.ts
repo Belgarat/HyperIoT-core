@@ -1,3 +1,8 @@
+/**
+ * This class is used to configure packet id
+ * and packet fields to receive from the
+ * {@link DataStreamService}
+ */
 export class DataPacketFilter {
     packetId: number;
     fields: string[];

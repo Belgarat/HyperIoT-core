@@ -17,18 +17,21 @@ export class AreaChartComponent extends WidgetChartComponent implements OnInit {
   private chartData: TimeSeries[] = [];
 
   ngOnInit() {
+    super.ngOnInit();
     // Create time series to display for this chart
     const seriesItems: TimeSeries[] = [];
-    this.packetFields.forEach((pf) => {
-      seriesItems.push(new TimeSeries(pf));
+    this.packetFields.forEach((fieldName) => {
+      seriesItems.push(new TimeSeries(fieldName));
     });
     this.chartData.push(...seriesItems);
     // Bind time series to the chart
     this.addTimeSeries(this.chartData);
     // Create the real time data channel
-    this.subscribeRealTimeStream(new DataPacketFilter(this.packetId, this.packetFields), (eventData) => {
+    const dataPacketFilter = new DataPacketFilter(this.packetId, this.packetFields);
+    this.subscribeRealTimeStream(dataPacketFilter, (eventData) => {
       const date = eventData[0];
       const field = eventData[1];
+      // Map received packet field to the corresponding time series
       Object.keys(field).map((k) => {
         const series = this.chartData.find((ts) => ts.name === k);
         if (series != null) {
@@ -36,5 +39,13 @@ export class AreaChartComponent extends WidgetChartComponent implements OnInit {
         }
       });
     });
+    /*
+    // get some history data to prepend to
+    // the realtime data before now
+    const startDate = new Date();
+    const pastDate = new Date(startDate.getTime());
+    pastDate.setDate(pastDate.getDate() - 1);
+    this.getOfflineData(pastDate, startDate);
+    */
   }
 }

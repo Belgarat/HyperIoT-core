@@ -1,9 +1,21 @@
-<p>widgets works!</p>
+<p>widgets playground works!</p>
+
+<button (click)="onPauseClick()">Pause</button>
+<button (click)="onPlayClick()">Play</button>
 
 <app-area-chart
     [widgetId]="'widget-a'"
     [packetId]="14"
     [packetFields]="['temperature', 'humidity']"
+    [timeAxisRange]="20"
+    [maxDataPoints]="200"
+    [seriesConfig]="[{
+        series: 'temperature',
+        config: { fill: 'tozeroy' }
+    },
+    {
+        series: 'humidity'
+    }]"
     #areaChart1>
 </app-area-chart>
 
@@ -11,8 +23,27 @@
     [widgetId]="'widget-b'"
     [packetId]="23"
     [packetFields]="['temperature', 'humidity']"
+    [timeAxisRange]="10"
+    [maxDataPoints]="200"
+    [seriesConfig]="[{
+        series: 'temperature',
+        config: { yaxis: 'y2' },
+        layout: {
+            yaxis2: {
+                title: 'temperature',
+                titlefont: {color: '#ff7f0e'},
+                tickfont: {color: '#ff7f0e'},
+                anchor: 'free',
+                overlaying: 'y',
+                side: 'right',
+                position: 1,
+                range: [-50, 50]
+              }
+        }
+    },
+    {
+        series: 'humidity'
+    }]"
     #areaChart2>
 </app-area-chart>
 
-<button (click)="onPauseClick()">Pause</button>
-<button (click)="onPlayClick()">Play</button>

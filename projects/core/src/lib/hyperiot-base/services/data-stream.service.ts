@@ -16,6 +16,10 @@ export class DataChannel {
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * A service for connecting to HyperIoT events stream
+ * via WebSocket.
+ */
 export class DataStreamService {
   /**
    * List of data channels requested by widgets.
@@ -94,7 +98,6 @@ export class DataStreamService {
     // Serialized packet from Kafka-Flux
     let packet = JSON.parse(event.data);
     packet = JSON.parse(packet.payload);
-    console.log(packet);
     for (const id in this.dataChannels) {
       if (this.dataChannels.hasOwnProperty(id)) {
         const channelData: DataChannel = this.dataChannels[id];

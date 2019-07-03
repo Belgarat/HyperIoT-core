@@ -11,6 +11,8 @@ export class WidgetsComponent implements OnInit {
   @ViewChild('areaChart1') areaChart1: AreaChartComponent;
   @ViewChild('areaChart2') areaChart2: AreaChartComponent;
 
+  private startDate = new Date();
+
   constructor(private dataStreamService: DataStreamService) { }
 
   ngOnInit() {

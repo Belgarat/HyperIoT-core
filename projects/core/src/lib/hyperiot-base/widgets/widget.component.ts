@@ -8,8 +8,14 @@ import { PartialObserver } from 'rxjs';
   selector: 'hyperiot-widget',
   template: ''
 })
+/**
+ * Base class for widget implementation
+ */
 export abstract class WidgetComponent implements OnDestroy {
   protected dataChannel: DataChannel;
+  /**
+   * Unique identifier for this widget instance
+   */
   @Input() widgetId: string;
 
   /**
@@ -36,12 +42,11 @@ export abstract class WidgetComponent implements OnDestroy {
   /**
    * Get widget data in the specified date range
    *
-   * @param dataPacketFilter Packet id and fields to fetch
    * @param startDate Data range start date
    * @param endDate Data range end date
    * @returns A futurable or the requested data
    */
-  abstract getOfflineData(dataPacketFilter: DataPacketFilter, startDate: Date, endDate: Date): any;
+  abstract getOfflineData(startDate: Date, endDate: Date): any;
 
   /**
    * Set the real-time data stream the widget will receive data from
