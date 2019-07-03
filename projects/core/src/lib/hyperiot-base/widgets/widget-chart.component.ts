@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 
 import { WidgetComponent } from './widget.component';
 import { PlotlyService } from 'angular-plotly.js';
 import { DataStreamService } from '../services/data-stream.service';
 import { TimeSeries } from './data/time-series';
+import { EventEmitter } from 'protractor';
+
+interface BufferedData {
+  series: TimeSeries;
+  x: Date[];
+  y: number[];
+}
 
 @Component({
   selector: 'hyperiot-widget-chart',
@@ -36,16 +43,39 @@ export class WidgetChartComponent extends WidgetComponent {
     }
   };
 
+  private isPaused: boolean;
+  private dataBuffer: BufferedData[] = [];
+
   constructor(public dataStreamService: DataStreamService, public plotly: PlotlyService) {
     super(dataStreamService);
   }
 
   /**
-   * Adds time series to the chart data
+   * Pause new data visualization
+   */
+  pause(): void {
+    this.isPaused = true;
+  }
+  /**
+   * Restore new data visualization
+   */
+  play(): void {
+    this.isPaused = false;
+    if (this.dataBuffer != null) {
+      this.dataBuffer.forEach((bd) => {
+        bd.series.x.push(...bd.x);
+        bd.series.y.push(...bd.y);
+      });
+      this.dataBuffer = [];
+    }
+  }
+
+  /**
+   * Adds new time series to the chart
    *
    * @param timeSeriesData Array of time series
    */
-  addTimeSeries(timeSeriesData: TimeSeries[]) {
+  addTimeSeries(timeSeriesData: TimeSeries[]): void {
     timeSeriesData.forEach(ts => {
       const timeSerie = {
         name: ts.name,
@@ -58,5 +88,41 @@ export class WidgetChartComponent extends WidgetComponent {
       };
       this.graph.data.push(timeSerie);
     });
+  }
+
+  /**
+   * Adds new data to a time series.
+   *
+   * @param series The series to add data to
+   * @param x The x value (Date)
+   * @param y The y value (number)
+   */
+  addTimeSeriesData(series: TimeSeries, x: Date, y: number): void {
+    if (this.isPaused) {
+    let bufferedData: BufferedData = this.dataBuffer.find((bd) => bd.series === series);
+    if (bufferedData == null) {
+      bufferedData = {
+        series: series,
+        x: [], y: []
+      };
+      this.dataBuffer.push(bufferedData);
+    }
+    bufferedData.x.push(x);
+    bufferedData.y.push(y);
+  } else {
+      series.x.push(x);
+      series.y.push(y);
+      this.relayout(x);
+    }
+  }
+
+  private relayout(lastEventDate: Date) {
+    // set x range to the last 30 seconds of data
+    const rangeEnd = new Date(lastEventDate);
+    const rangeStart = new Date(rangeEnd.getTime() - (1 * 30 * 1000));
+    // relayout x-axis range with new data
+    const Plotly = this.plotly.getPlotly();
+    const graph = this.plotly.getInstanceByDivId('graph');
+    Plotly.relayout(graph, {'xaxis.range': [rangeStart, rangeEnd]});
   }
 }

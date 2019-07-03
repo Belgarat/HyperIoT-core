@@ -8,7 +8,7 @@ import { PartialObserver } from 'rxjs';
   selector: 'hyperiot-widget',
   template: ''
 })
-export class WidgetComponent implements OnDestroy {
+export abstract class WidgetComponent implements OnDestroy {
   protected dataChannel: DataChannel;
   widgetId: string;
 
@@ -23,6 +23,9 @@ export class WidgetComponent implements OnDestroy {
     this.unsubscribeRealTimeStream();
   }
 
+  abstract pause(): void;
+  abstract play(): void;
+
   // TODO: implement methods for getting offline data as well
 
   /**
@@ -32,7 +35,7 @@ export class WidgetComponent implements OnDestroy {
    * @param packetFilter Packet id and data filters (only listed fields will be streamed to the widget)
    * @param observerCallback Callback to fire once new data is received
    */
-  subscribeRealTimeStream(packetFilter: DataPacketFilter, observerCallback: PartialObserver<[any, any]> | any) {
+  subscribeRealTimeStream(packetFilter: DataPacketFilter, observerCallback: PartialObserver<[any, any]> | any): void {
     this.unsubscribeRealTimeStream();
     this.dataChannel = this.dataStreamService.addDataStream(this.widgetId, packetFilter);
     this.dataChannel.subject.subscribe(observerCallback);
@@ -41,7 +44,7 @@ export class WidgetComponent implements OnDestroy {
   /**
    * Stops receiving data from the subscribed data stream
    */
-  private unsubscribeRealTimeStream() {
+  unsubscribeRealTimeStream(): void {
     if (this.dataChannel != null) {
       // TODO: maybe move the unsubscription inside the DataStreamService::removeDataChannel
       this.dataChannel.subject.unsubscribe();
