@@ -1,4 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  EventEmitter,
+  ViewEncapsulation
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import {
   DataPacketFilter,
@@ -9,24 +18,27 @@ import {
 @Component({
   selector: 'app-area-chart',
   templateUrl: './area-chart.component.html',
-  styleUrls: ['./area-chart.component.css']
+  styleUrls: ['./area-chart.component.css'],
+  changeDetection: ChangeDetectionStrategy.Default,
+  encapsulation: ViewEncapsulation.None
 })
-export class AreaChartComponent extends WidgetChartComponent implements OnInit {
-  @Input() packetId: number;
-  @Input() packetFields: string[];
+export class AreaChartComponent extends WidgetChartComponent implements OnInit, OnDestroy {
   private chartData: TimeSeries[] = [];
 
   ngOnInit() {
+    const cfg = this.widget.config;
+    cfg.packetId = this.widget.config.packetId || cfg.packetId;
+    cfg.packetFields = this.widget.config.packetFields || cfg.packetFields;
     // Create time series to display for this chart
     const seriesItems: TimeSeries[] = [];
-    this.packetFields.forEach((fieldName) => {
+    cfg.packetFields.forEach((fieldName) => {
       seriesItems.push(new TimeSeries(fieldName));
     });
     this.chartData.push(...seriesItems);
     // Bind time series to the chart
     this.addTimeSeries(this.chartData);
     // Create the real time data channel
-    const dataPacketFilter = new DataPacketFilter(this.packetId, this.packetFields);
+    const dataPacketFilter = new DataPacketFilter(cfg.packetId, cfg.packetFields);
     this.subscribeRealTimeStream(dataPacketFilter, (eventData) => {
       const date = eventData[0];
       const field = eventData[1];

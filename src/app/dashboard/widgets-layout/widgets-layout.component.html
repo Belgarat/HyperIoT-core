@@ -1,0 +1,15 @@
+<button (click)="onPauseClick()">Pause</button>
+<button (click)="onPlayClick()">Play</button>
+<!--
+<label>Dragging</label>
+<button (click)="onToggleDragging()">
+  <span *ngIf="!dragEnabled">Enable</span>
+  <span *ngIf="dragEnabled">Disable</span>
+</button>
+-->
+
+<gridster [options]="options">
+    <gridster-item [item]="item" *ngFor="let item of dashboard">
+      <app-dynamic-widget [widget]="item"></app-dynamic-widget>
+    </gridster-item>
+</gridster>

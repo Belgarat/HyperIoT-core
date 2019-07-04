@@ -14,9 +14,18 @@ import { PartialObserver } from 'rxjs';
 export abstract class WidgetComponent implements OnDestroy {
   protected dataChannel: DataChannel;
   /**
-   * Unique identifier for this widget instance
+   * Widget configuration object (template-bindable)
+   *
+   * @example
+   * this.widget = {
+   *   // mandatory widget identifier field
+   *   id: "widget-2",
+   *   // follow other custom fields used by the widget (optional)
+   *   config: { field1: "value1", field2: "value2", ... }
+   * };
    */
-  @Input() widgetId: string;
+  @Input()
+  widget: any = {};
 
   /**
    * Contructor
@@ -57,7 +66,7 @@ export abstract class WidgetComponent implements OnDestroy {
    */
   subscribeRealTimeStream(packetFilter: DataPacketFilter, observerCallback: PartialObserver<[any, any]> | any): void {
     this.unsubscribeRealTimeStream();
-    this.dataChannel = this.dataStreamService.addDataStream(this.widgetId, packetFilter);
+    this.dataChannel = this.dataStreamService.addDataStream(this.widget.id, packetFilter);
     this.dataChannel.subject.subscribe(observerCallback);
   }
 
@@ -66,9 +75,9 @@ export abstract class WidgetComponent implements OnDestroy {
    */
   unsubscribeRealTimeStream(): void {
     if (this.dataChannel != null) {
-      // TODO: maybe move the unsubscription inside the DataStreamService::removeDataChannel
+      // TODO: maybe move the unsubscription inside the DataStreamServiceid)l
       this.dataChannel.subject.unsubscribe();
-      this.dataStreamService.removeDataChannel(this.widgetId);
+      this.dataStreamService.removeDataChannel(this.widget.id);
     }
   }
 }

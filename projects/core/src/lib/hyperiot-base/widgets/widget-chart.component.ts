@@ -20,57 +20,61 @@ interface BufferedData {
  */
 export class WidgetChartComponent extends WidgetComponent {
   /**
-   * Time range to display in seconds
-   */
-  @Input() timeAxisRange = 30;
-  /**
-   * Max data points to display, older entries
-   * will be deleted once new data is pushed
-   */
-  @Input() maxDataPoints = 100;
-
-  /**
-   * Max time window in seconds. Older data will be deleted.
-   */
-  @Input() timeWindow = 3600; // 1 hour
-
-  /**
-   * This array is used to set configuration and layout
-   * options of each series.
-   * See [Plotly documentation]{@link https://plot.ly/javascript/} for all available
-   * configuration and layout settings.
+   * From inherited 'widget' property the following
+   * custom configuration fields can be passed:
    *
    * @example
-   * <app-chart-widget
-   *   [seriesConfig]="[{
+   * this.widget = {
+   *   // mandatory widget identifier field
+   *   id: 'widget-2',
+   *   // follow other custom fields used by the widget (optional)
+   *   config: {
+   *     packetId: 14,
+   *     packetFields: [
+   *        temperature,
+   *        humidity
+   *     ],
+   *     // Time range to display in seconds
+   *     timeAxisRange: 20,
+   *     // Max data points to display, older entries
+   *     // will be deleted once new data is pushed
+   *     maxDataPoints: 100,
+   *     // Max time window in seconds. Older data will be deleted.
+   *     timeWindow: 60,
+   *     // The following array is used to set configuration and layout
+   *     // options of each series.
+   *     // See [Plotly documentation]{@link https://plot.ly/javascript/} for all available
+   *     // configuration and layout settings.
+   *     seriesConfig: [{
    *       series: 'temperature',
    *       config: { yaxis: 'y2' },
    *       layout: {
-   *           yaxis2: {
-   *               title: 'temperature',
-   *               titlefont: {color: '#00f'},
-   *               tickfont: {color: '#00f'},
-   *               anchor: 'free',
-   *               overlaying: 'y',
-   *               side: 'right',
-   *               position: 1,
-   *               range: [-50, 50]
-   *             }
+   *         yaxis2: {
+   *           title: 'temperature',
+   *           titlefont: {color: '#00f'},
+   *           tickfont: {color: '#00f'},
+   *           anchor: 'free',
+   *           overlaying: 'y',
+   *           side: 'right',
+   *           position: 1,
+   *           range: [-50, 50]
+   *         }
    *       }
-   *   },
-   *   {
+   *     },
+   *     {
    *       series: 'humidity',
    *       layout: {
-   *           yaxis: {
-   *               title: 'humidity',
-   *               titlefont: {color: 'darkorange'},
-   *               tickfont: {color: 'darkorange'}
-   *           }
+   *         yaxis: {
+   *           title: 'humidity',
+   *           titlefont: {color: 'darkorange'},
+   *           tickfont: {color: 'darkorange'}
+   *         }
    *       }
-   *   }]">
-   *   </app-chart-widget>
+   *     }]
+   *   }
+   * };
+   *
    */
-  @Input() seriesConfig: { series: string, config: any, layout: any }[] = [];
 
   /**
    * Structure that stores actual configuration for the Plotly chart
@@ -89,7 +93,7 @@ export class WidgetChartComponent extends WidgetComponent {
         xref: 'container', yref: 'container',
         x: 0, y: 1,
         pad: { t: 10, l: 10 },
-        text: 'Statistics'
+        text: '<b>Statistics</b>'
       },
       xaxis: {
         showgrid: false,
@@ -210,15 +214,15 @@ export class WidgetChartComponent extends WidgetComponent {
   private relayout(lastEventDate: Date) {
     // set x range to the last 30 seconds of data
     const rangeEnd = new Date(lastEventDate);
-    const rangeStart = new Date(rangeEnd.getTime() - (1 * this.timeAxisRange * 1000));
+    const rangeStart = new Date(rangeEnd.getTime() - (1 * this.widget.config.timeAxisRange * 1000));
     // relayout x-axis range with new data
     const Plotly = this.plotly.getPlotly();
-    const graph = this.plotly.getInstanceByDivId(this.widgetId);
+    const graph = this.plotly.getInstanceByDivId(this.widget.id);
     Plotly.relayout(graph, {'xaxis.range': [rangeStart, rangeEnd]});
   }
 
   private applyStoredConfig(timeSeriesData: any) {
-    const sc = this.seriesConfig.find((cfg) => cfg.series === timeSeriesData.name);
+    const sc = this.widget.config.seriesConfig.find((cfg) => cfg.series === timeSeriesData.name);
     if (sc != null) {
       Object.assign(timeSeriesData, sc.config);
       if (sc.layout != null) {
@@ -228,15 +232,16 @@ export class WidgetChartComponent extends WidgetComponent {
   }
 
   private applySizeConstraints(data: { x: Date[], y: number[] }) {
-    if (data.x.length > this.maxDataPoints && this.maxDataPoints > 0) {
-      data.x.splice(0, data.x.length - this.maxDataPoints);
-      data.y.splice(0, data.y.length - this.maxDataPoints);
+    const cfg = this.widget.config;
+    if (data.x.length > cfg.maxDataPoints && cfg.maxDataPoints > 0) {
+      data.x.splice(0, data.x.length - cfg.maxDataPoints);
+      data.y.splice(0, data.y.length - cfg.maxDataPoints);
     }
     const endDate = data.x[data.x.length - 1].getTime();
     while (
-      this.timeWindow > 0 &&
+      cfg.timeWindow > 0 &&
       data.x.length > 0 &&
-      (endDate - data.x[0].getTime()) / 1000 > this.timeWindow
+      (endDate - data.x[0].getTime()) / 1000 > cfg.timeWindow
     ) {
       data.x.shift();
       data.y.shift();
