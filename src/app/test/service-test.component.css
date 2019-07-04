@@ -1,0 +1,42 @@
+.registerClassError {
+    border: 3px solid red;
+    padding: 10px;
+    width: 80%;
+    margin: 20px 0px;
+  }
+  
+  .registerClassOk {
+    border: 3px solid greenyellow;
+    padding: 10px;
+    width: 80%;
+    margin: 20px 0px;
+  }
+  
+  .registerClass{
+    border: 3px solid grey;
+    padding: 10px;
+    width: 80%;
+    margin: 20px 0px;
+  }
+  
+  .loginClassError {
+    border: 3px solid red;
+    padding: 10px;
+    width: 30%;
+    margin: 20px 0px;
+  }
+  
+  .loginClassOk {
+    border: 3px solid greenyellow;
+    padding: 10px;
+    width: 30%;
+    margin: 20px 0px;
+  }
+  
+  .loginClass {
+    border: 3px solid grey;
+    padding: 10px;
+    width: 30%;
+    margin: 20px 0px;
+  }
+  

@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from 'projects/core/src/lib/core.module';
 import { HyperiotBaseModule, PlotlyModule } from 'projects/core/src/lib/hyperiot-base/hyperiot-base.module';
 import { AuthenticationService } from 'projects/core/src/public_api';
-import { TestComponent } from './test/test.component';
+import { ServiceTestComponent } from './test/service-test.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -19,7 +19,7 @@ import { AreaChartComponent } from './widgets/area-chart/area-chart.component';
     AppComponent,
     WidgetsComponent,
     AreaChartComponent,
-    TestComponent
+    ServiceTestComponent
   ],
   imports: [
     BrowserModule,
