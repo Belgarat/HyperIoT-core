@@ -18,16 +18,16 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { HDevice } from '../model/hDevice';
+import { HDevice } from '../../../models/hDevice';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { Configuration }                                     from '../../../models/configuration';
 
 
 @Injectable()
 export class HdevicesService {
 
-    protected basePath = 'https://localhost/hyperiot/hdevices';
+    protected basePath = '/hyperiot/hdevices';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -110,6 +110,11 @@ export class HdevicesService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -159,6 +164,11 @@ export class HdevicesService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -195,6 +205,11 @@ export class HdevicesService {
     public findAllHDevice_1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -237,6 +252,11 @@ export class HdevicesService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -278,6 +298,11 @@ export class HdevicesService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -318,6 +343,11 @@ export class HdevicesService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -366,6 +396,11 @@ export class HdevicesService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -398,35 +433,40 @@ export class HdevicesService {
     /**
      * /hyperiot/hdevices/password
      * Service for updating a hdevice entity
-     * @param body HDevice id which must be updated 
-     * @param body2 Old HDevice Password
-     * @param body3 New HDevice Password
-     * @param body4 New HDevice Password confirm
+     * @param deviceId HDevice id which must be updated 
+     * @param oldPassword Old HDevice Password
+     * @param newPassword New HDevice Password
+     * @param passwordConfirm New HDevice Password confirm
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateHDevicePassword(body: number, body2: string, body3: string, body4: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public updateHDevicePassword(body: number, body2: string, body3: string, body4: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public updateHDevicePassword(body: number, body2: string, body3: string, body4: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public updateHDevicePassword(body: number, body2: string, body3: string, body4: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateHDevicePassword(deviceId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateHDevicePassword(deviceId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateHDevicePassword(deviceId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateHDevicePassword(deviceId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateHDevicePassword.');
+        if (deviceId === null || deviceId === undefined) {
+            throw new Error('Required parameter deviceId was null or undefined when calling updateHDevicePassword.');
         }
 
-        if (body2 === null || body2 === undefined) {
-            throw new Error('Required parameter body2 was null or undefined when calling updateHDevicePassword.');
+        if (oldPassword === null || oldPassword === undefined) {
+            throw new Error('Required parameter oldPassword was null or undefined when calling updateHDevicePassword.');
         }
 
-        if (body3 === null || body3 === undefined) {
-            throw new Error('Required parameter body3 was null or undefined when calling updateHDevicePassword.');
+        if (newPassword === null || newPassword === undefined) {
+            throw new Error('Required parameter newPassword was null or undefined when calling updateHDevicePassword.');
         }
 
-        if (body4 === null || body4 === undefined) {
-            throw new Error('Required parameter body4 was null or undefined when calling updateHDevicePassword.');
+        if (passwordConfirm === null || passwordConfirm === undefined) {
+            throw new Error('Required parameter passwordConfirm was null or undefined when calling updateHDevicePassword.');
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -441,13 +481,33 @@ export class HdevicesService {
         const consumes: string[] = [
             'application/json'
         ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (deviceId !== undefined) {
+            formParams = formParams.append('deviceId', <any>deviceId) || formParams;
+        }
+        if (oldPassword !== undefined) {
+            formParams = formParams.append('oldPassword', <any>oldPassword) || formParams;
+        }
+        if (newPassword !== undefined) {
+            formParams = formParams.append('newPassword', <any>newPassword) || formParams;
+        }
+        if (passwordConfirm !== undefined) {
+            formParams = formParams.append('passwordConfirm', <any>passwordConfirm) || formParams;
         }
 
         return this.httpClient.put<any>(`${this.basePath}/password`,
-            body4,
+            convertFormParamsToString ? formParams.toString() : formParams,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

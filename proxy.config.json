@@ -1,6 +1,6 @@
 {
-  "/hyperiot/authentication/*": {
-    "target": "http://karaf-microservices-test.hyperiot.cloud",
+  "/hyperiot/*": {
+    "target": "http://karaf-microservices-test.hyperiot.cloud/",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true

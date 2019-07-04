@@ -18,16 +18,16 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Attachment } from '../model/attachment';
+import { Attachment } from '../../../models/attachment';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { Configuration }                                     from '../../../models/configuration';
 
 
 @Injectable()
 export class StormService {
 
-    protected basePath = 'https://localhost/hyperiot/storm';
+    protected basePath = '/hyperiot/storm';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -74,6 +74,11 @@ export class StormService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -119,6 +124,11 @@ export class StormService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -203,6 +213,11 @@ export class StormService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -243,6 +258,11 @@ export class StormService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -285,6 +305,11 @@ export class StormService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -321,6 +346,11 @@ export class StormService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -345,63 +375,27 @@ export class StormService {
     }
 
     /**
-     * /hyperiot/storm/topology/generate
-     * Generate topology files for a given project
-     * @param projectId Project id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public killTopology(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public killTopology(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public killTopology(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public killTopology(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (projectId === null || projectId === undefined) {
-            throw new Error('Required parameter projectId was null or undefined when calling killTopology.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/topology/generate/${encodeURIComponent(String(projectId))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * /hyperiot/storm/topology/{topology_name}/kill
      * Kills a topology
      * @param topologyName name of the topology to kill
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public killTopology_1(topologyName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public killTopology_1(topologyName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public killTopology_1(topologyName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public killTopology_1(topologyName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public killTopology(topologyName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public killTopology(topologyName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public killTopology(topologyName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public killTopology(topologyName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (topologyName === null || topologyName === undefined) {
-            throw new Error('Required parameter topologyName was null or undefined when calling killTopology_1.');
+            throw new Error('Required parameter topologyName was null or undefined when calling killTopology.');
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -417,6 +411,52 @@ export class StormService {
         ];
 
         return this.httpClient.get<any>(`${this.basePath}/topology/${encodeURIComponent(String(topologyName))}/kill`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/storm/topology/generate
+     * Generate topology files for a given project
+     * @param projectId Project id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public killTopology_1(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public killTopology_1(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public killTopology_1(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public killTopology_1(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (projectId === null || projectId === undefined) {
+            throw new Error('Required parameter projectId was null or undefined when calling killTopology_1.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/topology/generate/${encodeURIComponent(String(projectId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -453,6 +493,11 @@ export class StormService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -504,6 +549,11 @@ export class StormService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

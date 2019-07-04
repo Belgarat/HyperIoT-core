@@ -1,11 +1,65 @@
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<!-- <app-h-device></app-h-device> -->
 
-  <label>
-    text:
-    <input type="text" formControlName="text">
-  </label>
+<form [formGroup]="registerForm" (ngSubmit)="reg()">
+  <div [class]="registerClass">
+    REGISTRATI
+    <br>
+    <label>
+      nome:
+      <input type="text" formControlName="nome">
+    </label>
+    <label>
+      cognome:
+      <input type="text" formControlName="cognome">
+    </label>
+    <label>
+      user name:
+      <input type="text" formControlName="userName">
+    </label>
+    <label>
+      mail:
+      <input type="text" formControlName="mail">
+    </label>
+    <label>
+      password:
+      <input type="text" formControlName="password">
+    </label>
+    <label>
+      conferma password:
+      <input type="text" formControlName="confPassword">
+    </label>
+    <hr>
+    <button type="submit" [disabled]="!profileForm.valid">Registrati</button>
+    <hr>
+    {{statusReg}}
+  </div>
 
-  <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+</form>
+<br>
+
+ATTIVA ACCOUNT
+<br>
+<input #activation>
+<button (click)="activate(activation.value)">ATTIVA</button>
+
+<form [formGroup]="profileForm" (ngSubmit)="login()" autocomplete="on">
+  <div [class]="loginClass">
+    LOGIN
+    <br>
+    <label>
+      user:
+      <input type="text" formControlName="username">
+    </label>
+    <label>
+      password:
+      <input type="password" formControlName="password">
+    </label>
+    <hr>
+    <button type="submit" [disabled]="!profileForm.valid">Login</button>
+    <hr>
+    {{status}}
+  </div>
+
 </form>
 
-<button (click)="click()">GET STATUS</button>
+<app-test *ngIf="config.username!=''" [conf]="config"></app-test>
