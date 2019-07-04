@@ -17,7 +17,6 @@ export class AreaChartComponent extends WidgetChartComponent implements OnInit {
   private chartData: TimeSeries[] = [];
 
   ngOnInit() {
-    super.ngOnInit();
     // Create time series to display for this chart
     const seriesItems: TimeSeries[] = [];
     this.packetFields.forEach((fieldName) => {

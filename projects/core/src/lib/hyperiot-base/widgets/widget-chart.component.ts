@@ -1,10 +1,9 @@
-import { Component, Output, Input, OnInit } from '@angular/core';
+import { Component, Output, Input } from '@angular/core';
 
 import { WidgetComponent } from './widget.component';
 import { PlotlyService } from 'angular-plotly.js';
 import { DataStreamService } from '../services/data-stream.service';
 import { TimeSeries } from './data/time-series';
-import { DataPacketFilter } from './data/data-packet-filter';
 
 interface BufferedData {
   series: TimeSeries;
@@ -19,7 +18,7 @@ interface BufferedData {
 /**
  * A widget for visualizing time series chart
  */
-export class WidgetChartComponent extends WidgetComponent implements OnInit {
+export class WidgetChartComponent extends WidgetComponent {
   /**
    * Time range to display in seconds
    */
@@ -30,10 +29,51 @@ export class WidgetChartComponent extends WidgetComponent implements OnInit {
    */
   @Input() maxDataPoints = 100;
 
-  @Input() seriesConfig: any[] = [];
+  /**
+   * Max time window in seconds. Older data will be deleted.
+   */
+  @Input() timeWindow = 3600; // 1 hour
 
   /**
-   * Structure that stores configuration for the Plotly chart
+   * This array is used to set configuration and layout
+   * options of each series.
+   * See [Plotly documentation]{@link https://plot.ly/javascript/} for all available
+   * configuration and layout settings.
+   *
+   * @example
+   * <app-chart-widget
+   *   [seriesConfig]="[{
+   *       series: 'temperature',
+   *       config: { yaxis: 'y2' },
+   *       layout: {
+   *           yaxis2: {
+   *               title: 'temperature',
+   *               titlefont: {color: '#00f'},
+   *               tickfont: {color: '#00f'},
+   *               anchor: 'free',
+   *               overlaying: 'y',
+   *               side: 'right',
+   *               position: 1,
+   *               range: [-50, 50]
+   *             }
+   *       }
+   *   },
+   *   {
+   *       series: 'humidity',
+   *       layout: {
+   *           yaxis: {
+   *               title: 'humidity',
+   *               titlefont: {color: 'darkorange'},
+   *               tickfont: {color: 'darkorange'}
+   *           }
+   *       }
+   *   }]">
+   *   </app-chart-widget>
+   */
+  @Input() seriesConfig: { series: string, config: any, layout: any }[] = [];
+
+  /**
+   * Structure that stores actual configuration for the Plotly chart
    */
   graph = {
     data: [],
@@ -71,10 +111,6 @@ export class WidgetChartComponent extends WidgetComponent implements OnInit {
     super(dataStreamService);
   }
 
-  ngOnInit() {
-    console.log(this.seriesConfig);
-  }
-
   // Base class abstract methods implementation
 
   pause(): void {
@@ -86,13 +122,9 @@ export class WidgetChartComponent extends WidgetComponent implements OnInit {
     if (this.dataBuffer != null) {
       this.dataBuffer.forEach((bd) => {
         bd.series.x.push(...bd.x);
-        if (bd.series.x.length > this.maxDataPoints) {
-          bd.series.x.splice(0, bd.series.x.length - this.maxDataPoints);
-        }
         bd.series.y.push(...bd.y);
-        if (bd.series.y.length > this.maxDataPoints) {
-          bd.series.y.splice(0, bd.series.y.length - this.maxDataPoints);
-        }
+        // keeps data length < this.maxDataPoints
+        this.applySizeConstraints(bd.series);
       });
       this.dataBuffer = [];
     }
@@ -131,9 +163,13 @@ export class WidgetChartComponent extends WidgetComponent implements OnInit {
         x: ts.x,
         y: ts.y
       };
+      // copy default settings
+      Object.assign(tsd, this.defaultSeriesConfig);
+      // apply config options stored in `this.seriesConfig` parameter
       this.applyStoredConfig(tsd);
-      Object.assign(tsd, this.defaultSeriesConfig, config);
-      // TODO: should replace item with same name
+      // override any setting passed via `config`
+      Object.assign(tsd, config);
+      // FIXME: should replace item with same name
       this.graph.data.push(tsd);
     });
   }
@@ -158,22 +194,13 @@ export class WidgetChartComponent extends WidgetComponent implements OnInit {
     bufferedData.x.push(x);
     bufferedData.y.push(y);
     // keeps data length < this.maxDataPoints
-    if (bufferedData.x.length > this.maxDataPoints) {
-      bufferedData.x.shift();
-    }
-    if (bufferedData.y.length > this.maxDataPoints) {
-      bufferedData.y.shift();
-    }
+    this.applySizeConstraints(bufferedData);
   } else {
       series.x.push(x);
       series.y.push(y);
       // keeps data length < this.maxDataPoints
-      if (series.x.length > this.maxDataPoints) {
-        series.x.shift();
-      }
-      if (series.y.length > this.maxDataPoints) {
-        series.y.shift();
-      }
+      this.applySizeConstraints(series);
+      // reset x axis range to default
       this.relayout(x);
     }
   }
@@ -197,6 +224,22 @@ export class WidgetChartComponent extends WidgetComponent implements OnInit {
       if (sc.layout != null) {
         Object.assign(this.graph.layout, sc.layout);
       }
+    }
+  }
+
+  private applySizeConstraints(data: { x: Date[], y: number[] }) {
+    if (data.x.length > this.maxDataPoints && this.maxDataPoints > 0) {
+      data.x.splice(0, data.x.length - this.maxDataPoints);
+      data.y.splice(0, data.y.length - this.maxDataPoints);
+    }
+    const endDate = data.x[data.x.length - 1].getTime();
+    while (
+      this.timeWindow > 0 &&
+      data.x.length > 0 &&
+      (endDate - data.x[0].getTime()) / 1000 > this.timeWindow
+    ) {
+      data.x.shift();
+      data.y.shift();
     }
   }
 }
