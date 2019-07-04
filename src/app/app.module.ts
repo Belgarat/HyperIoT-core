@@ -18,7 +18,7 @@ import { AreaChartComponent } from './widgets/area-chart/area-chart.component';
   declarations: [
     AppComponent,
     WidgetsComponent,
-    AreaChartComponent
+    AreaChartComponent,
     TestComponent
   ],
   imports: [
