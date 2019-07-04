@@ -18,16 +18,16 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { AssetTag } from '../model/assetTag';
+import { AssetTag } from '../../../models/assetTag';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { Configuration }                                     from '../../../models/configuration';
 
 
 @Injectable()
 export class AssetstagsService {
 
-    protected basePath = 'https://localhost/hyperiot/assets/tags';
+    protected basePath = '/hyperiot/assets/tags';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -110,6 +110,11 @@ export class AssetstagsService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -159,6 +164,11 @@ export class AssetstagsService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -195,6 +205,11 @@ export class AssetstagsService {
     public findAllAssetTag_1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -237,6 +252,11 @@ export class AssetstagsService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -277,6 +297,11 @@ export class AssetstagsService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -324,6 +349,11 @@ export class AssetstagsService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

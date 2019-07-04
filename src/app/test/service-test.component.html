@@ -1,0 +1,98 @@
+
+<form [formGroup]="registerForm" (ngSubmit)="reg()">
+    <div [class]="registerClass">
+      REGISTRATI
+      <br>
+      <label>
+        nome:
+        <input type="text" formControlName="nome">
+      </label>
+      <label>
+        cognome:
+        <input type="text" formControlName="cognome">
+      </label>
+      <label>
+        user name:
+        <input type="text" formControlName="userName">
+      </label>
+      <label>
+        mail:
+        <input type="text" formControlName="mail">
+      </label>
+      <label>
+        password:
+        <input type="text" formControlName="password">
+      </label>
+      <label>
+        conferma password:
+        <input type="text" formControlName="confPassword">
+      </label>
+      <hr>
+      <button type="submit" [disabled]="!profileForm.valid">Registrati</button>
+      <hr>
+      {{statusReg}}
+    </div>
+  
+  </form>
+  <br>
+  
+  ATTIVA ACCOUNT
+  <br>
+  <input #activation>
+  <button (click)="activate(activation.value)">ATTIVA</button>
+  
+  <form [formGroup]="profileForm" (ngSubmit)="login()" autocomplete="on">
+    <div [class]="loginClass">
+      LOGIN
+      <br>
+      <label>
+        user:
+        <input type="text" formControlName="username">
+      </label>
+      <label>
+        password:
+        <input type="password" formControlName="password">
+      </label>
+      <hr>
+      <button type="submit" [disabled]="!profileForm.valid">Login</button>
+      <hr>
+      {{status}}
+    </div>
+  
+  </form>
+
+ok<button (click)="addRole()">ADD ROLE</button>
+<br>
+ok<button (click)="addDefaultRole()">ADD DEFAULT USER ROLE</button>
+<br>
+ok<button (click)="grant()">Grant user permission on a given role and resource</button>
+<br>
+ok<button (click)="addUserProject()">Add user project</button>
+<br>
+ok<button (click)="addUserDevice()">Add user device</button>
+<br>
+ok<button (click)="addDevicePacket()">Add a device packet</button>
+<br>
+ok<button (click)="updatePacketFields()">Update packet fields</button>
+<br>
+ok<button (click)="addRule()">Add rule definition for a packet/project</button>
+<br>
+ok<button (click)="updateRule()">update rule</button>
+<br>
+<br>
+ok<button (click)="getAllUsers()">getAllUsers</button>
+<br>
+ok<button (click)="getAllRoles()">getAllRoles</button>
+<br>
+ok<button (click)="getAllPermissions()">getAllPermissions</button>
+<br>
+ok<button (click)="getAllProject()">getAllProject</button>
+<br>
+ok<button (click)="getAllDevices()">getAllDevices</button>
+<br>
+ok<button (click)="getAllPackets()">getAllPackets</button>
+<br>
+ok<button (click)="getAllRules()">getAllRules</button>
+<br>
+<br>
+ok<button (click)="deleteRole()">deleteRole</button>

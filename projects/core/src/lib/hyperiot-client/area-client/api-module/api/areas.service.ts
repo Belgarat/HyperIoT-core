@@ -18,16 +18,16 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Area } from '../model/area';
+import { Area } from '../../../models/area';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { Configuration }                                     from '../../../models/configuration';
 
 
 @Injectable()
 export class AreasService {
 
-    protected basePath = 'https://localhost/hyperiot/areas';
+    protected basePath = '/hyperiot/areas';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -78,6 +78,11 @@ export class AreasService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -157,6 +162,11 @@ export class AreasService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -206,6 +216,11 @@ export class AreasService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -242,6 +257,11 @@ export class AreasService {
     public findAllArea_1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -284,6 +304,11 @@ export class AreasService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -324,6 +349,11 @@ export class AreasService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -371,6 +401,11 @@ export class AreasService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -411,6 +446,11 @@ export class AreasService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -458,6 +498,11 @@ export class AreasService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

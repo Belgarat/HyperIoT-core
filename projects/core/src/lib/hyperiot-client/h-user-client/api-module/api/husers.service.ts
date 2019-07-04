@@ -18,17 +18,17 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { HUser } from '../model/hUser';
-import { HUserPasswordReset } from '../model/hUserPasswordReset';
+import { HUser } from '../../../models/hUser';
+import { HUserPasswordReset } from '../../../models/hUserPasswordReset';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { Configuration }                                     from '../../../models/configuration';
 
 
 @Injectable()
 export class HusersService {
 
-    protected basePath = 'https://localhost/hyperiot/husers';
+    protected basePath = '/hyperiot/husers';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -117,35 +117,40 @@ export class HusersService {
     /**
      * /hyperiot/husers/password
      * Update User
-     * @param body HUser id which must be updated 
-     * @param body2 Old HUser Password
-     * @param body3 New HUser Password
-     * @param body4 New HUser Password confirm
+     * @param userId HUser id which must be updated 
+     * @param oldPassword Old HUser Password
+     * @param newPassword New HUser Password
+     * @param passwordConfirm New HUser Password confirm
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public changeHUserPassword(body: number, body2: string, body3: string, body4: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public changeHUserPassword(body: number, body2: string, body3: string, body4: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public changeHUserPassword(body: number, body2: string, body3: string, body4: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public changeHUserPassword(body: number, body2: string, body3: string, body4: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public changeHUserPassword(userId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public changeHUserPassword(userId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public changeHUserPassword(userId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public changeHUserPassword(userId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling changeHUserPassword.');
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling changeHUserPassword.');
         }
 
-        if (body2 === null || body2 === undefined) {
-            throw new Error('Required parameter body2 was null or undefined when calling changeHUserPassword.');
+        if (oldPassword === null || oldPassword === undefined) {
+            throw new Error('Required parameter oldPassword was null or undefined when calling changeHUserPassword.');
         }
 
-        if (body3 === null || body3 === undefined) {
-            throw new Error('Required parameter body3 was null or undefined when calling changeHUserPassword.');
+        if (newPassword === null || newPassword === undefined) {
+            throw new Error('Required parameter newPassword was null or undefined when calling changeHUserPassword.');
         }
 
-        if (body4 === null || body4 === undefined) {
-            throw new Error('Required parameter body4 was null or undefined when calling changeHUserPassword.');
+        if (passwordConfirm === null || passwordConfirm === undefined) {
+            throw new Error('Required parameter passwordConfirm was null or undefined when calling changeHUserPassword.');
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -160,13 +165,33 @@ export class HusersService {
         const consumes: string[] = [
             'application/json'
         ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (userId !== undefined) {
+            formParams = formParams.append('userId', <any>userId) || formParams;
+        }
+        if (oldPassword !== undefined) {
+            formParams = formParams.append('oldPassword', <any>oldPassword) || formParams;
+        }
+        if (newPassword !== undefined) {
+            formParams = formParams.append('newPassword', <any>newPassword) || formParams;
+        }
+        if (passwordConfirm !== undefined) {
+            formParams = formParams.append('passwordConfirm', <any>passwordConfirm) || formParams;
         }
 
         return this.httpClient.put<any>(`${this.basePath}/password`,
-            body4,
+            convertFormParamsToString ? formParams.toString() : formParams,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -230,6 +255,11 @@ export class HusersService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -279,6 +309,11 @@ export class HusersService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -315,6 +350,11 @@ export class HusersService {
     public findAllHUser_1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -356,6 +396,11 @@ export class HusersService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -541,6 +586,11 @@ export class HusersService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -571,6 +621,58 @@ export class HusersService {
     }
 
     /**
+     * /hyperiot/husers/account
+     * Update User Account
+     * @param body HUser object to update in database
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateAccountInfo(body: HUser, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateAccountInfo(body: HUser, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateAccountInfo(body: HUser, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateAccountInfo(body: HUser, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling updateAccountInfo.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<any>(`${this.basePath}/account`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/husers
      * Update User
      * @param body HUser object to update in database
@@ -587,6 +689,11 @@ export class HusersService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

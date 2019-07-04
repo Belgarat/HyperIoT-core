@@ -20,7 +20,7 @@ import { Observable }                                        from 'rxjs';
 
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { Configuration }                                     from '../../../models/configuration';
 
 
 @Injectable()

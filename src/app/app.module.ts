@@ -8,6 +8,7 @@ import { GridsterModule } from 'angular-gridster2';
 import { CoreModule } from 'projects/core/src/lib/core.module';
 import { HyperiotBaseModule, PlotlyModule } from 'projects/core/src/lib/hyperiot-base/hyperiot-base.module';
 import { AuthenticationService } from 'projects/core/src/public_api';
+import { ServiceTestComponent } from './test/service-test.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -19,7 +20,8 @@ import { AreaChartComponent } from './widgets/area-chart/area-chart.component';
   declarations: [
     AppComponent,
     WidgetsComponent,
-    AreaChartComponent
+    AreaChartComponent,
+    ServiceTestComponent
   ],
   imports: [
     BrowserModule,

@@ -18,16 +18,16 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { HProject } from '../model/hProject';
+import { HProject } from '../../../models/hProject';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { Configuration }                                     from '../../../models/configuration';
 
 
 @Injectable()
 export class HprojectsService {
 
-    protected basePath = 'https://localhost/hyperiot/hprojects';
+    protected basePath = '/hyperiot/hprojects';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -110,6 +110,11 @@ export class HprojectsService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -159,6 +164,11 @@ export class HprojectsService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -195,6 +205,11 @@ export class HprojectsService {
     public findAllHProject_1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -237,6 +252,11 @@ export class HprojectsService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -278,6 +298,11 @@ export class HprojectsService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -318,6 +343,11 @@ export class HprojectsService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -365,6 +395,11 @@ export class HprojectsService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
