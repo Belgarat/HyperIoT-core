@@ -1,9 +1,9 @@
 .chart-view {
-    margin: 16px;
-    border: solid 1px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
+    border: solid 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
     width: auto;
-    height: 280px;
+    height: 100%;
     -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
     box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
