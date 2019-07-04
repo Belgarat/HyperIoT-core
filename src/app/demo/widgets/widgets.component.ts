@@ -16,7 +16,7 @@ export class WidgetsComponent implements OnInit {
 
   @Input() options: GridsterConfig;
 
-  private startDate = new Date();
+  dragEnabled = false;
   dashboard: Array<GridsterItem>;
 
   static itemChange(item, itemComponent) {
@@ -44,7 +44,9 @@ export class WidgetsComponent implements OnInit {
       maxRows: 8,
       draggable: {
         enabled: true,
-        dropOverItems: true
+        dropOverItems: true,
+        dragHandleClass: 'drag-handle',
+        ignoreContent: true
       },
       swap: false,
       disableScrollHorizontal: true,
@@ -68,6 +70,10 @@ export class WidgetsComponent implements OnInit {
   onPlayClick() {
     this.areaChart1.play();
     this.areaChart2.play();
+  }
+
+  onToggleDragging() {
+    this.dragEnabled = !this.dragEnabled;
   }
 
   // Gridster methods

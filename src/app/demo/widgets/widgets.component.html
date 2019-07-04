@@ -1,12 +1,10 @@
-<p>widgets playground works!</p>
-
 <button (click)="onPauseClick()">Pause</button>
 <button (click)="onPlayClick()">Play</button>
+<button (click)="onToggleDragging()">Toggle dragging</button>
 
 <gridster [options]="options">
 
     <gridster-item [item]="dashboard[0]">
-
         <app-area-chart
             [widgetId]="'widget-a'"
             [packetId]="14"
@@ -23,10 +21,11 @@
             }]"
             #areaChart1>
         </app-area-chart>
+        <div *ngIf="dragEnabled" class="drag-overlay"></div>
+        <button *ngIf="dragEnabled" class="drag-handle">+</button>
     </gridster-item>
 
     <gridster-item [item]="dashboard[1]">
-
         <app-area-chart
             [widgetId]="'widget-b'"
             [packetId]="23"
@@ -62,7 +61,8 @@
             }]"
             #areaChart2>
         </app-area-chart>
-        
+        <div *ngIf="dragEnabled" class="drag-overlay"></div>
+        <button *ngIf="dragEnabled" class="drag-handle">+</button>
     </gridster-item>
 
 </gridster>

@@ -9,6 +9,23 @@ gridster {
 }
 gridster-item {
     background: transparent;
-    height:200px;
-    border: solid 4px red;
+}
+.drag-handle {
+    position: absolute;
+    top: 50%;
+    bottom: -50%;
+    left: 50%;
+    right: -50%;
+    margin-top: -24px;
+    margin-left: -24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    z-index: 100;
+}
+.drag-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.25); 
+    z-index: 100;
 }
