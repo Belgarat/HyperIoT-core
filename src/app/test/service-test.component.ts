@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Configuration, ConfigurationParameters, AuthenticationService, JWTLoginResponse, HusersService, HUser, RolesService, Role, PermissionsService, Permission, HprojectsService, HProject, HdevicesService, HDevice, HpacketsService, HPacket, HPacketField, Rule, RulesService } from 'projects/core/src/public_api';
+import { Configuration, MailTemplate, MailtemplatesService, ConfigurationParameters, AuthenticationService, JWTLoginResponse, HusersService, HUser, RolesService, Role, PermissionsService, Permission, HprojectsService, HProject, HdevicesService, HDevice, HpacketsService, HPacket, HPacketField, Rule, RulesService, HUserPasswordReset } from 'projects/core/src/public_api';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -85,14 +85,12 @@ export class ServiceTestComponent {
     )
   }
 
-  // user: HUser = {
-  //   name: 'Gabriele',
-  //   lastname: 'Losiczko',
-  //   username: 'gabriele',
-  //   email: 'gabriele.losiczko@acsoftware.it',
-  //   password: 'Pippo_Pluto_123',
-  //   passwordConfirm: 'Pippo_Pluto_123'
-  // }
+  whoAmI(){
+    this.authService.whoAmI().subscribe(
+      res=>console.log(res),
+      err=>console.log(err)
+    )
+  }
 
   user: HUser;
   //OK
@@ -114,6 +112,7 @@ export class ServiceTestComponent {
       }
     )
   }
+  
   //OK
   activate(act) {
 
@@ -124,6 +123,79 @@ export class ServiceTestComponent {
       }
     )
 
+  }
+
+  //OK
+  moduleStatus(){
+    this.hUserService.checkModuleWorking().subscribe(
+      res=>console.log(res),
+      err=>console.log(err)
+    )
+  }
+
+  //OK
+  recoveryRequest(mail:string){
+    this.hUserService.resetPasswordRequest(mail).subscribe(
+      res=>console.log(res),
+      err=>console.log(err)
+    )
+  }
+
+  //OK
+  resetPassword(codeRecovery:string, mail:string){
+    var pwdRest:HUserPasswordReset={
+      password:'M0entane0$',
+      passwordConfirm:'M0entane0$',
+      email:mail,
+      resetCode:codeRecovery    
+    }
+
+    this.hUserService.resetPassword(pwdRest).subscribe(
+      res=>console.log(res),
+      err=>console.log(err)
+    )
+  }
+
+  //OK
+  changePassword(){
+    var hUserService: HusersService = new HusersService(this.httpClient, null, this.config);
+
+    hUserService.changeHUserPassword(39, 'M0entane0$', 'S1eadlf!','S1eadlf!').subscribe(
+      res=>console.log(res),
+      err=>console.log(err)
+    )
+  }
+
+  updateUser(){
+    var hUserService: HusersService = new HusersService(this.httpClient, null, this.config);
+
+    var user:HUser = {
+      categoryIds: null,
+      email: "gabriele.losiczko@acsoftware.it",
+      id: 39,
+      lastname: "Losiczko",
+      name: "Gregorio", 
+      tagIds: null,
+      username: "gabriele",
+    }
+    // var user = this.userList.find(x=>x.id==39);
+    // console.log(user)
+    // user.password = 'S1eadlf!'
+    user.active = false;
+
+    hUserService.updateHUser(user).subscribe(
+      res=>console.log(res),
+      err=>console.log(err)
+    )
+  }
+
+  deleteHUser(){
+    var hUserService: HusersService = new HusersService(this.httpClient, null, this.config);
+
+    hUserService.deleteHUser(-3).subscribe(
+      res=>console.log(res),
+      err=>console.log(err)
+    )
   }
 
   role: Role;
@@ -146,8 +218,8 @@ export class ServiceTestComponent {
   addDefaultRole() {
     var rolesService: RolesService = new RolesService(this.httpClient, '/hyperiot/roles', this.config);
 
-    var roleId = this.roleList.find(x => x.name == 'Default').id;
-    var userId = this.userList.find(x => x.username == 'giovanni').id;
+    var roleId = 40;
+    var userId = this.userList.find(x => x.username == 'gabriele').id;
 
     rolesService.saveUserRole(roleId, userId).subscribe(
       res => { },
@@ -170,10 +242,10 @@ export class ServiceTestComponent {
     var permissionService: PermissionsService = new PermissionsService(this.httpClient, null, this.config);
 
     var permission: Permission = {
-      name: 'All permissions LUKE',
-      actionIds: 256,
+      name: 'Prova permission',
+      actionIds: 128,
       entityResourceName: 'it.acsoftware.hyperiot.hproject.model.HProject',
-      role: this.roleList.find(x => x.name == 'Default')
+      role: this.roleList.find(x => x.name == 'DefaultRole 3')
     }
     console.log(permission)
 
@@ -413,6 +485,29 @@ export class ServiceTestComponent {
     )
   }
 
+  emailList: MailTemplate[];
+  //OK
+  getAllEmail() {
+    var mailService: MailtemplatesService = new MailtemplatesService(this.httpClient, null, this.config);
+    mailService.findAllMail_1().subscribe(
+      res => {
+        console.log(res);
+        this.emailList = <MailTemplate[]>res;
+      },
+      err => { if (err.status == 401) console.log("redirect to login...") }
+    )
+  }
+
+  emailStatus(){
+    var mailService: MailtemplatesService = new MailtemplatesService(this.httpClient, null, this.config);
+    mailService.checkModuleWorking().subscribe(
+      res => {
+        console.log(res);
+        this.emailList = <MailTemplate[]>res;
+      },
+      err => { if (err.status == 401) console.log("redirect to login...") }
+    )
+  }
 
 
 }
