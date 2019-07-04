@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CoreComponent } from './core.component';
-import { HyperiotClientModule } from './hyperiot-client/hyperiot-client.module'
+import { HyperiotClientModule } from './hyperiot-client/hyperiot-client.module';
 
 @NgModule({
   declarations: [CoreComponent],
