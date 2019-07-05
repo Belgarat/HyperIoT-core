@@ -43,11 +43,11 @@ export class WidgetsLayoutComponent implements OnInit {
       displayGrid: DisplayGrid.OnDragAndResize,
       disableWindowResize: false,
       scrollToNewItems: false,
-      disableWarnings: false,
+      disableWarnings: true,
       ignoreMarginInRow: true,
       minCols: 8,
       maxCols: 8,
-      minRows: 8,
+      minRows: 4,
       maxRows: 100,
       draggable: {
         enabled: this.dragEnabled,
@@ -70,13 +70,6 @@ export class WidgetsLayoutComponent implements OnInit {
     });
     // TODO: the connection should happen somewhere else in the main page
     this.dataStreamService.connect();
-  }
-
-  onPauseClick() {
-    // TODO: ...
-  }
-  onPlayClick() {
-    // TODO: ...
   }
 
   onToggleDragging() {

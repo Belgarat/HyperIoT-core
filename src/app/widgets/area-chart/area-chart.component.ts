@@ -24,6 +24,7 @@ import {
 })
 export class AreaChartComponent extends WidgetChartComponent implements OnInit, OnDestroy {
   private chartData: TimeSeries[] = [];
+  isPaused: boolean;
 
   ngOnInit() {
     const cfg = this.widget.config;
@@ -58,5 +59,9 @@ export class AreaChartComponent extends WidgetChartComponent implements OnInit, 
     pastDate.setDate(pastDate.getDate() - 1);
     this.getOfflineData(pastDate, startDate);
     */
+  }
+  togglePlay() {
+    this.isPaused = !this.isPaused;
+    this.isPaused ? this.pause() : this.play();
   }
 }

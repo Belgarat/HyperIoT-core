@@ -9,6 +9,7 @@ import {
 @Component({
   selector: 'app-dynamic-widget',
   templateUrl: './dynamic-widget.component.html',
+  styleUrls: ['./dynamic-widget.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class DynamicWidgetComponent implements OnInit {

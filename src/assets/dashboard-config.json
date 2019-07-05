@@ -2,7 +2,7 @@
     {
         "id": "widget-1",
         "cols": 4,
-        "rows": 4,
+        "rows": 3,
         "y": 0,
         "x": 0,
         "type": "area-chart",
@@ -30,7 +30,15 @@
     },
     {
         "id": "widget-2",
-        "cols": 4,
+        "cols": 2,
+        "rows": 1,
+        "y": 0,
+        "x": 4,
+        "type": "hello-world"
+    },
+    {
+        "id": "widget-2bis",
+        "cols": 2,
         "rows": 1,
         "y": 0,
         "x": 4,
@@ -39,7 +47,7 @@
     {
         "id": "widget-3",
         "cols": 4,
-        "rows": 4,
+        "rows": 3,
         "y": 0,
         "x": 0,
         "type": "area-chart",
@@ -98,7 +106,7 @@
     {
         "id": "widget-4",
         "cols": 4,
-        "rows": 3,
+        "rows": 2,
         "y": 4,
         "x": 0,
         "type": "events-log"
