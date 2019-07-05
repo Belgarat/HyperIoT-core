@@ -16,7 +16,7 @@
         <input type="text" formControlName="userName">
       </label>
       <label>
-        mail:
+        email:
         <input type="text" formControlName="mail">
       </label>
       <label>
@@ -61,6 +61,21 @@
   
   </form>
 
+<button (click)="whoAmI()">WHO AM I</button>
+<br>
+ok<button (click)="moduleStatus()">MODULE STATUS</button> (non torna json)
+<br>
+ok<input #mailRecovery>
+<button (click)="recoveryRequest(mailRecovery.value)">PWD RECOVERY REQUEST</button>
+<br>
+ok<input #codeRecovery>
+<button (click)="resetPassword(codeRecovery.value, mailRecovery.value)">RESET PWD</button>
+<br>
+ok<button (click)="changePassword()">CHANGE PWD</button>
+<br>
+ok<button (click)="updateUser()">Update user</button>
+
+<br>
 ok<button (click)="addRole()">ADD ROLE</button>
 <br>
 ok<button (click)="addDefaultRole()">ADD DEFAULT USER ROLE</button>
@@ -94,5 +109,12 @@ ok<button (click)="getAllPackets()">getAllPackets</button>
 <br>
 ok<button (click)="getAllRules()">getAllRules</button>
 <br>
+<button (click)="getAllEmail()">getAllEmail</button>
+<br>
 <br>
 ok<button (click)="deleteRole()">deleteRole</button>
+<br>
+<button (click)="deleteHUser()">deleteHUser</button>
+<br>
+<br>
+<button (click)="emailStatus()">emailStatus</button>
