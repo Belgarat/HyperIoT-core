@@ -1,4 +1,4 @@
-import { Component, Output, Input } from '@angular/core';
+import { Component, AfterContentInit } from '@angular/core';
 
 import { WidgetComponent } from './widget.component';
 import { PlotlyService } from 'angular-plotly.js';
@@ -18,7 +18,7 @@ interface BufferedData {
 /**
  * A widget for visualizing time series chart
  */
-export class WidgetChartComponent extends WidgetComponent {
+export class WidgetChartComponent extends WidgetComponent implements AfterContentInit {
   /**
    * From inherited 'widget' property the following
    * custom configuration fields can be passed:
@@ -31,8 +31,8 @@ export class WidgetChartComponent extends WidgetComponent {
    *   config: {
    *     packetId: 14,
    *     packetFields: [
-   *        temperature,
-   *        humidity
+   *        'temperature',
+   *        'humidity'
    *     ],
    *     // Time range to display in seconds
    *     timeAxisRange: 20,
@@ -101,8 +101,8 @@ export class WidgetChartComponent extends WidgetComponent {
       }
     }
   };
+  isPaused: boolean;
 
-  private isPaused: boolean;
   private dataBuffer: BufferedData[] = [];
   private defaultSeriesConfig = {
     type: 'scatter',
@@ -114,6 +114,16 @@ export class WidgetChartComponent extends WidgetComponent {
   constructor(public dataStreamService: DataStreamService, public plotly: PlotlyService) {
     super(dataStreamService);
   }
+
+  ngAfterContentInit() {
+    console.log('AfterViewInit');
+    setTimeout(() => {
+      const Plotly = this.plotly.getPlotly();
+      const graph = this.plotly.getInstanceByDivId(this.widget.id);
+      console.log(graph, this.widget.id);
+      Plotly.update(graph);
+      }, 1000);
+}
 
   // Base class abstract methods implementation
 
@@ -160,7 +170,7 @@ export class WidgetChartComponent extends WidgetComponent {
    *
    * @param timeSeriesData Array of time series
    */
-  addTimeSeries(timeSeriesData: TimeSeries[], config: any = this.defaultSeriesConfig): void {
+  addTimeSeries(timeSeriesData: TimeSeries[], config?: any): void {
     timeSeriesData.forEach(ts => {
       const tsd = {
         name: ts.name,
@@ -172,7 +182,9 @@ export class WidgetChartComponent extends WidgetComponent {
       // apply config options stored in `this.seriesConfig` parameter
       this.applyStoredConfig(tsd);
       // override any setting passed via `config`
-      Object.assign(tsd, config);
+      if (config) {
+        Object.assign(tsd, config);
+      }
       // FIXME: should replace item with same name
       this.graph.data.push(tsd);
     });

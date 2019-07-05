@@ -16,20 +16,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardConfigService } from './dashboard/dashboard-config.service';
 import { WidgetsLayoutComponent } from './dashboard/widgets-layout/widgets-layout.component';
-import { AreaChartComponent } from './widgets/area-chart/area-chart.component';
+import { TimeChartComponent } from './widgets/time-chart/time-chart.component';
 import { DynamicWidgetComponent } from './widgets/dynamic-widget/dynamic-widget.component';
 import { EventsLogComponent } from './widgets/events-log/events-log.component';
 import { HelloWorldComponent } from './widgets/hello-world/hello-world.component';
+import { StatsChartComponent } from './widgets/stats-chart/stats-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WidgetsLayoutComponent,
-    AreaChartComponent,
+    TimeChartComponent,
     ServiceTestComponent,
     DynamicWidgetComponent,
     EventsLogComponent,
-    HelloWorldComponent
+    HelloWorldComponent,
+    StatsChartComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,7 @@ import { HelloWorldComponent } from './widgets/hello-world/hello-world.component
     ReactiveFormsModule,
     GridsterModule,
     DynamicModule.withComponents([
-      AreaChartComponent,
+      TimeChartComponent,
       EventsLogComponent,
       HelloWorldComponent,
     ]),

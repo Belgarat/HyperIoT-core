@@ -1,8 +1,12 @@
 <!-- List of widget that can be dynamically loaded -->
 
-<app-area-chart
-  *ngIf="widget.type === 'area-chart'"
-  [widget]="widget"></app-area-chart>
+<app-time-chart
+  *ngIf="widget.type === 'time-chart'"
+  [widget]="widget"></app-time-chart>
+
+<app-stats-chart
+  *ngIf="widget.type === 'stats-chart'"
+  [widget]="widget"></app-stats-chart>
 
 <app-events-log
   *ngIf="widget.type === 'events-log'"

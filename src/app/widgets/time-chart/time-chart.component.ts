@@ -1,13 +1,10 @@
 import {
   Component,
   OnInit,
-  Input,
   OnDestroy,
   ChangeDetectionStrategy,
-  EventEmitter,
   ViewEncapsulation
 } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 import {
   DataPacketFilter,
@@ -16,15 +13,14 @@ import {
 } from 'projects/core/src/lib/hyperiot-base/hyperiot-base.module';
 
 @Component({
-  selector: 'app-area-chart',
-  templateUrl: './area-chart.component.html',
-  styleUrls: ['./area-chart.component.css'],
+  selector: 'app-time-chart',
+  templateUrl: './time-chart.component.html',
+  styleUrls: ['./time-chart.component.css'],
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.None
 })
-export class AreaChartComponent extends WidgetChartComponent implements OnInit, OnDestroy {
+export class TimeChartComponent extends WidgetChartComponent implements OnInit, OnDestroy {
   private chartData: TimeSeries[] = [];
-  isPaused: boolean;
 
   ngOnInit() {
     const cfg = this.widget.config;

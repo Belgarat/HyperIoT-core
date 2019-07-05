@@ -5,7 +5,7 @@
         "rows": 3,
         "y": 0,
         "x": 0,
-        "type": "area-chart",
+        "type": "time-chart",
         "config": {
             "packetId": 14,
             "packetFields": [
@@ -58,7 +58,7 @@
         "rows": 3,
         "y": 0,
         "x": 0,
-        "type": "area-chart",
+        "type": "time-chart",
         "config": {
             "packetId": 23,
             "packetFields": [
@@ -118,5 +118,37 @@
         "y": 3,
         "x": 0,
         "type": "events-log"
+    },
+    {
+        "id": "widget-5",
+        "cols": 4,
+        "rows": 3,
+        "y": 5,
+        "x": 0,
+        "type": "stats-chart"
+    },
+    {
+        "id": "widget-6",
+        "cols": 4,
+        "rows": 3,
+        "y": 0,
+        "x": 0,
+        "type": "time-chart",
+        "config": {
+            "packetId": 24,
+            "packetFields": ["motion"],
+            "timeAxisRange": 20,
+            "maxDataPoints": 100,
+            "timeWindow": 60,
+            "seriesConfig": [
+                {
+                    "series": "motion",
+                    "config": {
+                        "fill": "tozeroy",
+                        "line": { "shape": "line" }
+                    }
+                }
+            ]
+        }
     }
 ]
