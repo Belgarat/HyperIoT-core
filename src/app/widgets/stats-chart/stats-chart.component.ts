@@ -1,22 +1,33 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import { WidgetChartComponent } from 'projects/core/src/lib/hyperiot-base/hyperiot-base.module';
+import { PlotlyService } from 'angular-plotly.js';
+
+import { WidgetChartComponent, DataStreamService } from 'projects/core/src/lib/hyperiot-base/hyperiot-base.module';
 
 @Component({
   selector: 'app-stats-chart',
   templateUrl: './stats-chart.component.html',
-  styleUrls: ['./stats-chart.component.css']
+  styleUrls: ['../../../assets/widgets/styles/widget-commons.css', './stats-chart.component.css']
 })
 export class StatsChartComponent extends WidgetChartComponent implements OnInit {
 
+  // This constructor Inject the HTTP client
+  // just for testing purposes.
+  // The real implementation should relay on
+  // HyperIoT REST API client implementation
+  constructor(dataStreamService: DataStreamService, plotly: PlotlyService, private http: HttpClient) {
+    super(dataStreamService, plotly);
+  }
+
   ngOnInit() {
-    this.graph.data = [
-      {
-        x: ['giraffes', 'orangutans', 'monkeys'],
-        y: [20, 14, 23],
-        type: 'bar'
-      }
-    ];
+    // get moked chart data from JSON asset file
+    this.http.get(this.widget.dataUrl)
+      .subscribe((data: any) => {
+        console.log(data);
+        this.graph.data = data.data;
+        Object.assign(this.graph.layout, data.layout);
+      });
   }
 
 }

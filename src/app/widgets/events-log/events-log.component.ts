@@ -8,7 +8,7 @@ import {
 @Component({
   selector: 'app-events-log',
   templateUrl: './events-log.component.html',
-  styleUrls: ['./events-log.component.css']
+  styleUrls: ['../../../assets/widgets/styles/widget-commons.css', './events-log.component.css']
 })
 export class EventsLogComponent implements OnInit, OnDestroy {
   @Input()

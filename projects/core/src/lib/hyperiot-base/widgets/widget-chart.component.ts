@@ -120,10 +120,9 @@ export class WidgetChartComponent extends WidgetComponent implements AfterConten
     setTimeout(() => {
       const Plotly = this.plotly.getPlotly();
       const graph = this.plotly.getInstanceByDivId(this.widget.id);
-      console.log(graph, this.widget.id);
       Plotly.update(graph);
-      }, 1000);
-}
+    }, 1000);
+  }
 
   // Base class abstract methods implementation
 
@@ -199,19 +198,19 @@ export class WidgetChartComponent extends WidgetComponent implements AfterConten
    */
   addTimeSeriesData(series: TimeSeries, x: Date, y: number): void {
     if (this.isPaused) {
-    let bufferedData: BufferedData = this.dataBuffer.find((bd) => bd.series === series);
-    if (bufferedData == null) {
-      bufferedData = {
-        series: series,
-        x: [], y: []
-      };
-      this.dataBuffer.push(bufferedData);
-    }
-    bufferedData.x.push(x);
-    bufferedData.y.push(y);
-    // keeps data length < this.maxDataPoints
-    this.applySizeConstraints(bufferedData);
-  } else {
+      let bufferedData: BufferedData = this.dataBuffer.find((bd) => bd.series === series);
+      if (bufferedData == null) {
+        bufferedData = {
+          series: series,
+          x: [], y: []
+        };
+        this.dataBuffer.push(bufferedData);
+      }
+      bufferedData.x.push(x);
+      bufferedData.y.push(y);
+      // keeps data length < this.maxDataPoints
+      this.applySizeConstraints(bufferedData);
+    } else {
       series.x.push(x);
       series.y.push(y);
       // keeps data length < this.maxDataPoints
@@ -230,7 +229,7 @@ export class WidgetChartComponent extends WidgetComponent implements AfterConten
     // relayout x-axis range with new data
     const Plotly = this.plotly.getPlotly();
     const graph = this.plotly.getInstanceByDivId(this.widget.id);
-    Plotly.relayout(graph, {'xaxis.range': [rangeStart, rangeEnd]});
+    Plotly.relayout(graph, { 'xaxis.range': [rangeStart, rangeEnd] });
   }
 
   private applyStoredConfig(timeSeriesData: any) {

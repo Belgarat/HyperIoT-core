@@ -15,9 +15,7 @@ import {
 @Component({
   selector: 'app-time-chart',
   templateUrl: './time-chart.component.html',
-  styleUrls: ['./time-chart.component.css'],
-  changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['../../../assets/widgets/styles/widget-commons.css', './time-chart.component.css']
 })
 export class TimeChartComponent extends WidgetChartComponent implements OnInit, OnDestroy {
   private chartData: TimeSeries[] = [];

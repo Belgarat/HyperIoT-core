@@ -21,6 +21,7 @@ import { DynamicWidgetComponent } from './widgets/dynamic-widget/dynamic-widget.
 import { EventsLogComponent } from './widgets/events-log/events-log.component';
 import { HelloWorldComponent } from './widgets/hello-world/hello-world.component';
 import { StatsChartComponent } from './widgets/stats-chart/stats-chart.component';
+import { SensorValueComponent } from './widgets/sensor-value/sensor-value.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { StatsChartComponent } from './widgets/stats-chart/stats-chart.component
     DynamicWidgetComponent,
     EventsLogComponent,
     HelloWorldComponent,
-    StatsChartComponent
+    StatsChartComponent,
+    SensorValueComponent
   ],
   imports: [
     BrowserModule,

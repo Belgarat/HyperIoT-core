@@ -5,28 +5,8 @@
         "rows": 3,
         "y": 0,
         "x": 0,
-        "type": "time-chart",
-        "config": {
-            "packetId": 14,
-            "packetFields": [
-                "temperature",
-                "humidity"
-            ],
-            "timeAxisRange": 20,
-            "maxDataPoints": 100,
-            "timeWindow": 60,
-            "seriesConfig": [
-                {
-                    "series": "temperature",
-                    "config": {
-                        "fill": "tozeroy"
-                    }
-                },
-                {
-                    "series": "humidity"
-                }
-            ]
-        }
+        "type": "stats-chart",
+        "dataUrl": "/assets/test.widget-stats.1.json"
     },
     {
         "id": "widget-2",
@@ -37,12 +17,18 @@
         "type": "hello-world"
     },
     {
-        "id": "widget-2bis",
+        "id": "widget-sensor",
         "cols": 2,
         "rows": 2,
         "y": 0,
         "x": 4,
-        "type": "hello-world"
+        "type": "sensor-value",
+        "config": {
+            "packetId": 14,
+            "packetFields": [
+                "temperature"
+            ]
+        }
     },
     {
         "id": "widget-2ter",
@@ -75,6 +61,21 @@
                         "yaxis": "y2"
                     },
                     "layout": {
+                        "title": {
+                            "font": {
+                                "size": 14,
+                                "color": "#16A4FA"
+                            },
+                            "xref": "container",
+                            "yref": "container",
+                            "x": 0,
+                            "y": 1,
+                            "pad": {
+                                "t": 10,
+                                "l": 10
+                            },
+                            "text": "<b>Real time temperature and humidity</b>"
+                        },
                         "yaxis2": {
                             "title": "temperature",
                             "titlefont": {
@@ -125,7 +126,8 @@
         "rows": 3,
         "y": 5,
         "x": 0,
-        "type": "stats-chart"
+        "type": "stats-chart",
+        "dataUrl": "/assets/test.widget-stats.2.json"
     },
     {
         "id": "widget-6",
@@ -136,7 +138,9 @@
         "type": "time-chart",
         "config": {
             "packetId": 24,
-            "packetFields": ["motion"],
+            "packetFields": [
+                "motion"
+            ],
             "timeAxisRange": 20,
             "maxDataPoints": 100,
             "timeWindow": 60,
@@ -145,7 +149,26 @@
                     "series": "motion",
                     "config": {
                         "fill": "tozeroy",
-                        "line": { "shape": "line" }
+                        "line": {
+                            "shape": "line"
+                        }
+                    },
+                    "layout": {
+                        "title": {
+                            "font": {
+                                "size": 14,
+                                "color": "#16A4FA"
+                            },
+                            "xref": "container",
+                            "yref": "container",
+                            "x": 0,
+                            "y": 1,
+                            "pad": {
+                                "t": 10,
+                                "l": 10
+                            },
+                            "text": "<b>Real time motion level</b>"
+                        }
                     }
                 }
             ]
