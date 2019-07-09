@@ -85,10 +85,10 @@ export class ServiceTestComponent {
     )
   }
 
-  whoAmI(){
+  whoAmI() {
     this.authService.whoAmI().subscribe(
-      res=>console.log(res),
-      err=>console.log(err)
+      res => console.log(res),
+      err => console.log(err)
     )
   }
 
@@ -105,14 +105,14 @@ export class ServiceTestComponent {
     }
 
     this.hUserService.register(this.user).subscribe(
-      res => { this.registerClass='registerClassOk'; },
+      res => { this.registerClass = 'registerClassOk'; },
       err => {
         console.log(err.status);
-        this.registerClass='registerClassError';
+        this.registerClass = 'registerClassError';
       }
     )
   }
-  
+
   //OK
   activate(act) {
 
@@ -126,55 +126,55 @@ export class ServiceTestComponent {
   }
 
   //OK
-  moduleStatus(){
+  moduleStatus() {
     this.hUserService.checkModuleWorking().subscribe(
-      res=>console.log(res),
-      err=>console.log(err)
+      res => console.log(res),
+      err => console.log(err)
     )
   }
 
   //OK
-  recoveryRequest(mail:string){
+  recoveryRequest(mail: string) {
     this.hUserService.resetPasswordRequest(mail).subscribe(
-      res=>console.log(res),
-      err=>console.log(err)
+      res => console.log(res),
+      err => console.log(err)
     )
   }
 
   //OK
-  resetPassword(codeRecovery:string, mail:string){
-    var pwdRest:HUserPasswordReset={
-      password:'M0entane0$',
-      passwordConfirm:'M0entane0$',
-      email:mail,
-      resetCode:codeRecovery    
+  resetPassword(codeRecovery: string, mail: string) {
+    var pwdRest: HUserPasswordReset = {
+      password: 'M0entane0$',
+      passwordConfirm: 'M0entane0$',
+      email: mail,
+      resetCode: codeRecovery
     }
 
     this.hUserService.resetPassword(pwdRest).subscribe(
-      res=>console.log(res),
-      err=>console.log(err)
+      res => console.log(res),
+      err => console.log(err)
     )
   }
 
   //OK
-  changePassword(){
+  changePassword() {
     var hUserService: HusersService = new HusersService(this.httpClient, null, this.config);
 
-    hUserService.changeHUserPassword(39, 'M0entane0$', 'S1eadlf!','S1eadlf!').subscribe(
-      res=>console.log(res),
-      err=>console.log(err)
+    hUserService.changeHUserPassword(39, 'M0entane0$', 'S1eadlf!', 'S1eadlf!').subscribe(
+      res => console.log(res),
+      err => console.log(err)
     )
   }
 
-  updateUser(){
+  updateUser() {
     var hUserService: HusersService = new HusersService(this.httpClient, null, this.config);
 
-    var user:HUser = {
+    var user: HUser = {
       categoryIds: null,
       email: "gabriele.losiczko@acsoftware.it",
       id: 39,
       lastname: "Losiczko",
-      name: "Gregorio", 
+      name: "Gregorio",
       tagIds: null,
       username: "gabriele",
     }
@@ -184,17 +184,17 @@ export class ServiceTestComponent {
     user.active = false;
 
     hUserService.updateHUser(user).subscribe(
-      res=>console.log(res),
-      err=>console.log(err)
+      res => console.log(res),
+      err => console.log(err)
     )
   }
 
-  deleteHUser(){
+  deleteHUser() {
     var hUserService: HusersService = new HusersService(this.httpClient, null, this.config);
 
-    hUserService.deleteHUser(-3).subscribe(
-      res=>console.log(res),
-      err=>console.log(err)
+    hUserService.deleteHUser(49).subscribe(
+      res => console.log(res),
+      err => console.log(err)
     )
   }
 
@@ -228,7 +228,7 @@ export class ServiceTestComponent {
   }
 
   //OK
-  deleteRole(){
+  deleteRole() {
     var rolesService: RolesService = new RolesService(this.httpClient, '/hyperiot/roles', this.config);
 
     rolesService.deleteRole(6).subscribe(
@@ -259,7 +259,7 @@ export class ServiceTestComponent {
   addUserProject() {
     var hProjectService: HprojectsService = new HprojectsService(this.httpClient, null, this.config);
 
-    var use:HUser = this.userList.find(x=>x.username=='giovanni')
+    var use: HUser = this.userList.find(x => x.username == 'giovanni')
     console.log(use)
 
     var hProject: HProject = {
@@ -267,7 +267,7 @@ export class ServiceTestComponent {
       tagIds: [],
       name: 'Luke Project',
       description: 'Progetto arduino test',
-      user:use
+      user: use
     }
     hProjectService.saveHProject(hProject).subscribe(
       res => { },
@@ -325,7 +325,7 @@ export class ServiceTestComponent {
       type: 'OUTPUT',
       format: 'JSON',
       serialization: 'AVRO',
-      device: this.devicesList.find(x=>x.deviceName=='TestDeviceTest'),
+      device: this.devicesList.find(x => x.deviceName == 'TestDeviceTest'),
       version: '1.0',
       fields: [this.hPacketField1, this.hPacketField2]
     }
@@ -339,12 +339,12 @@ export class ServiceTestComponent {
     var hPacketService: HpacketsService = new HpacketsService(this.httpClient, null, this.config);
 
     var hPacket2: HPacket = {
-      id: this.packetList.find(x=>x.name=='TestPacketTest').id,
+      id: this.packetList.find(x => x.name == 'TestPacketTest').id,
       name: 'TestPacketTest',
       type: 'OUTPUT',
       format: 'JSON',
       serialization: 'AVRO',
-      device: this.devicesList.find(x=>x.deviceName=='TestDeviceTest'),
+      device: this.devicesList.find(x => x.deviceName == 'TestDeviceTest'),
       version: '2.0',
       fields: [this.hPacketField1, this.hPacketField2]
     }
@@ -358,9 +358,9 @@ export class ServiceTestComponent {
   addRule() {
     var rulesService: RulesService = new RulesService(this.httpClient, null, this.config);
 
-    var action = JSON.stringify({ actionName: "AddCategoryRuleAction2", ruleId:0, categoryIds: [456], ruleType: "ENRICHMENT" });
+    var action = JSON.stringify({ actionName: "AddCategoryRuleAction2", ruleId: 0, categoryIds: [456], ruleType: "ENRICHMENT" });
 
-    var actions= [action];
+    var actions = [action];
 
     var str: string = JSON.stringify(actions);
     console.log(str)
@@ -368,11 +368,11 @@ export class ServiceTestComponent {
     var rule: Rule = {
       name: 'TestRuleTest',
       description: 'Everybody wants to rule the world.',
-      categoryIds:[123],
+      categoryIds: [123],
       project: this.projectList.find(x => x.name == 'Project prova'),
-      packet:  this.packetList.find(x => x.name == 'TestPacketTest'),
+      packet: this.packetList.find(x => x.name == 'TestPacketTest'),
       jsonActions: str,
-      type:'ENRICHMENT',
+      type: 'ENRICHMENT',
       ruleDefinition: "packet.gps.latitude >= 3 AND packet.temperature > 6"
     }
     rulesService.saveRule(rule).subscribe(
@@ -381,11 +381,11 @@ export class ServiceTestComponent {
     )
   }
 
-  updateRule(){
+  updateRule() {
     var rulesService: RulesService = new RulesService(this.httpClient, null, this.config);
 
-    var rule = this.ruleList.find(x=>x.name == 'TestRuleTest');
-    rule.type='EVENT';
+    var rule = this.ruleList.find(x => x.name == 'TestRuleTest');
+    rule.type = 'EVENT';
     rulesService.updateRule(rule).subscribe(
       res => { },
       err => { if (err.status == 401) console.log("redirect to login...") }
@@ -498,7 +498,7 @@ export class ServiceTestComponent {
     )
   }
 
-  emailStatus(){
+  emailStatus() {
     var mailService: MailtemplatesService = new MailtemplatesService(this.httpClient, null, this.config);
     mailService.checkModuleWorking().subscribe(
       res => {

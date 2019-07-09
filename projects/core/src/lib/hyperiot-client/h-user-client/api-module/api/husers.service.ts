@@ -11,18 +11,20 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec }                        from '../encoder';
+import { Inject, Injectable, Optional } from '@angular/core';
+import {
+    HttpClient, HttpHeaders, HttpParams,
+    HttpResponse, HttpEvent
+} from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
-import { Observable }                                        from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { HUser } from '../../../models/hUser';
 import { HUserPasswordReset } from '../../../models/hUserPasswordReset';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../../../models/configuration';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../../../models/configuration';
 
 
 @Injectable()
@@ -32,7 +34,11 @@ export class HusersService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+
+        console.log("COSTRUENDO HUSER")
+        console.log(configuration)
+
         if (basePath) {
             this.basePath = basePath;
         }
@@ -68,7 +74,7 @@ export class HusersService {
     public activate(email: string, code: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public activate(email: string, code: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public activate(email: string, code: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public activate(email: string, code: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public activate(email: string, code: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (email === null || email === undefined) {
             throw new Error('Required parameter email was null or undefined when calling activate.');
@@ -78,7 +84,7 @@ export class HusersService {
             throw new Error('Required parameter code was null or undefined when calling activate.');
         }
 
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        let queryParameters = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
         if (email !== undefined && email !== null) {
             queryParameters = queryParameters.set('email', <any>email);
         }
@@ -127,7 +133,7 @@ export class HusersService {
     public changeHUserPassword(userId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public changeHUserPassword(userId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public changeHUserPassword(userId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public changeHUserPassword(userId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public changeHUserPassword(userId: number, oldPassword: string, newPassword: string, passwordConfirm: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (userId === null || userId === undefined) {
             throw new Error('Required parameter userId was null or undefined when calling changeHUserPassword.');
@@ -174,7 +180,7 @@ export class HusersService {
         if (useForm) {
             formParams = new FormData();
         } else {
-            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+            formParams = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
         }
 
         if (userId !== undefined) {
@@ -210,7 +216,7 @@ export class HusersService {
     public checkModuleWorking(observe?: 'body', reportProgress?: boolean): Observable<any>;
     public checkModuleWorking(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public checkModuleWorking(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public checkModuleWorking(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public checkModuleWorking(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -247,7 +253,7 @@ export class HusersService {
     public deleteHUser(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public deleteHUser(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public deleteHUser(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteHUser(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public deleteHUser(id: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling deleteHUser.');
@@ -295,11 +301,11 @@ export class HusersService {
     public findAllHUser(delta?: number, page?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public findAllHUser(delta?: number, page?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public findAllHUser(delta?: number, page?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllHUser(delta?: number, page?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findAllHUser(delta?: number, page?: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
 
 
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        let queryParameters = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
         if (delta !== undefined && delta !== null) {
             queryParameters = queryParameters.set('delta', <any>delta);
         }
@@ -310,6 +316,10 @@ export class HusersService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
+
+        console.log(this.configuration)
+        console.log(this.configuration.apiKeys)
+
         if (this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
@@ -347,7 +357,7 @@ export class HusersService {
     public findAllHUser_1(observe?: 'body', reportProgress?: boolean): Observable<any>;
     public findAllHUser_1(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public findAllHUser_1(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllHUser_1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findAllHUser_1(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -389,7 +399,7 @@ export class HusersService {
     public findHUser(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public findHUser(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public findHUser(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findHUser(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findHUser(id: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling findHUser.');
@@ -435,7 +445,7 @@ export class HusersService {
     public register(body: HUser, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public register(body: HUser, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public register(body: HUser, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public register(body: HUser, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public register(body: HUser, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling register.');
@@ -482,7 +492,7 @@ export class HusersService {
     public resetPassword(body: HUserPasswordReset, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public resetPassword(body: HUserPasswordReset, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public resetPassword(body: HUserPasswordReset, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public resetPassword(body: HUserPasswordReset, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public resetPassword(body: HUserPasswordReset, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling resetPassword.');
@@ -529,13 +539,13 @@ export class HusersService {
     public resetPasswordRequest(email: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public resetPasswordRequest(email: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public resetPasswordRequest(email: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public resetPasswordRequest(email: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public resetPasswordRequest(email: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (email === null || email === undefined) {
             throw new Error('Required parameter email was null or undefined when calling resetPasswordRequest.');
         }
 
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        let queryParameters = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
         if (email !== undefined && email !== null) {
             queryParameters = queryParameters.set('email', <any>email);
         }
@@ -578,7 +588,7 @@ export class HusersService {
     public saveHUser(body: HUser, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public saveHUser(body: HUser, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public saveHUser(body: HUser, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public saveHUser(body: HUser, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public saveHUser(body: HUser, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling saveHUser.');
@@ -630,7 +640,7 @@ export class HusersService {
     public updateAccountInfo(body: HUser, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public updateAccountInfo(body: HUser, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public updateAccountInfo(body: HUser, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public updateAccountInfo(body: HUser, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateAccountInfo(body: HUser, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling updateAccountInfo.');
@@ -682,7 +692,7 @@ export class HusersService {
     public updateHUser(body: HUser, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public updateHUser(body: HUser, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public updateHUser(body: HUser, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public updateHUser(body: HUser, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateHUser(body: HUser, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling updateHUser.');
