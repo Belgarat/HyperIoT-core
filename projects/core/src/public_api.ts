@@ -6,15 +6,15 @@ export * from './lib/core.service';
 export * from './lib/core.component';
 export * from './lib/core.module';
 
-// export {
-//     HyperiotBaseModule,
-//     WidgetComponent,
-//     WidgetChartComponent,
-//     TimeSeries,
-//     DataPacketFilter as DataPacket,
-//     DataStreamService as DataChannelService,
-//     PlotlyModule, PlotlyJS
-// } from './lib/hyperiot-base/hyperiot-base.module';
+export {
+    HyperiotBaseModule,
+    WidgetComponent,
+    WidgetChartComponent,
+    TimeSeries,
+    DataPacketFilter as DataPacket,
+    DataStreamService as DataChannelService,
+    PlotlyModule, PlotlyJS
+} from './lib/hyperiot-base/hyperiot-base.module';
 
 export { AreasService } from './lib/hyperiot-client/area-client/api-module/index';
 export { AssetscategoriesService } from './lib/hyperiot-client/asset-category-client/api-module/index';
