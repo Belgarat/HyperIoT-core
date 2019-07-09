@@ -171,12 +171,12 @@ export class ServiceTestComponent {
 
     var user: HUser = {
       categoryIds: null,
-      email: "gabriele.losiczko@acsoftware.it",
-      id: 39,
-      lastname: "Losiczko",
-      name: "Gregorio",
+      email: "giovanni.colacitti@acsoftware.it",
+      id: 44,
+      lastname: "Colacitti",
+      name: "Giovanni",
       tagIds: null,
-      username: "gabriele",
+      username: "giovanni",
     }
     // var user = this.userList.find(x=>x.id==39);
     // console.log(user)
@@ -192,7 +192,7 @@ export class ServiceTestComponent {
   deleteHUser() {
     var hUserService: HusersService = new HusersService(this.httpClient, null, this.config);
 
-    hUserService.deleteHUser(49).subscribe(
+    hUserService.deleteHUser(44).subscribe(
       res => console.log(res),
       err => console.log(err)
     )
@@ -509,5 +509,32 @@ export class ServiceTestComponent {
     )
   }
 
+
+  changeProject() {
+    var hProjectService: HprojectsService = new HprojectsService(this.httpClient, null, this.config);
+    var hUserService: HusersService = new HusersService(this.httpClient, null, this.config);
+
+    var usera;
+    hUserService.findHUser(50).subscribe(
+      res => {
+        usera = res;
+      }
+    )
+
+    hProjectService.findHProject(45).subscribe(
+      res => {
+        let pr = <HProject>res;
+        console.log(usera)
+        pr.user = usera
+        console.log(pr)
+        hProjectService.updateHProject(pr).subscribe(
+          res => { }
+        )
+      }
+    )
+
+
+
+  }
 
 }
