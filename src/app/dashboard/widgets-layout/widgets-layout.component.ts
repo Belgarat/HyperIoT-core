@@ -17,11 +17,15 @@ export class WidgetsLayoutComponent implements OnInit {
   dashboard: Array<GridsterItem>;
 
   static itemChange(item, itemComponent) {
-    // console.log('itemChanged', item, itemComponent);
+    if (typeof item.change === 'function') {
+      item.change();
+    }
   }
 
   static itemResize(item, itemComponent) {
-    // console.log('itemResized', item, itemComponent);
+    if (typeof item.resize === 'function') {
+      item.resize();
+    }
   }
 
   /**

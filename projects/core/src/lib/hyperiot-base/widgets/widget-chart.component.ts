@@ -27,6 +27,10 @@ export class WidgetChartComponent extends WidgetComponent implements AfterConten
    * this.widget = {
    *   // mandatory widget identifier field
    *   id: 'widget-2',
+   *   // attach resize event handler
+   *   resize: () => console.log('resized'),
+   *   // attach change event handler
+   *   change: () => console.log('changed'),
    *   // follow other custom fields used by the widget (optional)
    *   config: {
    *     packetId: 14,
@@ -116,11 +120,17 @@ export class WidgetChartComponent extends WidgetComponent implements AfterConten
   }
 
   ngAfterContentInit() {
-    console.log('AfterViewInit');
+    // not sure how to get rid of this timeout
     setTimeout(() => {
       const Plotly = this.plotly.getPlotly();
       const graph = this.plotly.getInstanceByDivId(this.widget.id);
-      Plotly.update(graph);
+      Plotly.relayout(graph, { autosize: true });
+    // not sure how to get rid of this timeout
+    this.widget.resize = () => {
+        setTimeout(() => {
+          Plotly.relayout(graph, { autosize: true });
+        }, 200);
+      };
     }, 1000);
   }
 
