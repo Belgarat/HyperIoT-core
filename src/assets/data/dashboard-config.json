@@ -14,7 +14,10 @@
         "rows": 1,
         "y": 0,
         "x": 4,
-        "type": "hello-world"
+        "type": "text-label",
+        "config": {
+            "labelText": "Hello ..."
+        }
     },
     {
         "id": "widget-sensor",
@@ -27,7 +30,8 @@
             "packetId": 14,
             "packetFields": [
                 "temperature"
-            ]
+            ],
+            "displayUnit": "fahrenheit"
         }
     },
     {
@@ -36,7 +40,10 @@
         "rows": 1,
         "y": 0,
         "x": 4,
-        "type": "hello-world"
+        "type": "text-label",
+        "config": {
+            "labelText": "... World!"
+        }
     },
     {
         "id": "widget-3",

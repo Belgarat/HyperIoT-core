@@ -32,11 +32,14 @@ export class DataStreamService {
    * Connection status
    */
   isConnected: boolean;
+  eventStream: Subject<any>;
 
   private wsUrl = 'ws://' + location.hostname + (location.port ? ':' + location.port : '') + '/hyperiot/ws/project';
   private ws: WebSocket;
 
-  constructor() { }
+  constructor() {
+    this.eventStream = new Subject<any>();
+  }
 
   /**
    * Opens the WebSocket session for data streaming.
@@ -95,6 +98,7 @@ export class DataStreamService {
     // TODO: report error
   }
   private onWsMessage(event: MessageEvent) {
+    this.eventStream.next(event);
     // Serialized packet from Kafka-Flux
     let packet = JSON.parse(event.data);
     packet = JSON.parse(packet.payload);

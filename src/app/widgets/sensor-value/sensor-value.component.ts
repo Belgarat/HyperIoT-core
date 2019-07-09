@@ -10,6 +10,7 @@ export class SensorValueComponent extends WidgetComponent implements OnInit {
   @Input()
   widget;
   sensorValue: number;
+  sensorUnitSymbol: string;
 
   pause(): void {
     throw new Error('Method not implemented.');
@@ -27,8 +28,25 @@ export class SensorValueComponent extends WidgetComponent implements OnInit {
     this.subscribeRealTimeStream(dataPacketFilter, (eventData) => {
       const date = eventData[0];
       const field = eventData[1];
-      const value = Math.round(field[cfg.packetFields[0]] * 10) / 10;
-      this.sensorValue = value;
+      // get the sensor value
+      let value = +field[cfg.packetFields[0]];
+      // apply configured display unit
+      switch (cfg.displayUnit.toLowerCase()) {
+        case 'fahrenheit':
+          // convert value from celsius to Fahrenheit
+          value = (value * 9 / 5) + 32;
+          this.sensorUnitSymbol = '&#8457;';
+          break;
+        case 'kelvin':
+          value = value + 273.15;
+          this.sensorUnitSymbol = '&#8490;';
+          break;
+        default:
+            this.sensorUnitSymbol = '&#8451;';
+            break;
+      }
+      // round up to 1 decimal digit
+      this.sensorValue = Math.round(value * 10) / 10;
     });
   }
 

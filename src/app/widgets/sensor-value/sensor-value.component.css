@@ -1,9 +1,15 @@
-p {
+.sensor-value {
+    position: relative;
+    margin-top: 8px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 56px;
-    font-weight: bold;
+    font-weight: 400;
     text-align: center;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    margin-left: 10px;
     opacity: 0.5;
+}
+.unit {
+    opacity: 0.75;
+    font-size: 28px;
+    margin-left: 8px;
 }

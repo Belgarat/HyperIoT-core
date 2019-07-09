@@ -19,7 +19,7 @@ import { WidgetsLayoutComponent } from './dashboard/widgets-layout/widgets-layou
 import { TimeChartComponent } from './widgets/time-chart/time-chart.component';
 import { DynamicWidgetComponent } from './widgets/dynamic-widget/dynamic-widget.component';
 import { EventsLogComponent } from './widgets/events-log/events-log.component';
-import { HelloWorldComponent } from './widgets/hello-world/hello-world.component';
+import { TextLabelComponent } from './widgets/text-label/text-label.component';
 import { StatsChartComponent } from './widgets/stats-chart/stats-chart.component';
 import { SensorValueComponent } from './widgets/sensor-value/sensor-value.component';
 
@@ -31,7 +31,7 @@ import { SensorValueComponent } from './widgets/sensor-value/sensor-value.compon
     ServiceTestComponent,
     DynamicWidgetComponent,
     EventsLogComponent,
-    HelloWorldComponent,
+    TextLabelComponent,
     StatsChartComponent,
     SensorValueComponent
   ],
@@ -43,7 +43,7 @@ import { SensorValueComponent } from './widgets/sensor-value/sensor-value.compon
     DynamicModule.withComponents([
       TimeChartComponent,
       EventsLogComponent,
-      HelloWorldComponent,
+      TextLabelComponent,
     ]),
     PlotlyModule,
     CoreModule,

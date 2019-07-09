@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { GridsterConfig, GridsterItem, GridType, DisplayGrid } from 'angular-gridster2';
+import { GridsterConfig, GridsterItem, GridType, DisplayGrid, CompactType } from 'angular-gridster2';
 
 import { DataStreamService } from 'projects/core/src/lib/hyperiot-base/hyperiot-base.module';
 import { DashboardConfigService } from '../dashboard-config.service';
@@ -44,11 +44,12 @@ export class WidgetsLayoutComponent implements OnInit {
       itemChangeCallback: WidgetsLayoutComponent.itemChange,
       itemResizeCallback: WidgetsLayoutComponent.itemResize,
       gridType: GridType.Fit,
+      compactType: CompactType.CompactUp,
       displayGrid: DisplayGrid.OnDragAndResize,
-      disableWindowResize: false,
+      disableWindowResize: true,
       scrollToNewItems: false,
       disableWarnings: true,
-      ignoreMarginInRow: true,
+      ignoreMarginInRow: false,
       minCols: 8,
       maxCols: 8,
       minRows: 4,
