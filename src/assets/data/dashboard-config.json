@@ -6,7 +6,7 @@
         "y": 0,
         "x": 0,
         "type": "stats-chart",
-        "dataUrl": "/assets/test.widget-stats.1.json"
+        "dataUrl": "assets/data/test.widget-stats.1.json"
     },
     {
         "id": "widget-2",
@@ -127,7 +127,7 @@
         "y": 5,
         "x": 0,
         "type": "stats-chart",
-        "dataUrl": "/assets/test.widget-stats.2.json"
+        "dataUrl": "assets/data/test.widget-stats.2.json"
     },
     {
         "id": "widget-6",
