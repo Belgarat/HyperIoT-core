@@ -29,7 +29,7 @@ export * from './widgets/widget-chart.component';
 export * from './widgets/data/data-packet-filter';
 export * from './widgets/data/time-series';
 
-var PlotlyJS = require('./plotly');
+var PlotlyJS = require('./plotly.patched');
 import { PlotlyModule } from 'angular-plotly.js';
 PlotlyModule.plotlyjs = PlotlyJS;
 
