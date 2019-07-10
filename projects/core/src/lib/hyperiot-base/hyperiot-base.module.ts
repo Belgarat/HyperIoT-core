@@ -27,7 +27,7 @@ export * from './widgets/widget-chart.component';
 export * from './widgets/data/data-packet-filter';
 export * from './widgets/data/time-series';
 
-import * as PlotlyJS from './plotly.js';
+import * as PlotlyJS from 'plotly.js/dist/plotly.js';
 import { PlotlyModule } from 'angular-plotly.js';
 PlotlyModule.plotlyjs = PlotlyJS;
 
