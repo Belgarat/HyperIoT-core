@@ -125,7 +125,10 @@
         "rows": 2,
         "y": 3,
         "x": 0,
-        "type": "events-log"
+        "type": "events-log",
+        "config": {
+            "maxLogLines": 100
+        }
     },
     {
         "id": "widget-5",

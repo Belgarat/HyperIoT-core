@@ -39,6 +39,17 @@ export class EventsLogComponent implements OnInit, OnDestroy {
           ---
         </span>
       `;
+      // limit max log lines
+      let maxLogLines = 100;
+      if (this.widget.config && this.widget.config.maxLogLines) {
+        maxLogLines = +this.widget.config.maxLogLines;
+      }
+      const logdiv = this.log.nativeElement; 
+      console.log(logdiv.childNodes.length, maxLogLines);
+      while (logdiv.childNodes.length > maxLogLines) {
+        const logLine = logdiv.childNodes[logdiv.childNodes.length - 1];
+        logdiv.removeChild(logLine);
+      }
       this.log.nativeElement
         .insertAdjacentHTML('afterbegin', rowHtml);
     });
