@@ -46,7 +46,7 @@ export class WidgetsLayoutComponent implements OnInit {
       gridType: GridType.Fit,
       compactType: CompactType.CompactUp,
       displayGrid: DisplayGrid.OnDragAndResize,
-      disableWindowResize: true,
+      disableWindowResize: false,
       scrollToNewItems: false,
       disableWarnings: true,
       ignoreMarginInRow: false,
