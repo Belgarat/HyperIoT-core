@@ -16,7 +16,7 @@ import { DataStreamService } from 'projects/core/src/lib/hyperiot-base/hyperiot-
 export class EventsLogComponent implements OnInit, OnDestroy {
   @Input()
   widget;
-  @ViewChild('log') private log: ElementRef;
+  @ViewChild('log', { static: true }) private log: ElementRef;
 
   /**
    * Contructor
