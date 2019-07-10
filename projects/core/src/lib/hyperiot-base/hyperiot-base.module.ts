@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DataStreamService } from './services/data-stream.service';
-import { WidgetComponent } from './widgets/widget.component';
 import { WidgetChartComponent } from './widgets/widget-chart.component';
 
 @NgModule({

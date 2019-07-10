@@ -46,7 +46,7 @@ export class WidgetsLayoutComponent implements OnInit {
       gridType: GridType.Fit,
       compactType: CompactType.CompactUp,
       displayGrid: DisplayGrid.OnDragAndResize,
-      disableWindowResize: true,
+      disableWindowResize: false,
       scrollToNewItems: false,
       disableWarnings: true,
       ignoreMarginInRow: false,
@@ -70,7 +70,6 @@ export class WidgetsLayoutComponent implements OnInit {
     };
     this.dashboard = [];
     this.configService.getConfig().subscribe((c: Array<GridsterItem>) => {
-      console.log(c);
       this.dashboard = c;
     });
     // TODO: the connection should happen somewhere else in the main page

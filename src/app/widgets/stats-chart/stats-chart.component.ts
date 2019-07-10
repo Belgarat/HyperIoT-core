@@ -24,7 +24,6 @@ export class StatsChartComponent extends WidgetChartComponent implements OnInit 
     // get moked chart data from JSON asset file
     this.http.get(this.widget.dataUrl)
       .subscribe((data: any) => {
-        console.log(data);
         this.graph.data = data.data;
         Object.assign(this.graph.layout, data.layout);
       });
