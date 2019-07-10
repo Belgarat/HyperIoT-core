@@ -5,8 +5,6 @@ import { DataStreamService } from './services/data-stream.service';
 import { WidgetComponent } from './widgets/widget.component';
 import { WidgetChartComponent } from './widgets/widget-chart.component';
 
-declare const require;
-
 @NgModule({
   declarations: [
     WidgetChartComponent
@@ -29,7 +27,7 @@ export * from './widgets/widget-chart.component';
 export * from './widgets/data/data-packet-filter';
 export * from './widgets/data/time-series';
 
-var PlotlyJS = require('./plotly.patched');
+import * as PlotlyJS from 'plotly.js/dist/plotly.js';
 import { PlotlyModule } from 'angular-plotly.js';
 PlotlyModule.plotlyjs = PlotlyJS;
 
