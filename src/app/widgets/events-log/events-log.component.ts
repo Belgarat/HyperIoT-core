@@ -6,6 +6,7 @@ import {
   ViewChild,
   ElementRef
 } from '@angular/core';
+
 import { DataStreamService } from 'projects/core/src/lib/hyperiot-base/hyperiot-base.module';
 
 @Component({
@@ -18,26 +19,36 @@ export class EventsLogComponent implements OnInit, OnDestroy {
   widget;
   @ViewChild('log', { static: true }) private log: ElementRef;
 
+  private encapsulationId: string;
   /**
    * Contructor
    * @param dataStreamService Inject data stream service
    */
-  constructor(private dataStreamService: DataStreamService) { }
+  constructor(private hostElement: ElementRef, private dataStreamService: DataStreamService) {
+    const hel = hostElement.nativeElement;
+    for (let j = 0; j < hel.attributes.length; j++) {
+      const a = hel.attributes[j];
+      if (a.name.indexOf('_nghost-') === 0) {
+        this.encapsulationId = a.name.replace('_nghost-', '_ngcontent-');
+        break;
+      }
+    }
+  }
 
   ngOnInit() {
     this.dataStreamService.eventStream.subscribe((event) => {
       let packet = JSON.parse(event.data);
       // packet = JSON.parse(packet.payload);
       const rowHtml = `
-        <span class="time">
+        <div ${this.encapsulationId} class="time">
           ${new Date().toLocaleTimeString()}
-        </span>
-        <span class="message">
+        </div>
+        <div ${this.encapsulationId} class="message">
           ${packet.payload}
-        </span>
-        <span class="extra">
+        </div>
+        <div ${this.encapsulationId} class="extra">
           ---
-        </span>
+        </div>
       `;
       // limit max log lines
       let maxLogLines = 100;
@@ -45,8 +56,7 @@ export class EventsLogComponent implements OnInit, OnDestroy {
         maxLogLines = +this.widget.config.maxLogLines;
       }
       const logdiv = this.log.nativeElement; 
-      console.log(logdiv.childNodes.length, maxLogLines);
-      while (logdiv.childNodes.length > maxLogLines) {
+      while (logdiv.childNodes.length / 3 > maxLogLines) {
         const logLine = logdiv.childNodes[logdiv.childNodes.length - 1];
         logdiv.removeChild(logLine);
       }
