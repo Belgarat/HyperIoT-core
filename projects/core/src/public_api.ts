@@ -11,8 +11,8 @@ export {
     WidgetComponent,
     WidgetChartComponent,
     TimeSeries,
-    DataPacketFilter as DataPacket,
-    DataStreamService as DataChannelService,
+    DataPacketFilter,
+    DataStreamService,
     PlotlyModule, PlotlyJS
 } from './lib/hyperiot-base/hyperiot-base.module';
 

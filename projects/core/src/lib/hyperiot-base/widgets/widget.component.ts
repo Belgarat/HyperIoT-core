@@ -4,10 +4,6 @@ import { DataChannel, DataStreamService } from '../services/data-stream.service'
 import { DataPacketFilter } from './data/data-packet-filter';
 import { PartialObserver } from 'rxjs';
 
-@Component({
-  selector: 'hyperiot-widget',
-  template: ''
-})
 /**
  * Base class for widget implementation
  */
