@@ -70,7 +70,6 @@ export class WidgetsLayoutComponent implements OnInit {
     };
     this.dashboard = [];
     this.configService.getConfig().subscribe((c: Array<GridsterItem>) => {
-      console.log(c);
       this.dashboard = c;
     });
     // TODO: the connection should happen somewhere else in the main page
