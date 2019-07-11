@@ -15,18 +15,7 @@ export class WidgetsLayoutComponent implements OnInit {
 
   dragEnabled = true;
   dashboard: Array<GridsterItem>;
-
-  static itemChange(item, itemComponent) {
-    if (typeof item.change === 'function') {
-      item.change();
-    }
-  }
-
-  static itemResize(item, itemComponent) {
-    if (typeof item.resize === 'function') {
-      item.resize();
-    }
-  }
+  private originalDashboard: Array<GridsterItem>;
 
   /**
    * This is a demo dashboard for testing widgets
@@ -41,8 +30,8 @@ export class WidgetsLayoutComponent implements OnInit {
 
   ngOnInit() {
     this.options = {
-      itemChangeCallback: WidgetsLayoutComponent.itemChange,
-      itemResizeCallback: WidgetsLayoutComponent.itemResize,
+      itemChangeCallback: this.onItemChange.bind(this),
+      itemResizeCallback: this.onItemResize.bind(this),
       gridType: GridType.Fit,
       compactType: CompactType.CompactUp,
       displayGrid: DisplayGrid.OnDragAndResize,
@@ -69,8 +58,9 @@ export class WidgetsLayoutComponent implements OnInit {
       }
     };
     this.dashboard = [];
-    this.configService.getConfig().subscribe((c: Array<GridsterItem>) => {
-      this.dashboard = c;
+    this.configService.getConfig().subscribe((dashboardConfig: Array<GridsterItem>) => {
+      this.dashboard = dashboardConfig;
+      this.originalDashboard = JSON.parse(JSON.stringify(dashboardConfig));
     });
     // TODO: the connection should happen somewhere else in the main page
     this.dataStreamService.connect();
@@ -82,7 +72,23 @@ export class WidgetsLayoutComponent implements OnInit {
     this.options.api.optionsChanged();
   }
 
+  isDirty() {
+    return JSON.stringify(this.dashboard) !== JSON.stringify(this.originalDashboard);
+  }
+
   // Gridster methods
+
+  onItemChange(item, itemComponent) {
+    if (typeof item.change === 'function') {
+      item.change();
+    }
+  }
+
+  onItemResize(item, itemComponent) {
+    if (typeof item.resize === 'function') {
+      item.resize();
+    }
+  }
 
   changedOptions() {
     this.options.api.optionsChanged();
