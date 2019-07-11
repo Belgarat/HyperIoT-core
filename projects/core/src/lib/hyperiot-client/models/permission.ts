@@ -12,7 +12,7 @@
 import { Role } from './role';
 
 
-export interface Permission {
+export interface Permission { 
     id?: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;

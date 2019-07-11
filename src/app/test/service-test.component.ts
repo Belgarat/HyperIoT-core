@@ -265,8 +265,8 @@ export class ServiceTestComponent {
     var hProject: HProject = {
       categoryIds: [],
       tagIds: [],
-      name: 'Luke Project',
-      description: 'Progetto arduino test',
+      name: 'Test project',
+      description: 'Progetto test',
       user: use
     }
     hProjectService.saveHProject(hProject).subscribe(
@@ -280,15 +280,15 @@ export class ServiceTestComponent {
     var hDeviceService: HdevicesService = new HdevicesService(this.httpClient, null, this.config);
 
     var hDevice: HDevice = {
-      deviceName: 'Arduino',
+      deviceName: 'Prova device',
       brand: 'ACS',
       model: 'ESP8266 NODE MCU',
       firmwareVersion: '1.0.0',
       softwareVersion: '1.0.0',
-      description: 'WiFi Development Board co',
-      password: 'passwordPass/007',
-      passwordConfirm: 'passwordPass/007',
-      project: this.projectList.find(x => x.name == 'Luke Project')
+      description: 'Description',
+      password: 'Password01!',
+      passwordConfirm: 'Password01!',
+      project: this.projectList.find(x => x.name == 'First project 2')
     }
 
     hDeviceService.saveHDevice(hDevice).subscribe(
@@ -437,7 +437,7 @@ export class ServiceTestComponent {
   //OK
   getAllProject() {
     var hProjectsService: HprojectsService = new HprojectsService(this.httpClient, null, this.config);
-    hProjectsService.findAllHProject_1().subscribe(
+    hProjectsService.findAllHProject().subscribe(
       res => {
         console.log(res);
         this.projectList = <HProject[]>res;

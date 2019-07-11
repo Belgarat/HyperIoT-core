@@ -13,6 +13,6 @@
 
 export interface ContentDisposition { 
     type?: string;
-    filename?: string;
     parameters?: { [key: string]: string; };
+    filename?: string;
 }
