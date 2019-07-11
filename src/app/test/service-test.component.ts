@@ -280,7 +280,7 @@ export class ServiceTestComponent {
     var hDeviceService: HdevicesService = new HdevicesService(this.httpClient, null, this.config);
 
     var hDevice: HDevice = {
-      deviceName: 'Prova device',
+      deviceName: 'ProvaDevice',
       brand: 'ACS',
       model: 'ESP8266 NODE MCU',
       firmwareVersion: '1.0.0',
