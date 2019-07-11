@@ -321,13 +321,12 @@ export class ServiceTestComponent {
     var hPacketService: HpacketsService = new HpacketsService(this.httpClient, null, this.config);
 
     var hPacket: HPacket = {
-      name: 'TestPacketTest',
+      name: 'ArduinoPacket',
       type: 'OUTPUT',
       format: 'JSON',
       serialization: 'AVRO',
-      device: this.devicesList.find(x => x.deviceName == 'TestDeviceTest'),
-      version: '1.0',
-      fields: [this.hPacketField1, this.hPacketField2]
+      device: this.devicesList.find(x => x.deviceName == 'Arduino'),
+      version: '1.0'
     }
     hPacketService.saveHPacket(hPacket).subscribe(
       res => { },
