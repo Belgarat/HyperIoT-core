@@ -1,6 +1,6 @@
 /**
- * HyperIoT HPacket
- * HyperIoT HPacket API
+ * HyperIoT Rule
+ * HyperIoT Rule API
  *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it

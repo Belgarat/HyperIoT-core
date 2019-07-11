@@ -1,6 +1,6 @@
 /**
- * HyperIoT HPacket
- * HyperIoT HPacket API
+ * HyperIoT Rule
+ * HyperIoT Rule API
  *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
@@ -18,7 +18,7 @@ export interface HDevice {
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     deviceName: string;
-    password: string;
+    password?: string;
     passwordConfirm?: string;
     brand: string;
     model: string;
@@ -28,5 +28,4 @@ export interface HDevice {
     project: HProject;
     admin?: boolean;
     roles?: Array<HyperIoTRole>;
-    active?: boolean;
 }

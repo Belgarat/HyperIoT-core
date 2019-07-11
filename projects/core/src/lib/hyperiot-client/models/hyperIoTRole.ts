@@ -1,6 +1,6 @@
 /**
- * HyperIoT HPacket
- * HyperIoT HPacket API
+ * HyperIoT Rule
+ * HyperIoT Rule API
  *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
@@ -16,8 +16,8 @@ export interface HyperIoTRole {
     name?: string;
     parent?: HyperIoTBaseEntity;
     id?: number;
-    categoryIds?: Array<number>;
     tagIds?: Array<number>;
+    categoryIds?: Array<number>;
     systemApiClassName?: string;
     resourceName?: string;
 }

@@ -15,4 +15,5 @@ export interface HyperIoTAssetOwnerImpl {
     ownerResourceName?: string;
     ownerResourceId?: number;
     userId?: number;
+    resourceName?: string;
 }

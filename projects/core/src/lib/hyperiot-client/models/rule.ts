@@ -11,6 +11,7 @@
  */
 import { HPacket } from './hPacket';
 import { HProject } from './hProject';
+import { RuleNode } from './ruleNode';
 
 
 export interface Rule { 
@@ -24,6 +25,7 @@ export interface Rule {
     packet?: HPacket;
     jsonActions: string;
     type?: Rule.TypeEnum;
+    rule?: RuleNode;
 }
 export namespace Rule {
     export type TypeEnum = 'ENRICHMENT' | 'EVENT';
