@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs/operators';
+import { DashboardwidgetsService } from 'projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module';
 
 @Injectable()
 export class DashboardConfigService {
-    constructor(private http: HttpClient) { }
     configUrl = 'assets/data/dashboard-config-rest.json';
     testConfigUrl = 'assets/data/dashboard-config.json';
 
+    constructor(private dashboardWidgetService: DashboardwidgetsService, private http: HttpClient) { }
+
     getConfig() {
-        const subject = this.http.get(this.configUrl)
+        const subject = this.dashboardWidgetService.findAllDashboardWidget()
             .pipe(
                 map(
                     (data: any[]) => {

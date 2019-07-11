@@ -8,7 +8,7 @@ import { DynamicModule } from 'ng-dynamic-component';
 
 import { CoreModule } from 'projects/core/src/lib/core.module';
 import { HyperiotBaseModule, PlotlyModule } from 'projects/core/src/lib/hyperiot-base/hyperiot-base.module';
-import { AuthenticationService } from 'projects/core/src/public_api';
+import { AuthenticationService, HUserClientModule, Configuration, ConfigurationParameters } from 'projects/core/src/public_api';
 import { ServiceTestComponent } from './test/service-test.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +22,17 @@ import { EventsLogComponent } from './widgets/events-log/events-log.component';
 import { TextLabelComponent } from './widgets/text-label/text-label.component';
 import { StatsChartComponent } from './widgets/stats-chart/stats-chart.component';
 import { SensorValueComponent } from './widgets/sensor-value/sensor-value.component';
+import { DashboardwidgetsService } from 'projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module';
+
+export function apiConfigFactory(): Configuration {
+  const params: ConfigurationParameters = {
+    apiKeys: {},
+    username: '',
+    password: '',
+    accessToken: ''
+  }
+  return new Configuration(params);
+}
 
 @NgModule({
   declarations: [
@@ -48,9 +59,10 @@ import { SensorValueComponent } from './widgets/sensor-value/sensor-value.compon
     PlotlyModule,
     CoreModule,
     HyperiotBaseModule,
+    HUserClientModule.forRoot(apiConfigFactory),
     AppRoutingModule
   ],
-  providers: [AuthenticationService, DashboardConfigService],
+  providers: [AuthenticationService, DashboardConfigService, DashboardwidgetsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
