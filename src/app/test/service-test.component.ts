@@ -64,12 +64,12 @@ export class ServiceTestComponent {
     }
     this.authService.login(this.profileForm.value.username, this.profileForm.value.password).subscribe(
       res => {
-        this.actualJWT = <JWTLoginResponse>res;
-        console.log(this.actualJWT)
+        var jwtToken = <JWTLoginResponse>res;
+        document.cookie = 'HIT-AUTH=' + jwtToken.token;
         this.loginClass = 'loginClassOk';
 
         this.conf = {
-          apiKeys: { 'AUTHORIZATION': 'JWT ' + this.actualJWT.token },
+          apiKeys: { 'AUTHORIZATION': 'JWT ' + jwtToken.token },
           username: this.profileForm.value.username,
           password: '',
           accessToken: '',
