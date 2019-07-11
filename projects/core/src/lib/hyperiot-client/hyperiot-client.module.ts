@@ -14,6 +14,9 @@ import { ApiModule as PermissionClientModule } from './permission-client/api-mod
 import { ApiModule as RoleClientModule } from './role-client/api-module/api.module';
 import { ApiModule as RuleClientModule } from './rule-client/api-module/api.module';
 import { ApiModule as StormManagerClientModule } from './storm-manager-client/api-module/api.module';
+import { ApiModule as DashboardClientModule } from './dashboard-client/api-module/api.module';
+import { ApiModule as DashboardWidgetsClientModule } from './dashboard-widgets-client/api-module/api.module';
+import { ApiModule as CompanyClient } from './company-client/api-module/api.module';
 
 @NgModule({
   declarations: [],
@@ -32,6 +35,9 @@ import { ApiModule as StormManagerClientModule } from './storm-manager-client/ap
     RoleClientModule,
     RuleClientModule,
     StormManagerClientModule,
+    DashboardClientModule,
+    DashboardWidgetsClientModule,
+    CompanyClient,
     CommonModule
   ]
 })
