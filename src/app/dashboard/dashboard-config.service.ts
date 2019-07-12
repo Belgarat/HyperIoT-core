@@ -12,7 +12,7 @@ export class DashboardConfigService {
     constructor(private dashboardWidgetService: DashboardwidgetsService, private http: HttpClient) { }
 
     getConfig() {
-        const subject = this.dashboardWidgetService.findAllDashboardWidget()
+        const subject = this.dashboardWidgetService.findAllDashboardWidget_1(1)
             .pipe(
                 map(
                     (data: any[]) => {

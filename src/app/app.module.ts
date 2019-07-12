@@ -23,6 +23,9 @@ import { TextLabelComponent } from './widgets/text-label/text-label.component';
 import { StatsChartComponent } from './widgets/stats-chart/stats-chart.component';
 import { SensorValueComponent } from './widgets/sensor-value/sensor-value.component';
 import { DashboardwidgetsService } from 'projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { DashboardsListComponent } from './dashboard/dashboards-list/dashboards-list.component';
+import { DashboardViewComponent } from './dashboard/dashboard-view/dashboard-view.component';
 
 export function apiConfigFactory(): Configuration {
   const params: ConfigurationParameters = {
@@ -44,7 +47,10 @@ export function apiConfigFactory(): Configuration {
     EventsLogComponent,
     TextLabelComponent,
     StatsChartComponent,
-    SensorValueComponent
+    SensorValueComponent,
+    PageNotFoundComponent,
+    DashboardsListComponent,
+    DashboardViewComponent
   ],
   imports: [
     BrowserModule,
