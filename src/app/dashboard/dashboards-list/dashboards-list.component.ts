@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardConfigService } from '../dashboard-config.service';
+import { Dashboard } from 'projects/core/src/public_api';
 
 @Component({
   selector: 'app-dashboards-list',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboards-list.component.css']
 })
 export class DashboardsListComponent implements OnInit {
+  dashboardList: Dashboard[] = [];
 
-  constructor() { }
+  constructor(private configService: DashboardConfigService) { }
 
   ngOnInit() {
+    this.configService.getDashboardList().subscribe((list) => this.dashboardList = list);
   }
 
 }

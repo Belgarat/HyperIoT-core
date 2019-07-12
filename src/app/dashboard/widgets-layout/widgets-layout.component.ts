@@ -15,6 +15,7 @@ export class WidgetsLayoutComponent implements OnInit {
 
   dragEnabled = true;
   dashboard: Array<GridsterItem>;
+  @Input() dashboardId: string;
   private originalDashboard: Array<GridsterItem>;
 
   /**
@@ -58,7 +59,7 @@ export class WidgetsLayoutComponent implements OnInit {
       }
     };
     this.dashboard = [];
-    this.configService.getConfig().subscribe((dashboardConfig: Array<GridsterItem>) => {
+    this.configService.getConfig(this.dashboardId).subscribe((dashboardConfig: Array<GridsterItem>) => {
       this.dashboard = dashboardConfig;
       this.originalDashboard = JSON.parse(JSON.stringify(dashboardConfig));
     });

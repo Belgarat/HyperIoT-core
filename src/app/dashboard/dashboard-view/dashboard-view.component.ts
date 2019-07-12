@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Route } from '@angular/compiler/src/core';
+import { Router, ActivatedRoute, ParamMap, Route } from '@angular/router';
+
 import { switchMap } from 'rxjs/operators';
 
 import { WidgetsLayoutComponent } from '../widgets-layout/widgets-layout.component';
@@ -14,16 +14,11 @@ export class DashboardViewComponent implements OnInit {
   private dashboardId: string;
 
   constructor(
-    // private route: ActivatedRoute,
-    // private router: Route
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    // this.route.paramMap.pipe(
-    //   switchMap((params: ParamMap) =>
-    //     this.dashboardId = params.get('id')
-    //   )
-    // );
+    this.dashboardId = this.route.snapshot.paramMap.get('id');
   }
 
 }
