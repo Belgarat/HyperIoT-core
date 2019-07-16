@@ -10,8 +10,8 @@ import { ModalDialogComponent } from 'src/app/modal-dialog/modal-dialog.componen
   styleUrls: ['./dashboard-view.component.css']
 })
 export class DashboardViewComponent implements OnInit {
-  @ViewChild(WidgetsLayoutComponent, { static: true })
   @ViewChild('widgetDialog', {static: true}) widgetDialog: ModalDialogComponent;
+  @ViewChild(WidgetsLayoutComponent, { static: true })
   private dashboardLayout: WidgetsLayoutComponent;
   private dashboardId: string;
 
