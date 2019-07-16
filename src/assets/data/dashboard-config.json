@@ -1,6 +1,7 @@
 [
     {
-        "id": "widget-1",
+        "id": 1,
+        "widgetId": "widget-1",
         "cols": 4,
         "rows": 3,
         "y": 0,
@@ -9,7 +10,8 @@
         "dataUrl": "assets/data/test.widget-stats.1.json"
     },
     {
-        "id": "widget-2",
+        "id": 2,
+        "widgetId": "widget-2",
         "cols": 2,
         "rows": 1,
         "y": 0,
@@ -20,7 +22,8 @@
         }
     },
     {
-        "id": "widget-sensor",
+        "id": 3,
+        "widgetId": "widget-sensor",
         "cols": 2,
         "rows": 2,
         "y": 0,
@@ -35,7 +38,8 @@
         }
     },
     {
-        "id": "widget-2ter",
+        "id": 4,
+        "widgetId": "widget-2ter",
         "cols": 2,
         "rows": 1,
         "y": 0,
@@ -46,7 +50,8 @@
         }
     },
     {
-        "id": "widget-3",
+        "id": 5,
+        "widgetId": "widget-3",
         "cols": 4,
         "rows": 3,
         "y": 0,
@@ -120,7 +125,8 @@
         }
     },
     {
-        "id": "widget-4",
+        "id": 6,
+        "widgetId": "widget-4",
         "cols": 4,
         "rows": 2,
         "y": 3,
@@ -131,7 +137,8 @@
         }
     },
     {
-        "id": "widget-5",
+        "id": 7,
+        "widgetId": "widget-5",
         "cols": 4,
         "rows": 3,
         "y": 5,
@@ -140,7 +147,8 @@
         "dataUrl": "assets/data/test.widget-stats.2.json"
     },
     {
-        "id": "widget-6",
+        "id": 8,
+        "widgetId": "widget-6",
         "cols": 4,
         "rows": 3,
         "y": 0,

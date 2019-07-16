@@ -26,6 +26,7 @@ import { DashboardwidgetsService } from 'projects/core/src/lib/hyperiot-client/d
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DashboardsListComponent } from './dashboard/dashboards-list/dashboards-list.component';
 import { DashboardViewComponent } from './dashboard/dashboard-view/dashboard-view.component';
+import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 
 export function apiConfigFactory(): Configuration {
   const params: ConfigurationParameters = {
@@ -50,7 +51,8 @@ export function apiConfigFactory(): Configuration {
     SensorValueComponent,
     PageNotFoundComponent,
     DashboardsListComponent,
-    DashboardViewComponent
+    DashboardViewComponent,
+    ModalDialogComponent
   ],
   imports: [
     BrowserModule,
