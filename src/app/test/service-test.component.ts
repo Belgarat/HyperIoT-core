@@ -311,7 +311,6 @@ export class ServiceTestComponent {
 
   hPacketField1: HPacketField =
     {
-      packet: null,
       name: 'temperature',
       description: 'Temperature',
       type: 'DOUBLE',
@@ -320,7 +319,6 @@ export class ServiceTestComponent {
 
   hPacketField2: HPacketField =
     {
-      packet: null,
       name: 'humidity',
       description: 'Humidity',
       type: 'DOUBLE',
