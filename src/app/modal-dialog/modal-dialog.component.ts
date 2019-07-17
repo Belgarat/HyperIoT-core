@@ -1,4 +1,6 @@
 import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
+import { HPacket } from 'projects/core/src/lib/hyperiot-client/models/hPacket';
+import { HpacketsService } from 'projects/core/src/lib/hyperiot-client/h-packet-client/api-module';
 
 @Component({
   selector: 'app-modal-dialog',
@@ -6,10 +8,17 @@ import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
   styleUrls: ['./modal-dialog.component.css']
 })
 export class ModalDialogComponent implements OnInit, OnDestroy {
-  constructor(private viewContainer: ElementRef) { }
+  public projectPackets: HPacket[] = [];
+  constructor(
+    private viewContainer: ElementRef,
+    private packetService: HpacketsService
+  ) { }
 
   ngOnInit() {
     this.viewContainer.nativeElement.addEventListener('click', this.dismiss.bind(this));
+    this.packetService
+        .findAllHPacket_1()
+        .subscribe((packetList) => this.projectPackets = packetList);
     this.close();
   }
   ngOnDestroy() {

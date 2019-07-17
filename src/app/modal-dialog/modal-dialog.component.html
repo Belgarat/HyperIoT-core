@@ -7,5 +7,13 @@
         <option>Sensor widget</option>
         <option>...</option>
     </select>
+
+    <p>Select packet</p>
+    <select size="5">
+        <ng-container *ngFor="let packet of projectPackets">
+            <option [value]="packet.id">{{packet.name}}</option>
+        </ng-container>
+    </select>
+
     <button class="button-close" (click)="close()">X</button>
 </div>
