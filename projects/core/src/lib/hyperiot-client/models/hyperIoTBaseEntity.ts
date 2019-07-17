@@ -12,10 +12,10 @@
 
 
 export interface HyperIoTBaseEntity { 
-    parent?: HyperIoTBaseEntity;
     id?: number;
-    tagIds?: Array<number>;
-    categoryIds?: Array<number>;
     systemApiClassName?: string;
+    categoryIds?: Array<number>;
+    tagIds?: Array<number>;
+    parent?: HyperIoTBaseEntity;
     resourceName?: string;
 }

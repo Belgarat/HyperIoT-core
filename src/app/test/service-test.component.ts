@@ -279,16 +279,28 @@ export class ServiceTestComponent {
   addUserDevice() {
     var hDeviceService: HdevicesService = new HdevicesService(this.httpClient, null, this.config);
 
+    // var hDevice: HDevice = {
+    //   deviceName: 'ProvaDevice',
+    //   brand: 'ACS',
+    //   model: 'ESP8266 NODE MCU',
+    //   firmwareVersion: '1.0.0',
+    //   softwareVersion: '1.0.0',
+    //   description: 'Description',
+    //   password: 'Password01!',
+    //   passwordConfirm: 'Password01!',
+    //   project: this.projectList.find(x => x.name == 'First project 2')
+    // }
+
     var hDevice: HDevice = {
-      deviceName: 'ProvaDevice',
+      deviceName: 'Arduino2',
       brand: 'ACS',
       model: 'ESP8266 NODE MCU',
       firmwareVersion: '1.0.0',
       softwareVersion: '1.0.0',
       description: 'Description',
-      password: 'Password01!',
-      passwordConfirm: 'Password01!',
-      project: this.projectList.find(x => x.name == 'First project 2')
+      password: 'Password123!',
+      passwordConfirm: 'Password123!',
+      project: this.projectList.find(x => x.name == 'Luke Project')
     }
 
     hDeviceService.saveHDevice(hDevice).subscribe(
@@ -321,11 +333,11 @@ export class ServiceTestComponent {
     var hPacketService: HpacketsService = new HpacketsService(this.httpClient, null, this.config);
 
     var hPacket: HPacket = {
-      name: 'ArduinoPacket',
+      name: 'ArduinoPacket2',
       type: 'OUTPUT',
       format: 'JSON',
       serialization: 'AVRO',
-      device: this.devicesList.find(x => x.deviceName == 'Arduino'),
+      device: this.devicesList.find(x => x.deviceName == 'Arduino2'),
       version: '1.0'
     }
     hPacketService.saveHPacket(hPacket).subscribe(
