@@ -103,4 +103,8 @@ export class WidgetsLayoutComponent implements OnInit {
     // this.dashboard.push({ });
   }
 
+  saveDashboard() {
+    this.configService.putConfig(this.dashboardId, this.dashboard)
+      .subscribe((res) => console.log(res));
+  }
 }

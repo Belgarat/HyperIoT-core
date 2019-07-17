@@ -123,7 +123,7 @@ export class WidgetChartComponent extends WidgetComponent implements AfterConten
     // not sure how to get rid of this timeout
     setTimeout(() => {
       const Plotly = this.plotly.getPlotly();
-      const graph = this.plotly.getInstanceByDivId(this.widget.id);
+      const graph = this.plotly.getInstanceByDivId(this.widget.widgetId);
       Plotly.relayout(graph, { autosize: true });
     // not sure how to get rid of this timeout
     this.widget.resize = () => {
@@ -238,7 +238,7 @@ export class WidgetChartComponent extends WidgetComponent implements AfterConten
     const rangeStart = new Date(rangeEnd.getTime() - (1 * this.widget.config.timeAxisRange * 1000));
     // relayout x-axis range with new data
     const Plotly = this.plotly.getPlotly();
-    const graph = this.plotly.getInstanceByDivId(this.widget.id);
+    const graph = this.plotly.getInstanceByDivId(this.widget.widgetId);
     Plotly.relayout(graph, { 'xaxis.range': [rangeStart, rangeEnd] });
   }
 

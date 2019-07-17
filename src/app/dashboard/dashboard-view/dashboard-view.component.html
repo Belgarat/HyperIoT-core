@@ -1,5 +1,8 @@
 <div>
-    <a href="#">[SAVE]</a> <a href="#">[ADD WIDGET]</a>
+    <button (click)="saveDashboard()">Save</button>
+    <button (click)="addWidget()">Add widget</button>
 </div>
 
 <app-widgets-layout [dashboardId]="dashboardId"></app-widgets-layout>
+
+<app-modal-dialog #widgetDialog></app-modal-dialog>

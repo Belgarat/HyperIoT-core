@@ -62,7 +62,7 @@ export abstract class WidgetComponent implements OnDestroy {
    */
   subscribeRealTimeStream(packetFilter: DataPacketFilter, observerCallback: PartialObserver<[any, any]> | any): void {
     this.unsubscribeRealTimeStream();
-    this.dataChannel = this.dataStreamService.addDataStream(this.widget.id, packetFilter);
+    this.dataChannel = this.dataStreamService.addDataStream(this.widget.widgetId, packetFilter);
     this.dataChannel.subject.subscribe(observerCallback);
   }
 
@@ -73,7 +73,7 @@ export abstract class WidgetComponent implements OnDestroy {
     if (this.dataChannel != null) {
       // TODO: maybe move the unsubscription inside the DataStreamServiceid)l
       this.dataChannel.subject.unsubscribe();
-      this.dataStreamService.removeDataChannel(this.widget.id);
+      this.dataStreamService.removeDataChannel(this.widget.widgetId);
     }
   }
 }
