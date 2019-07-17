@@ -8,6 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "compodocCore": "npx compodoc -p projects/core/tsconfig.lib.json -d documentation/hyperiot-core",
     "postinstall": "patch-package"
   },
   "private": true,
@@ -39,6 +40,7 @@
     "@angular/cli": "~8.1.0",
     "@angular/compiler-cli": "~8.1.0",
     "@angular/language-service": "~8.1.0",
+    "@compodoc/compodoc": "^1.1.10",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",

@@ -1,7 +1,4 @@
 /**
- * HyperIoT DashboardWidget
- * HyperIoT DashboardWidget API
- *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -9,7 +6,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Dashboard } from './dashboard';
 
 
 export interface DashboardWidget { 
@@ -18,5 +14,4 @@ export interface DashboardWidget {
     tagIds?: Array<number>;
     widgetId: string;
     widgetConf: string;
-    dashboard: Dashboard;
 }

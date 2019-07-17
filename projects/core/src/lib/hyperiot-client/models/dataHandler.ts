@@ -1,7 +1,4 @@
 /**
- * HyperIoT Storm Manager
- * HyperIoT StormManager API
- *
  * OpenAPI spec version: 1.0.0
  * Contact: users@acsoftware.it
  *
@@ -19,8 +16,8 @@ import { OutputStream } from './outputStream';
 export interface DataHandler { 
     preferredCommands?: Array<CommandInfo>;
     allCommands?: Array<CommandInfo>;
-    contentType?: string;
     outputStream?: OutputStream;
+    contentType?: string;
     dataSource?: DataSource;
     transferDataFlavors?: Array<DataFlavor>;
     name?: string;

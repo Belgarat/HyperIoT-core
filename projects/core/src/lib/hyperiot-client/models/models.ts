@@ -27,7 +27,7 @@ export * from './mailTemplate';
 export * from './mediaType';
 export * from './mqttConnectorConfig';
 export * from './outputStream';
-export * from './/permission';
+export * from './permission';
 export * from './role';
 export * from './rule';
 export * from './ruleNode';

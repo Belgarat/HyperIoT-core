@@ -1,7 +1,4 @@
 /**
- * HyperIoT Storm Manager
- * HyperIoT StormManager API
- *
  * OpenAPI spec version: 1.0.0
  * Contact: users@acsoftware.it
  *
@@ -18,7 +15,7 @@ export interface Attachment {
     headers?: { [key: string]: Array<string>; };
     object?: any;
     contentType?: MediaType;
-    contentId?: string;
     dataHandler?: DataHandler;
+    contentId?: string;
     contentDisposition?: ContentDisposition;
 }
