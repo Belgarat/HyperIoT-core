@@ -1,7 +1,4 @@
 /**
- * HyperIoT Storm Manager
- * HyperIoT StormManager API
- *
  * OpenAPI spec version: 1.0.0
  * Contact: users@acsoftware.it
  *

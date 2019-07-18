@@ -1,7 +1,4 @@
 /**
- * HyperIoT Rule
- * HyperIoT Rule API
- *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -13,11 +10,12 @@ import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 
 
 export interface HyperIoTRole { 
+    description?: string;
     name?: string;
     id?: number;
-    systemApiClassName?: string;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
+    systemApiClassName?: string;
     parent?: HyperIoTBaseEntity;
     resourceName?: string;
 }

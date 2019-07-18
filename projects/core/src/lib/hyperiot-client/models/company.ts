@@ -1,7 +1,4 @@
 /**
- * HyperIoT Company
- * HyperIoT Company API
- *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *

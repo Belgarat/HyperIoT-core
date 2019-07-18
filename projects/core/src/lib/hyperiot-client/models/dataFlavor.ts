@@ -1,7 +1,4 @@
 /**
- * HyperIoT Storm Manager
- * HyperIoT StormManager API
- *
  * OpenAPI spec version: 1.0.0
  * Contact: users@acsoftware.it
  *
@@ -14,8 +11,6 @@
 export interface DataFlavor { 
     mimeType?: string;
     humanPresentableName?: string;
-    primaryType?: string;
-    subType?: string;
     mimeTypeSerializedObject?: boolean;
     defaultRepresentationClassAsString?: string;
     representationClassInputStream?: boolean;
@@ -28,4 +23,6 @@ export interface DataFlavor {
     flavorRemoteObjectType?: boolean;
     flavorJavaFileListType?: boolean;
     flavorTextType?: boolean;
+    primaryType?: string;
+    subType?: string;
 }

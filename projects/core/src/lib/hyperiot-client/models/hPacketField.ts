@@ -1,7 +1,4 @@
 /**
- * HyperIoT Rule
- * HyperIoT Rule API
- *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -9,7 +6,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { HPacket } from './hPacket';
 
 
 export interface HPacketField { 
@@ -20,7 +16,6 @@ export interface HPacketField {
     description: string;
     type: HPacketField.TypeEnum;
     multiplicity: HPacketField.MultiplicityEnum;
-    packet: HPacket;
     parentField?: HPacketField;
     innerFields?: Array<HPacketField>;
     value?: any;
