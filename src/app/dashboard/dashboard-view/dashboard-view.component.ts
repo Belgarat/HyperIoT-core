@@ -27,5 +27,6 @@ export class DashboardViewComponent implements OnInit {
   }
   addWidget() {
     this.widgetDialog.open();
+    // TODO: bind to "requestWidgetAdd" event
   }
 }

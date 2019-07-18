@@ -63,6 +63,8 @@ export class DashboardConfigService {
             };
             dashboardWidgets.push(widget);
         });
+        //return this.dashboardWidgetService
+        //    .saveAllDashboardWidget(dashboardId, dashboardWidgets);
         return this.http.put(
             `/hyperiot/dashboardwidgets/configuration/all/${dashboardId}`,
             dashboardWidgets

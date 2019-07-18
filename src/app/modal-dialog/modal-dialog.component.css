@@ -5,8 +5,13 @@
     z-index: 100;
 }
 
+select {
+    width: 100%;
+}
+
 .dialog {
     position: absolute;
+    overflow-y: auto; 
     top: 50vh; bottom: 50vh;
     left: 50vw; right: 50vw;
     width: 50vw; min-height: 50vh;
@@ -21,6 +26,9 @@
 .button-close {
     position: absolute;
     right:12px; top: 12px;
+}
+.button-confirm {
+    float: right;
 }
 
 /* TODO: add responsive media-query for smaller screens (1024 / 640 / 480) */

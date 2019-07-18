@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DataStreamService } from './services/data-stream.service';
+import { DataStreamService, DataChannel } from './services/data-stream.service';
 import { WidgetChartComponent } from './widgets/widget-chart.component';
 
 @NgModule({
   declarations: [
+    DataChannel,
     WidgetChartComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
+    DataChannel,
     WidgetChartComponent
   ],
   providers: [

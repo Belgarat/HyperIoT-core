@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
-import { HPacket } from 'projects/core/src/lib/hyperiot-client/models/hPacket';
-import { HpacketsService } from 'projects/core/src/lib/hyperiot-client/h-packet-client/api-module';
+
+import { HPacket, HpacketsService, HPacketField } from '@hyperiot/core';
 
 @Component({
   selector: 'app-modal-dialog',
@@ -8,7 +8,18 @@ import { HpacketsService } from 'projects/core/src/lib/hyperiot-client/h-packet-
   styleUrls: ['./modal-dialog.component.css']
 })
 export class ModalDialogComponent implements OnInit, OnDestroy {
-  public projectPackets: HPacket[] = [];
+  selectedWidget: {id: number, name: string} = null;
+  selectedPacket: HPacket = null;
+  selectedFields: HPacketField[] = [];
+  widgetList = [
+    { id: 1, name: 'Pie chart', category: '', size: { rows: 0, cols: 0 } },
+    { id: 2, name: 'Line chart', category: '' },
+    { id: 3, name: 'Bar chart', category: '' },
+    { id: 4, name: 'Sensor value', category: '' },
+    { id: 5, name: 'Simple text', category: '' }
+  ];
+  projectPackets: HPacket[] = [];
+
   constructor(
     private viewContainer: ElementRef,
     private packetService: HpacketsService
@@ -37,6 +48,13 @@ export class ModalDialogComponent implements OnInit, OnDestroy {
     if (e.target === this.viewContainer.nativeElement) {
       this.close();
     }
+  }
+
+  confirm() {
+    console.log(this.selectedWidget);
+    console.log(this.selectedPacket);
+    console.log(this.selectedFields);
+    // TODO: add widget
   }
 
 }
