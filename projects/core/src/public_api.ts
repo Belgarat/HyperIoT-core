@@ -31,6 +31,9 @@ export { PermissionsService, } from './lib/hyperiot-client/permission-client/api
 export { RolesService } from './lib/hyperiot-client/role-client/api-module/index';
 export { RulesService } from './lib/hyperiot-client/rule-client/api-module/index';
 export { StormService } from './lib/hyperiot-client/storm-manager-client/api-module/index';
+export { DashboardsService } from './lib/hyperiot-client/dashboard-client/api-module/index';
+export { DashboardwidgetsService } from './lib/hyperiot-client/dashboard-widgets-client/api-module/index';
+export { CompaniesService } from './lib/hyperiot-client/company-client/api-module/index';
 
 export { ApiModule as AreasClientModule } from './lib/hyperiot-client/area-client/api-module/api.module';
 export { ApiModule as AssetscategoriesClientModule } from './lib/hyperiot-client/asset-category-client/api-module/api.module';
