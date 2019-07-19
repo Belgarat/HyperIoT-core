@@ -8,14 +8,10 @@ export * from './lib/core.module';
 
 export {
     HyperiotBaseModule,
-    WidgetComponent,
-    WidgetChartComponent,
-    TimeSeries,
-    DataPacketFilter,
     DataStreamService,
-    PlotlyModule, PlotlyJS
+    DataPacketFilter
 } from './lib/hyperiot-base/hyperiot-base.module';
-export { DataChannel } from './lib/hyperiot-base/services/data-stream.service'
+export { DataChannel } from './lib/hyperiot-base/services/data-stream.service';
 
 export { AreasService } from './lib/hyperiot-client/area-client/api-module/index';
 export { AssetscategoriesService } from './lib/hyperiot-client/asset-category-client/api-module/index';

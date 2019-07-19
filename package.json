@@ -8,8 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "compodocCore": "npx compodoc -p projects/core/tsconfig.lib.json -d documentation/hyperiot-core",
-    "postinstall": "patch-package"
+    "compodocCore": "npx compodoc -p projects/core/tsconfig.lib.json -d documentation/hyperiot-core"
   },
   "private": true,
   "dependencies": {
@@ -22,15 +21,10 @@
     "@angular/platform-browser-dynamic": "~8.1.0",
     "@angular/router": "~8.1.0",
     "@hyperiot/core": "^0.0.8",
-    "angular-gridster2": "^8.0.0",
-    "angular-plotly.js": "^1.3.2",
     "core-js": "^2.5.4",
     "cross-spawn": "^6.0.5",
     "gulp-json-editor": "^2.5.2",
     "map-stream": "0.0.7",
-    "ng-dynamic-component": "^5.0.0",
-    "patch-package": "^6.1.2",
-    "plotly.js": "1.48.3",
     "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
