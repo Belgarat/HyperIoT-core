@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataPacketFilter } from '../widgets/data/data-packet-filter';
+import { DataPacketFilter } from './data-packet-filter';
 import { Subject } from 'rxjs';
 
 export class DataChannel {
