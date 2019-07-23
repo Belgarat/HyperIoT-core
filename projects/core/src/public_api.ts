@@ -49,4 +49,6 @@ export { ApiModule as DashboardClientModule } from './lib/hyperiot-client/dashbo
 export { ApiModule as DashboardWidgetsClientModule } from './lib/hyperiot-client/dashboard-widgets-client/api-module/api.module';
 export { ApiModule as CompanyClient } from './lib/hyperiot-client/company-client/api-module/api.module';
 
+export { HyperiotClientModule } from './lib/hyperiot-client/hyperiot-client.module';
+
 export * from './lib/hyperiot-client/models/models';

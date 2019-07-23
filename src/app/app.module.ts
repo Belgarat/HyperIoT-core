@@ -4,8 +4,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { CoreModule } from 'projects/core/src/lib/core.module';
-import { AuthenticationService, HUserClientModule, Configuration, ConfigurationParameters } from 'projects/core/src/public_api';
+import { AuthenticationService, Configuration, ConfigurationParameters } from 'projects/core/src/public_api';
 import { ServiceTestComponent } from './test/service-test.component';
+
+import { HUserClientModule } from '@hyperiot/core'
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -34,6 +36,7 @@ export function apiConfigFactory(): Configuration {
     FormsModule,
     ReactiveFormsModule,
     CoreModule,
+    //HyperiotClientModule.forRoot(apiConfigFactory),
     HUserClientModule.forRoot(apiConfigFactory),
     AppRoutingModule
   ],
