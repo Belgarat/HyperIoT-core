@@ -7,6 +7,7 @@
  * Do not edit the class manually.
  */
 import { HProject } from './hProject';
+import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 
 
 export interface Dashboard { 
@@ -16,6 +17,9 @@ export interface Dashboard {
     name: string;
     dashboardType?: Dashboard.DashboardTypeEnum;
     hproject: HProject;
+    parent?: HyperIoTBaseEntity;
+    systemApiClassName?: string;
+    resourceName?: string;
 }
 export namespace Dashboard {
     export type DashboardTypeEnum = 'OFFLINE' | 'REALTIME';

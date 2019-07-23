@@ -6,6 +6,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { AssetCategoryResource } from './assetCategoryResource';
 import { HyperIoTAssetOwnerImpl } from './hyperIoTAssetOwnerImpl';
 
 
@@ -15,4 +16,8 @@ export interface AssetCategory {
     tagIds?: Array<number>;
     name: string;
     owner: HyperIoTAssetOwnerImpl;
+    parent?: AssetCategory;
+    resources?: Array<AssetCategoryResource>;
+    systemApiClassName?: string;
+    resourceName?: string;
 }

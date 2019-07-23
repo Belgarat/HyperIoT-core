@@ -6,23 +6,17 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { HUser } from './hUser';
+import { AssetTag } from './assetTag';
 import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 
 
-export interface Company { 
+export interface AssetTagResource { 
     id?: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    businessName: string;
-    invoiceAddress: string;
-    city: string;
-    postalCode: string;
-    nation: string;
-    vatNumber: string;
-    user?: HUser;
-    huserCreator: HUser;
+    resourceName: string;
+    resourceId?: number;
+    tag?: AssetTag;
     systemApiClassName?: string;
     parent?: HyperIoTBaseEntity;
-    resourceName?: string;
 }

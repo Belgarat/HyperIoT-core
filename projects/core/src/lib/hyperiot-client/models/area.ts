@@ -6,7 +6,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { HDevice } from './hDevice';
 import { HProject } from './hProject';
+import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 
 
 export interface Area { 
@@ -16,5 +18,10 @@ export interface Area {
     name: string;
     description: string;
     project: HProject;
+    devices?: Array<HDevice>;
     parentArea?: Area;
+    innerArea?: Array<Area>;
+    parent?: HyperIoTBaseEntity;
+    systemApiClassName?: string;
+    resourceName?: string;
 }

@@ -7,6 +7,7 @@
  * Do not edit the class manually.
  */
 import { HUser } from './hUser';
+import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 
 
 export interface HProject { 
@@ -16,4 +17,7 @@ export interface HProject {
     name: string;
     description?: string;
     user: HUser;
+    systemApiClassName?: string;
+    parent?: HyperIoTBaseEntity;
+    resourceName?: string;
 }

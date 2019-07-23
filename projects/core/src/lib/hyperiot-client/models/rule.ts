@@ -8,6 +8,8 @@
  */
 import { HPacket } from './hPacket';
 import { HProject } from './hProject';
+import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
+import { RuleAction } from './ruleAction';
 import { RuleNode } from './ruleNode';
 
 
@@ -21,8 +23,12 @@ export interface Rule {
     project?: HProject;
     packet?: HPacket;
     jsonActions: string;
+    actions?: Array<RuleAction>;
     type?: Rule.TypeEnum;
     rule?: RuleNode;
+    systemApiClassName?: string;
+    parent?: HyperIoTBaseEntity;
+    resourceName?: string;
 }
 export namespace Rule {
     export type TypeEnum = 'ENRICHMENT' | 'EVENT';
