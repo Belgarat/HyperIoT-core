@@ -6,7 +6,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 import { Role } from './role';
 
 
@@ -16,10 +15,7 @@ export interface Permission {
     tagIds?: Array<number>;
     name?: string;
     actionIds?: number;
-    entityResourceName: string;
+    entityResourceName?: string;
     resourceId?: number;
-    role: Role;
-    systemApiClassName?: string;
-    parent?: HyperIoTBaseEntity;
-    resourceName?: string;
+    role?: Role;
 }

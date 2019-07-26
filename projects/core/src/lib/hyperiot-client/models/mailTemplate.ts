@@ -6,17 +6,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 
 
 export interface MailTemplate { 
     id?: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    name: string;
-    description: string;
+    name?: string;
+    description?: string;
     content?: string;
-    systemApiClassName?: string;
-    parent?: HyperIoTBaseEntity;
-    resourceName?: string;
 }

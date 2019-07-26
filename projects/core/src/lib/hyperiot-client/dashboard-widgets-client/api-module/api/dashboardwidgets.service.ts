@@ -140,20 +140,15 @@ export class DashboardwidgetsService {
     }
 
     /**
-     * /hyperiot/dashboardwidgets/configuration/all/{dashboardId}
-     * Service for finding all dashboard widget inside a dashboard
-     * @param dashboardId dashboard id from which dashboard widgets will retrieve
+     * /hyperiot/dashboardwidgets/all
+     * Service for finding all dashboardwidget entities
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findAllDashboardWidget(dashboardId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllDashboardWidget(dashboardId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllDashboardWidget(dashboardId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllDashboardWidget(dashboardId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (dashboardId === null || dashboardId === undefined) {
-            throw new Error('Required parameter dashboardId was null or undefined when calling findAllDashboardWidget.');
-        }
+    public findAllDashboardWidget(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllDashboardWidget(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllDashboardWidget(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllDashboardWidget(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -175,7 +170,7 @@ export class DashboardwidgetsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/all/${encodeURIComponent(String(dashboardId))}`,
+        return this.httpClient.get<any>(`${this.basePath}/all`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -240,15 +235,20 @@ export class DashboardwidgetsService {
     }
 
     /**
-     * /hyperiot/dashboardwidgets/all
-     * Service for finding all dashboardwidget entities
+     * /hyperiot/dashboardwidgets/configuration/all/{dashboardId}
+     * Service for finding all dashboard widget inside a dashboard
+     * @param dashboardId dashboard id from which dashboard widgets will retrieve
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findAllDashboardWidget_1(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllDashboardWidget_1(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllDashboardWidget_1(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllDashboardWidget_1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findAllDashboardWidget_1(dashboardId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllDashboardWidget_1(dashboardId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllDashboardWidget_1(dashboardId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllDashboardWidget_1(dashboardId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (dashboardId === null || dashboardId === undefined) {
+            throw new Error('Required parameter dashboardId was null or undefined when calling findAllDashboardWidget_1.');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -270,7 +270,7 @@ export class DashboardwidgetsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/all`,
+        return this.httpClient.get<any>(`${this.basePath}/all/${encodeURIComponent(String(dashboardId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

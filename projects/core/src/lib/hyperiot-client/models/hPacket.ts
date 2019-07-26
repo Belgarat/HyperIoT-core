@@ -8,27 +8,20 @@
  */
 import { HDevice } from './hDevice';
 import { HPacketField } from './hPacketField';
-import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
-import { Schema } from './schema';
 
 
 export interface HPacket { 
     id?: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    name: string;
-    type: HPacket.TypeEnum;
-    format: HPacket.FormatEnum;
-    serialization: HPacket.SerializationEnum;
-    device: HDevice;
-    version: string;
+    name?: string;
+    type?: HPacket.TypeEnum;
+    format?: HPacket.FormatEnum;
+    serialization?: HPacket.SerializationEnum;
+    device?: HDevice;
+    version?: string;
     fields?: Array<HPacketField>;
-    fieldsMap?: { [key: string]: HPacketField; };
     valid?: boolean;
-    schema?: Schema;
-    parent?: HyperIoTBaseEntity;
-    systemApiClassName?: string;
-    resourceName?: string;
 }
 export namespace HPacket {
     export type TypeEnum = 'INPUT' | 'OUTPUT' | 'IO';

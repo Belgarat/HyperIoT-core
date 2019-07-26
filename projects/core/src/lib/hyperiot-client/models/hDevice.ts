@@ -7,7 +7,6 @@
  * Do not edit the class manually.
  */
 import { HProject } from './hProject';
-import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 import { HyperIoTRole } from './hyperIoTRole';
 
 
@@ -15,20 +14,15 @@ export interface HDevice {
     id?: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    deviceName: string;
+    deviceName?: string;
     password?: string;
     passwordConfirm?: string;
-    brand: string;
-    model: string;
-    firmwareVersion: string;
-    softwareVersion: string;
-    description: string;
-    project: HProject;
+    brand?: string;
+    model?: string;
+    firmwareVersion?: string;
+    softwareVersion?: string;
+    description?: string;
+    project?: HProject;
     admin?: boolean;
-    active?: boolean;
-    screenName?: string;
     roles?: Array<HyperIoTRole>;
-    parent?: HyperIoTBaseEntity;
-    systemApiClassName?: string;
-    resourceName?: string;
 }

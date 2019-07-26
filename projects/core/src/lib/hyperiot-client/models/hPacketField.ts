@@ -6,28 +6,19 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { HPacket } from './hPacket';
-import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
-import { Schema } from './schema';
 
 
 export interface HPacketField { 
     id?: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    name: string;
-    description: string;
-    type: HPacketField.TypeEnum;
-    multiplicity: HPacketField.MultiplicityEnum;
-    packet: HPacket;
+    name?: string;
+    description?: string;
+    type?: HPacketField.TypeEnum;
+    multiplicity?: HPacketField.MultiplicityEnum;
     parentField?: HPacketField;
     innerFields?: Array<HPacketField>;
     value?: any;
-    schema?: Schema;
-    fieldValue?: any;
-    systemApiClassName?: string;
-    parent?: HyperIoTBaseEntity;
-    resourceName?: string;
 }
 export namespace HPacketField {
     export type TypeEnum = 'OBJECT' | 'INTEGER' | 'DOUBLE' | 'FLOAT' | 'BOOLEAN' | 'DATE' | 'TEXT' | 'TIMESTAMP' | 'CATEGORY' | 'TAG';

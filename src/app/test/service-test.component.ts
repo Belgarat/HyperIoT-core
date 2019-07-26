@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Configuration, MailTemplate, MailtemplatesService, ConfigurationParameters, AuthenticationService, JWTLoginResponse, HUser, RolesService, Role, PermissionsService, Permission, HprojectsService, HProject, HdevicesService, HDevice, HpacketsService, HPacket, HPacketField, Rule, RulesService, HUserPasswordReset } from 'projects/core/src/public_api';
+import { Configuration, MailTemplate, MailtemplatesService, ConfigurationParameters, AuthenticationService, JWTLoginResponse, HUser, RolesService, Role, PermissionsService, Permission, HprojectsService, HProject, HdevicesService, HDevice, HpacketsService, HPacket, HPacketField, Rule, RulesService, HUserPasswordReset } from '@hyperiot/core';
 import { HusersService } from '@hyperiot/core'
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -244,14 +244,14 @@ export class ServiceTestComponent {
 
   //OK
   addUserProject() {
-    var use: HUser = this.userList.find(x => x.username == 'giovanni')
+    var use: HUser = this.userList.find(x => x.username == 'gabriele')
     console.log(use)
 
     var hProject: HProject = {
       categoryIds: [],
       tagIds: [],
-      name: 'Test project',
-      description: 'Progetto test',
+      name: 'TestProject2',
+      description: 'Progetto test 2',
       user: use
     }
     this.hProjectService.saveHProject(hProject).subscribe(

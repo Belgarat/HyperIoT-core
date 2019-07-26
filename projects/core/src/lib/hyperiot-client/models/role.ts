@@ -7,17 +7,13 @@
  * Do not edit the class manually.
  */
 import { HUser } from './hUser';
-import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 
 
 export interface Role { 
     id?: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    name: string;
-    description: string;
+    name?: string;
+    description?: string;
     users?: Array<HUser>;
-    systemApiClassName?: string;
-    parent?: HyperIoTBaseEntity;
-    resourceName?: string;
 }

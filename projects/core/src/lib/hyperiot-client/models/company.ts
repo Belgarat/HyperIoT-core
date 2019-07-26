@@ -7,22 +7,18 @@
  * Do not edit the class manually.
  */
 import { HUser } from './hUser';
-import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 
 
 export interface Company { 
     id?: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    businessName: string;
-    invoiceAddress: string;
-    city: string;
-    postalCode: string;
-    nation: string;
-    vatNumber: string;
+    businessName?: string;
+    invoiceAddress?: string;
+    city?: string;
+    postalCode?: string;
+    nation?: string;
+    vatNumber?: string;
     user?: HUser;
-    huserCreator: HUser;
-    systemApiClassName?: string;
-    parent?: HyperIoTBaseEntity;
-    resourceName?: string;
+    huserCreator?: HUser;
 }
