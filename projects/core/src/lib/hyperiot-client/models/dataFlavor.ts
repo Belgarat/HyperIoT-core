@@ -23,6 +23,6 @@ export interface DataFlavor {
     flavorRemoteObjectType?: boolean;
     flavorJavaFileListType?: boolean;
     flavorTextType?: boolean;
-    primaryType?: string;
     subType?: string;
+    primaryType?: string;
 }

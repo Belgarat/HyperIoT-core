@@ -10,12 +10,12 @@ import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 
 
 export interface HyperIoTRole { 
-    name?: string;
     description?: string;
-    parent?: HyperIoTBaseEntity;
+    name?: string;
     id?: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     systemApiClassName?: string;
+    parent?: HyperIoTBaseEntity;
     resourceName?: string;
 }

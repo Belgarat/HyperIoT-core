@@ -181,6 +181,52 @@ export class DashboardwidgetsService {
     }
 
     /**
+     * /hyperiot/dashboardwidgets/configuration/all/{dashboardId}
+     * Service for finding all dashboard widget inside a dashboard
+     * @param dashboardId dashboard id from which dashboard widgets will retrieve
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findAllDashboardWidgetInDashboard(dashboardId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllDashboardWidgetInDashboard(dashboardId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllDashboardWidgetInDashboard(dashboardId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllDashboardWidgetInDashboard(dashboardId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (dashboardId === null || dashboardId === undefined) {
+            throw new Error('Required parameter dashboardId was null or undefined when calling findAllDashboardWidgetInDashboard.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/all/${encodeURIComponent(String(dashboardId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/dashboardwidgets
      * Service for finding all dashboardwidget entities
      * @param delta 
@@ -226,52 +272,6 @@ export class DashboardwidgetsService {
         return this.httpClient.get<any>(`${this.basePath}/`,
             {
                 params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/dashboardwidgets/configuration/all/{dashboardId}
-     * Service for finding all dashboard widget inside a dashboard
-     * @param dashboardId dashboard id from which dashboard widgets will retrieve
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findAllDashboardWidget_1(dashboardId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllDashboardWidget_1(dashboardId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllDashboardWidget_1(dashboardId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllDashboardWidget_1(dashboardId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (dashboardId === null || dashboardId === undefined) {
-            throw new Error('Required parameter dashboardId was null or undefined when calling findAllDashboardWidget_1.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/all/${encodeURIComponent(String(dashboardId))}`,
-            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
