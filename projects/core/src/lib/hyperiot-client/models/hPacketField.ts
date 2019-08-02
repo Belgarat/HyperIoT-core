@@ -10,6 +10,7 @@
 
 export interface HPacketField { 
     id?: number;
+    entityVersion: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     name?: string;

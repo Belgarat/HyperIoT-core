@@ -11,6 +11,7 @@ import { Role } from './role';
 
 export interface HUser { 
     id?: number;
+    entityVersion: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     name?: string;

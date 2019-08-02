@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Configuration, MailTemplate, MailtemplatesService, ConfigurationParameters, AuthenticationService, JWTLoginResponse, HUser, RolesService, Role, PermissionsService, Permission, HprojectsService, HProject, HdevicesService, HDevice, HpacketsService, HPacket, HPacketField, Rule, RulesService, HUserPasswordReset } from '@hyperiot/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Configuration, MailTemplate, MailtemplatesService, ConfigurationParameters, AuthenticationService, JWTLoginResponse, HUser, RolesService, Role, PermissionsService, Permission, HprojectsService, HProject, HdevicesService, HDevice, HpacketsService, HPacket, HPacketField, Rule, RulesService, HUserPasswordReset, Dashboard, DashboardsService, DashboardWidget } from '@hyperiot/core';
 import { HusersService } from '@hyperiot/core'
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -34,7 +34,8 @@ export class ServiceTestComponent {
     private hDeviceService: HdevicesService,
     private hPacketService: HpacketsService,
     private rulesService: RulesService,
-    private rolesService: RolesService
+    private rolesService: RolesService,
+    private dashboardService: DashboardsService
   ) {
     this.config = new Configuration(this.conf)
   }
@@ -260,7 +261,7 @@ export class ServiceTestComponent {
     )
   }
 
-  //OK mancano 'password' e 'passwordConfirm' in hDevice 
+  //OK
   addUserDevice() {
     // var hDevice: HDevice = {
     //   deviceName: 'ProvaDevice',
@@ -292,21 +293,37 @@ export class ServiceTestComponent {
     )
   }
 
-  // hPacketField1: HPacketField =
-  //   {
-  //     name: 'temperature',
-  //     description: 'Temperature',
-  //     type: 'DOUBLE',
-  //     multiplicity: 'SINGLE'
-  //   }
+  hPacketField1: HPacketField =
+    {
+      name: 'temperature',
+      description: 'Temperature',
+      type: 'DOUBLE',
+      multiplicity: 'SINGLE'
+    }
 
-  // hPacketField2: HPacketField =
-  //   {
-  //     name: 'humidity',
-  //     description: 'Humidity',
-  //     type: 'DOUBLE',
-  //     multiplicity: 'SINGLE'
-  //   }
+  hPacketField2: HPacketField =
+    {
+      name: 'humidity',
+      description: 'Humidity',
+      type: 'DOUBLE',
+      multiplicity: 'SINGLE'
+    }
+
+  hPacketField3: HPacketField =
+    {
+      name: 'distance',
+      description: 'Distance',
+      type: 'DOUBLE',
+      multiplicity: 'SINGLE'
+    }
+
+  hPacketField4: HPacketField =
+    {
+      name: 'brightness',
+      description: 'Brightness',
+      type: 'DOUBLE',
+      multiplicity: 'SINGLE'
+    }
 
 
   //OK
@@ -327,14 +344,14 @@ export class ServiceTestComponent {
 
   updatePacketFields() {
     var hPacket2: HPacket = {
-      id: this.packetList.find(x => x.name == 'TestPacketTest').id,
-      name: 'TestPacketTest',
+      id: 57,
+      name: 'ArduinoPacket2',
       type: 'OUTPUT',
       format: 'JSON',
       serialization: 'AVRO',
-      device: this.devicesList.find(x => x.deviceName == 'TestDeviceTest'),
-      version: '2.0',
-      fields: [/*this.hPacketField1, this.hPacketField2*/]
+      device: this.devicesList.find(x => x.id == 56),
+      version: '3.0',
+      fields: [this.hPacketField1, this.hPacketField2, this.hPacketField3, this.hPacketField4]
     }
     this.hPacketService.updateHPacket(hPacket2).subscribe(
       res => { },
@@ -373,6 +390,41 @@ export class ServiceTestComponent {
     this.rulesService.updateRule(rule).subscribe(
       res => { },
       err => { if (err.status == 401) console.log("redirect to login...") }
+    )
+  }
+
+  addDashboard() {
+
+    var hp: HProject = this.projectList.find(x => x.id == 45)
+
+    var dashboard: Dashboard = {
+      name: 'LukeDashboard',
+      dashboardType: 'REALTIME',
+      hproject: hp
+    }
+
+    this.dashboardService.saveDashboard(dashboard).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => console.log(err)
+    )
+  }
+
+  addWidget() {
+
+    var da: Dashboard = this.dashboardList.find(x => x.id == 246)
+
+    var dashboard: DashboardWidget = {
+      dashboard: da,
+
+    }
+
+    this.dashboardService.saveDashboard(dashboard).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => console.log(err)
     )
   }
 
@@ -470,6 +522,18 @@ export class ServiceTestComponent {
       res => {
         console.log(res);
         this.emailList = <MailTemplate[]>res;
+      },
+      err => { if (err.status == 401) console.log("redirect to login...") }
+    )
+  }
+
+  dashboardList: Dashboard[];
+  //OK
+  getAllDashboard() {
+    this.dashboardService.findAllDashboard().subscribe(
+      res => {
+        console.log(res);
+        this.dashboardList = <Dashboard[]>res;
       },
       err => { if (err.status == 401) console.log("redirect to login...") }
     )

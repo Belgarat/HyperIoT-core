@@ -12,6 +12,7 @@ import { HyperIoTRole } from './hyperIoTRole';
 
 export interface HDevice { 
     id?: number;
+    entityVersion: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     deviceName?: string;

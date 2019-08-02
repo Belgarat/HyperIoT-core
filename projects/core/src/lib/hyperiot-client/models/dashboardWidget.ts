@@ -11,9 +11,9 @@ import { Dashboard } from './dashboard';
 
 export interface DashboardWidget { 
     id?: number;
+    entityVersion: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    widgetId?: string;
     widgetConf?: string;
     dashboard?: Dashboard;
 }

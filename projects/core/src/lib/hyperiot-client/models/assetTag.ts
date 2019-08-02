@@ -11,6 +11,7 @@ import { HyperIoTAssetOwnerImpl } from './hyperIoTAssetOwnerImpl';
 
 export interface AssetTag { 
     id?: number;
+    entityVersion: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     name?: string;

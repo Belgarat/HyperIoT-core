@@ -10,6 +10,7 @@
 
 export interface MailTemplate { 
     id?: number;
+    entityVersion: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     name?: string;

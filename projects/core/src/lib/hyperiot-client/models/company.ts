@@ -11,6 +11,7 @@ import { HUser } from './hUser';
 
 export interface Company { 
     id?: number;
+    entityVersion: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     businessName?: string;

@@ -11,6 +11,7 @@ import { HProject } from './hProject';
 
 export interface Dashboard { 
     id?: number;
+    entityVersion: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     name?: string;
