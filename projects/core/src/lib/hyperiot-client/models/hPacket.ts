@@ -23,6 +23,10 @@ export interface HPacket {
     version?: string;
     fields?: Array<HPacketField>;
     valid?: boolean;
+    timestampField?: string;
+    timestampFormat?: string;
+    timestamp?: number;
+    trafficPlan?: HPacket.TrafficPlanEnum;
 }
 export namespace HPacket {
     export type TypeEnum = 'INPUT' | 'OUTPUT' | 'IO';
@@ -41,5 +45,12 @@ export namespace HPacket {
     export const SerializationEnum = {
         AVRO: 'AVRO' as SerializationEnum,
         NONE: 'NONE' as SerializationEnum
+    };
+    export type TrafficPlanEnum = 'LOW' | 'MEDIUM' | 'HIGH' | 'INTENSIVE';
+    export const TrafficPlanEnum = {
+        LOW: 'LOW' as TrafficPlanEnum,
+        MEDIUM: 'MEDIUM' as TrafficPlanEnum,
+        HIGH: 'HIGH' as TrafficPlanEnum,
+        INTENSIVE: 'INTENSIVE' as TrafficPlanEnum
     };
 }

@@ -7,6 +7,7 @@
  * Do not edit the class manually.
  */
 import { HUser } from './hUser';
+import { HyperIoTUser } from './hyperIoTUser';
 
 
 export interface HProject { 
@@ -17,4 +18,5 @@ export interface HProject {
     name?: string;
     description?: string;
     user?: HUser;
+    userOwner?: HyperIoTUser;
 }

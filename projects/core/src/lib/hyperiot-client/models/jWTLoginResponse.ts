@@ -6,11 +6,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { HyperIoTAuthenticable } from './hyperIoTAuthenticable';
 import { JWTProfile } from './jWTProfile';
 
 
 export interface JWTLoginResponse { 
     token?: string;
+    authenticable?: HyperIoTAuthenticable;
     profile?: { [key: string]: JWTProfile; };
     roles?: Array<string>;
 }

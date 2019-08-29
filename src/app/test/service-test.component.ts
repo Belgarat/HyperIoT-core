@@ -210,7 +210,7 @@ export class ServiceTestComponent {
 
   //OK
   addDefaultRole() {
-    var roleId = 40;
+    var roleId = 58;
     var userId = this.userList.find(x => x.username == 'gabriele').id;
 
     this.rolesService.saveUserRole(roleId, userId).subscribe(
