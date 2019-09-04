@@ -7,6 +7,7 @@
  * Do not edit the class manually.
  */
 import { Dashboard } from './dashboard';
+import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 
 
 export interface DashboardWidget { 
@@ -16,4 +17,5 @@ export interface DashboardWidget {
     tagIds?: Array<number>;
     widgetConf?: string;
     dashboard?: Dashboard;
+    parent?: HyperIoTBaseEntity;
 }

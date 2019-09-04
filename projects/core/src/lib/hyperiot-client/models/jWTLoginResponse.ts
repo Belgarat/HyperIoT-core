@@ -14,5 +14,4 @@ export interface JWTLoginResponse {
     token?: string;
     authenticable?: HyperIoTAuthenticable;
     profile?: { [key: string]: JWTProfile; };
-    roles?: Array<string>;
 }

@@ -25,5 +25,9 @@ export interface HDevice {
     description?: string;
     project?: HProject;
     admin?: boolean;
+    loginWithSSLCert?: boolean;
+    pubKey?: Array<string>;
+    x509Cert?: string;
+    x509CertKey?: string;
     roles?: Array<HyperIoTRole>;
 }

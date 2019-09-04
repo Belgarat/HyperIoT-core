@@ -6,7 +6,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 import { HyperIoTRole } from './hyperIoTRole';
 
 
@@ -16,8 +15,7 @@ export interface HyperIoTAuthenticable {
     id?: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    entityCreateDate?: Date;
     systemApiClassName?: string;
-    parent?: HyperIoTBaseEntity;
+    entityCreateDate?: Date;
     resourceName?: string;
 }

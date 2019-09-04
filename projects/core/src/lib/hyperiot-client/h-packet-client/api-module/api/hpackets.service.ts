@@ -19,6 +19,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { HPacket } from '../../../models/hPacket';
+import { HPacketField } from '../../../models/HPacketField';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
@@ -55,6 +56,63 @@ export class HpacketsService {
         return false;
     }
 
+
+    /**
+     * /hyperiot/hpackets/{id}/fields
+     * Service for deleting a hpacket entity
+     * @param id The hpacket which must be updated
+     * @param body The hpacket field which must be added
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public addHPacketField(id: number, body: HPacketField, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addHPacketField(id: number, body: HPacketField, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addHPacketField(id: number, body: HPacketField, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addHPacketField(id: number, body: HPacketField, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling addHPacketField.');
+        }
+
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling addHPacketField.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/${encodeURIComponent(String(id))}/fields`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * /module/status
@@ -130,6 +188,58 @@ export class HpacketsService {
         ];
 
         return this.httpClient.delete<any>(`${this.basePath}/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hpackets/{id}/fields/{fieldId}
+     * Service for deleting a hpacket field entity
+     * @param id The hpacket  which must be updated
+     * @param fieldId The hpacket field id which must be deleted
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteHPacketField(id: number, fieldId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteHPacketField(id: number, fieldId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteHPacketField(id: number, fieldId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteHPacketField(id: number, fieldId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling deleteHPacketField.');
+        }
+
+        if (fieldId === null || fieldId === undefined) {
+            throw new Error('Required parameter fieldId was null or undefined when calling deleteHPacketField.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.delete<any>(`${this.basePath}/${encodeURIComponent(String(id))}/fields/${encodeURIComponent(String(fieldId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -420,6 +530,63 @@ export class HpacketsService {
         }
 
         return this.httpClient.put<any>(`${this.basePath}/`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hpackets/{id}/fields
+     * Service for updating a hpacket field entity
+     * @param id The hpacket id which must be updated
+     * @param body The hpacket field which must be updated
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateHPacketField(id: number, body: HPacketField, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateHPacketField(id: number, body: HPacketField, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateHPacketField(id: number, body: HPacketField, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateHPacketField(id: number, body: HPacketField, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling updateHPacketField.');
+        }
+
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling updateHPacketField.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<any>(`${this.basePath}/${encodeURIComponent(String(id))}/fields`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
