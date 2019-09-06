@@ -573,8 +573,23 @@ export class ServiceTestComponent {
         )
       }
     )
+  }
 
 
+  // number: number;
+  destroyAll() {
+
+    this.packetList.forEach((x) => {
+      this.hPacketService.deleteHPacket(x.id).subscribe()
+    })
+
+    // this.devicesList.forEach((x) => {
+    //   this.hDeviceService.deleteHDevice(x.id).subscribe();
+    // })
+
+    // this.projectList.forEach((x) => {
+    //   this.hProjectService.deleteHProject(x.id).subscribe();
+    // })
 
   }
 

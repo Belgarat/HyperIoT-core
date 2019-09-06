@@ -19,7 +19,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { HPacket } from '../../../models/hPacket';
-import { HPacketField } from '../../../models/HPacketField';
+import { HPacketField } from '../../../models/hPacketField';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
