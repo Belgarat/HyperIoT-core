@@ -98,6 +98,7 @@ export class ServiceTestComponent {
   //OK
   reg() {
     this.user = {
+      entityVersion: 1,
       name: this.registerForm.value.nome,
       lastname: this.registerForm.value.cognome,
       username: this.registerForm.value.userName,
@@ -168,6 +169,7 @@ export class ServiceTestComponent {
 
   updateUser() {
     var user: HUser = {
+      entityVersion: 1,
       categoryIds: null,
       email: "giovanni.colacitti@acsoftware.it",
       id: 44,
@@ -198,6 +200,7 @@ export class ServiceTestComponent {
   //OK
   addRole() {
     this.role = {
+      entityVersion: 1,
       name: 'DefaultRole 3',
       description: 'Default user role 3'
     };
@@ -230,6 +233,7 @@ export class ServiceTestComponent {
   //OK 'actionIds' should be required in Permission interface
   grant() {
     var permission: Permission = {
+      entityVersion: 1,
       name: 'Prova permission',
       actionIds: 128,
       entityResourceName: 'it.acsoftware.hyperiot.hproject.model.HProject',
@@ -249,6 +253,7 @@ export class ServiceTestComponent {
     console.log(use)
 
     var hProject: HProject = {
+      entityVersion: 1,
       categoryIds: [],
       tagIds: [],
       name: 'TestProject2',
@@ -276,6 +281,7 @@ export class ServiceTestComponent {
     // }
 
     var hDevice: HDevice = {
+      entityVersion: 1,
       deviceName: 'Arduino2',
       brand: 'ACS',
       model: 'ESP8266 NODE MCU',
@@ -295,6 +301,7 @@ export class ServiceTestComponent {
 
   hPacketField1: HPacketField =
     {
+      entityVersion: 1,
       name: 'temperature',
       description: 'Temperature',
       type: 'DOUBLE',
@@ -303,6 +310,7 @@ export class ServiceTestComponent {
 
   hPacketField2: HPacketField =
     {
+      entityVersion: 1,
       name: 'humidity',
       description: 'Humidity',
       type: 'DOUBLE',
@@ -311,6 +319,7 @@ export class ServiceTestComponent {
 
   hPacketField3: HPacketField =
     {
+      entityVersion: 1,
       name: 'distance',
       description: 'Distance',
       type: 'DOUBLE',
@@ -319,6 +328,7 @@ export class ServiceTestComponent {
 
   hPacketField4: HPacketField =
     {
+      entityVersion: 1,
       name: 'brightness',
       description: 'Brightness',
       type: 'DOUBLE',
@@ -329,6 +339,7 @@ export class ServiceTestComponent {
   //OK
   addDevicePacket() {
     var hPacket: HPacket = {
+      entityVersion: 1,
       name: 'ArduinoPacket2',
       type: 'OUTPUT',
       format: 'JSON',
@@ -344,6 +355,7 @@ export class ServiceTestComponent {
 
   updatePacketFields() {
     var hPacket2: HPacket = {
+      entityVersion: 2,
       id: 57,
       name: 'ArduinoPacket2',
       type: 'OUTPUT',
@@ -369,6 +381,7 @@ export class ServiceTestComponent {
     console.log(str)
 
     var rule: Rule = {
+      entityVersion: 1,
       name: 'TestRuleTest',
       description: 'Everybody wants to rule the world.',
       categoryIds: [123],
@@ -398,6 +411,7 @@ export class ServiceTestComponent {
     var hp: HProject = this.projectList.find(x => x.id == 45)
 
     var dashboard: Dashboard = {
+      entityVersion: 1,
       name: 'LukeDashboard',
       dashboardType: 'REALTIME',
       hproject: hp
@@ -416,8 +430,8 @@ export class ServiceTestComponent {
     var da: Dashboard = this.dashboardList.find(x => x.id == 246)
 
     var dashboard: DashboardWidget = {
-      dashboard: da,
-
+      entityVersion: 1,
+      dashboard: da
     }
 
     this.dashboardService.saveDashboard(dashboard).subscribe(
@@ -575,21 +589,146 @@ export class ServiceTestComponent {
     )
   }
 
+  options = [
+    { name: "Project", value: 'Project' },
+    { name: "Device", value: 'Device' },
+    { name: "Packet", value: 'Packet' },
+    { name: "Field", value: 'Field' },
+    { name: "Rule", value: 'Rule' }
+  ]
 
-  // number: number;
+  number: number;
+  deleteType: string = '';
+  esito: string = '';
+
+  delete() {
+    if (this.deleteType == '')
+      alert("Seleziona un tipo di dato");
+    else if (!this.number)
+      alert("Seleziona un numero");
+    else {
+      this.esito = 'PENDING';
+      switch (this.deleteType) {
+        case 'Project': {
+          this.hProjectService.deleteHProject(this.number).subscribe(
+            res => this.esito = "OK",
+            err => this.esito = "ERRORE"
+          );
+          break;
+        }
+        case 'Device': {
+          this.hDeviceService.deleteHDevice(this.number).subscribe(
+            res => this.esito = "OK",
+            err => this.esito = "ERRORE"
+          );
+          break;
+        }
+        case 'Packet': {
+          this.hPacketService.deleteHPacket(this.number).subscribe(
+            res => this.esito = "OK",
+            err => this.esito = "ERRORE"
+          );
+          break;
+        }
+        case 'Field': {
+          let foo = prompt('Di quale pacchetto?');
+          this.hPacketService.deleteHPacketField(+foo, this.number).subscribe(
+            res => this.esito = "OK",
+            err => this.esito = "ERRORE"
+          );
+          break;
+        }
+        case 'Rule': {
+          this.rulesService.deleteRule(this.number).subscribe(
+            res => this.esito = "OK",
+            err => this.esito = "ERRORE"
+          );
+          break;
+        }
+        default:
+          alert("errore")
+      }
+    }
+  }
+
+  showBar: boolean = false;
+
   destroyAll() {
+    if (confirm("Vuoi veramente ripulire tutto? Seleziona 'Annulla' se non sai cosa stai facendo...")) {
+      this.showBar = true;
+      setTimeout(() => {
+        var bar = document.getElementById("myBar");
+        let count = -1;
+        let width = 0;
+        let interval = setInterval(() => {
+          width += 20;
+          bar.style.width = width + '%';
+          count++;
+          if (count == 4) {
+            clearInterval(interval)
+            setTimeout(() => {
+              this.showBar = false;
+            }, 500);
+          }
+          this.destroy(count)
+        }, 5000);
+      }, 0);
 
-    this.packetList.forEach((x) => {
-      this.hPacketService.deleteHPacket(x.id).subscribe()
-    })
+    } else { }
+  }
 
-    // this.devicesList.forEach((x) => {
-    //   this.hDeviceService.deleteHDevice(x.id).subscribe();
-    // })
+  destroy(count: number) {
 
-    // this.projectList.forEach((x) => {
-    //   this.hProjectService.deleteHProject(x.id).subscribe();
-    // })
+    switch (count) {
+      case 0: {
+        console.log("Deleting rules");
+        this.rulesService.findAllRule().subscribe(
+          res => {
+            this.ruleList = <Rule[]>res;
+            this.ruleList.forEach((x) => {
+              this.rulesService.deleteRule(x.id).subscribe()
+            })
+          }
+        )
+        break;
+      }
+      case 1: {
+        console.log("Deleting packets");
+        this.hPacketService.findAllHPacket().subscribe(
+          res => {
+            this.packetList = <HPacket[]>res;
+            this.packetList.forEach((x) => {
+              this.hPacketService.deleteHPacket(x.id).subscribe()
+            })
+          }
+        )
+        break;
+      }
+      case 2: {
+        console.log("Deleting devices");
+        this.hDeviceService.findAllHDevice().subscribe(
+          res => {
+            this.devicesList = <HDevice[]>res;
+            this.devicesList.forEach((x) => {
+              this.hDeviceService.deleteHDevice(x.id).subscribe();
+            })
+          }
+        )
+        break;
+      }
+      case 3: {
+        console.log("Deleting projects");
+        this.hProjectService.findAllHProject().subscribe(
+          res => {
+            this.projectList = <HProject[]>res;
+            this.projectList.forEach((x) => {
+              this.hProjectService.deleteHProject(x.id).subscribe();
+            })
+          }
+        )
+        break;
+      }
+    }
 
   }
 

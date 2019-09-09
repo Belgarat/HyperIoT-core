@@ -125,5 +125,19 @@ ok<button (click)="deleteRole()">deleteRole</button>
 <button (click)="changeProject()">change device</button>
 
 <hr>
-<!-- <input type="number" [(ngModel)]="number" min="30" max="1000"> -->
-<button (click)="destroyAll()">DESTROY</button>
+DELETE
+<select [(ngModel)]="deleteType">
+  <option *ngFor="let o of options">
+    {{o.name}}
+  </option>
+</select>
+<input type="number" [(ngModel)]="number">
+<button (click)="delete()">DELETE</button> {{esito}}
+<hr>
+<button (click)="destroyAll()">PURGE</button>
+<div *ngIf="showBar">
+  DESTROYING EVERYTHING
+  <div id="myProgress">
+    <div id="myBar"></div>
+  </div>
+</div>
