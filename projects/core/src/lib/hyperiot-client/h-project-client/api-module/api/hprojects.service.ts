@@ -57,6 +57,47 @@ export class HprojectsService {
 
 
     /**
+     * /hyperiot/hprojects/all/cards
+     * Service for finding all hproject entities
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public cardsView(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public cardsView(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public cardsView(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public cardsView(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/all/cards`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/hprojects/module/status
      * Simple service for checking module status
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.

@@ -17,4 +17,7 @@ export interface HProject {
     name?: string;
     description?: string;
     user?: HUser;
+    deviceCount?: number;
+    statisticsCount?: number;
+    rulesCount?: number;
 }
