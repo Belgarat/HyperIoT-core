@@ -52,3 +52,7 @@ export { ApiModule as CompanyClient } from './lib/hyperiot-client/company-client
 export { HyperiotClientModule } from './lib/hyperiot-client/hyperiot-client.module';
 
 export * from './lib/hyperiot-client/models/models';
+
+export * from './lib/hyperiot-service/hyperiot-logger/logger';
+export * from './lib/hyperiot-service/hyperiot-logger/logger-config';
+export * from './lib/hyperiot-service/hyperiot-logger/logger.service';

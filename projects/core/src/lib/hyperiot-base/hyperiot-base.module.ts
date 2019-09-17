@@ -4,8 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DataStreamService } from './services/data-stream.service';
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   imports: [
     CommonModule
   ],

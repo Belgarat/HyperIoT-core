@@ -3,6 +3,8 @@ import { Configuration, MailTemplate, MailtemplatesService, ConfigurationParamet
 import { HusersService } from '@hyperiot/core'
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
+import { LoggerService } from 'projects/core/src/lib/hyperiot-service/hyperiot-logger/logger.service';
+import { Logger } from 'projects/core/src/lib/hyperiot-service/hyperiot-logger/logger';
 
 @Component({
   selector: 'app-service-test',
@@ -10,6 +12,8 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./service-test.component.css']
 })
 export class ServiceTestComponent {
+
+  logger: Logger;
 
   registerForm = new FormGroup({
     nome: new FormControl(''),
@@ -35,9 +39,12 @@ export class ServiceTestComponent {
     private hPacketService: HpacketsService,
     private rulesService: RulesService,
     private rolesService: RolesService,
-    private dashboardService: DashboardsService
+    private dashboardService: DashboardsService,
+    private loggerService: LoggerService
   ) {
     this.config = new Configuration(this.conf)
+    this.logger = new Logger(loggerService);
+    this.logger.registerClass('ServiceTestComponent');
   }
 
 
@@ -66,7 +73,9 @@ export class ServiceTestComponent {
     }
     this.authService.login(this.profileForm.value.username, this.profileForm.value.password).subscribe(
       res => {
+        this.logger.debug('Login response:', res);
         var jwtToken = <JWTLoginResponse>res;
+        this.logger.trace('jwtToken', jwtToken);
         document.cookie = 'HIT-AUTH=' + jwtToken.token;
         this.loginClass = 'loginClassOk';
 
@@ -79,19 +88,29 @@ export class ServiceTestComponent {
           withCredentials: false
         }
 
-        this.config = new Configuration(this.conf)
-
-        console.log(this.config)
+        this.config = new Configuration(this.conf);
+        this.logger.trace('Configuration:', this.config);
       },
-      err => { console.log(err.status); this.loginClass = 'loginClassError'; this.status = err.status }
-    )
+      err => {
+        this.logger.error('Error! Incorrect user name and/or password', err);
+        // console.log(err.status);
+        // this.loginClass = 'loginClassError';
+        // this.status = err.status
+      }
+    );
   }
 
   whoAmI() {
     this.authService.whoAmI().subscribe(
-      res => console.log(res),
-      err => console.log(err)
-    )
+      res => {
+        this.logger.debug('whoAmI method:', res);
+        // console.log(res)
+      },
+      err => {
+        this.logger.error('Error! Information not available', err);
+        // console.log(err)
+      }
+    );
   }
 
   user: HUser;
@@ -108,40 +127,54 @@ export class ServiceTestComponent {
     }
 
     this.hUserService.register(this.user).subscribe(
-      res => { this.registerClass = 'registerClassOk'; },
+      res => {
+        this.logger.debug('User-submitted data:', res);
+        this.registerClass = 'registerClassOk';
+      },
       err => {
-        console.log(err.status);
+        this.logger.error('Error! Invalid form entry', err);
+        //console.log(err.status);
         this.registerClass = 'registerClassError';
       }
-    )
+    );
   }
 
   //OK
   activate(act) {
-
     this.hUserService.activate(this.user.email, act).subscribe(
-      res => { },
+      res => {
+        this.logger.debug('Activation response:', res)
+      },
       err => {
-        console.log(err.status)
+        this.logger.error('Error! Unable to activate the account', err);
       }
-    )
-
+    );
   }
 
   //OK
   moduleStatus() {
     this.hUserService.checkModuleWorking().subscribe(
-      res => console.log(res),
-      err => console.log(err)
-    )
+      res => {
+        this.logger.debug('Module status:', res);
+        // console.log(res)
+      },
+      err => {
+        this.logger.error('Unable to check module status:', err);
+        // console.log(err)
+      }
+    );
   }
 
   //OK
   recoveryRequest(mail: string) {
     this.hUserService.resetPasswordRequest(mail).subscribe(
-      res => console.log(res),
-      err => console.log(err)
-    )
+      res => {
+        this.logger.debug('', res);
+      },
+      err => {
+        this.logger.error('Email not found', err);
+      }
+    );
   }
 
   //OK
@@ -154,17 +187,21 @@ export class ServiceTestComponent {
     }
 
     this.hUserService.resetPassword(pwdRest).subscribe(
-      res => console.log(res),
-      err => console.log(err)
-    )
+      res => { this.logger.debug('', res); },
+      err => { this.logger.error('', err); }
+    );
   }
 
   //OK
   changePassword() {
     this.hUserService.changeHUserPassword(39, 'M0entane0$', 'S1eadlf!', 'S1eadlf!').subscribe(
-      res => console.log(res),
-      err => console.log(err)
-    )
+      res => {
+        this.logger.debug('', res);
+      },
+      err => {
+        this.logger.error('', err);
+      }
+    );
   }
 
   updateUser() {
@@ -184,16 +221,24 @@ export class ServiceTestComponent {
     user.active = false;
 
     this.hUserService.updateHUser(user).subscribe(
-      res => console.log(res),
-      err => console.log(err)
-    )
+      res => {
+        this.logger.debug('', res);
+      },
+      err => {
+        this.logger.error('', err);
+      }
+    );
   }
 
   deleteHUser() {
     this.hUserService.deleteHUser(44).subscribe(
-      res => console.log(res),
-      err => console.log(err)
-    )
+      res => {
+        this.logger.debug('', res);
+      },
+      err => {
+        this.logger.error('', err);
+      }
+    );
   }
 
   role: Role;
@@ -207,8 +252,8 @@ export class ServiceTestComponent {
 
     this.rolesService.saveRole(this.role).subscribe(
       res => { },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   //OK
@@ -218,16 +263,16 @@ export class ServiceTestComponent {
 
     this.rolesService.saveUserRole(roleId, userId).subscribe(
       res => { },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   //OK
   deleteRole() {
     this.rolesService.deleteRole(6).subscribe(
       res => { },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   //OK 'actionIds' should be required in Permission interface
@@ -239,18 +284,18 @@ export class ServiceTestComponent {
       entityResourceName: 'it.acsoftware.hyperiot.hproject.model.HProject',
       role: this.roleList.find(x => x.name == 'DefaultRole 3')
     }
-    console.log(permission)
+    this.logger.trace('', permission);
 
     this.permissionService.savePermission(permission).subscribe(
       res => { },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   //OK
   addUserProject() {
-    var use: HUser = this.userList.find(x => x.username == 'gabriele')
-    console.log(use)
+    var use: HUser = this.userList.find(x => x.username == 'gabriele');
+    this.logger.trace('user:', use);
 
     var hProject: HProject = {
       entityVersion: 1,
@@ -262,8 +307,8 @@ export class ServiceTestComponent {
     }
     this.hProjectService.saveHProject(hProject).subscribe(
       res => { },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   //OK
@@ -295,8 +340,8 @@ export class ServiceTestComponent {
 
     this.hDeviceService.saveHDevice(hDevice).subscribe(
       res => { },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   hPacketField1: HPacketField =
@@ -349,8 +394,8 @@ export class ServiceTestComponent {
     }
     this.hPacketService.saveHPacket(hPacket).subscribe(
       res => { },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   updatePacketFields() {
@@ -367,8 +412,8 @@ export class ServiceTestComponent {
     }
     this.hPacketService.updateHPacket(hPacket2).subscribe(
       res => { },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   //ok
@@ -378,7 +423,7 @@ export class ServiceTestComponent {
     var actions = [action];
 
     var str: string = JSON.stringify(actions);
-    console.log(str)
+    this.logger.trace('Actions:', str)
 
     var rule: Rule = {
       entityVersion: 1,
@@ -393,8 +438,8 @@ export class ServiceTestComponent {
     }
     this.rulesService.saveRule(rule).subscribe(
       res => { },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   updateRule() {
@@ -402,8 +447,8 @@ export class ServiceTestComponent {
     rule.type = 'EVENT';
     this.rulesService.updateRule(rule).subscribe(
       res => { },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   addDashboard() {
@@ -419,10 +464,10 @@ export class ServiceTestComponent {
 
     this.dashboardService.saveDashboard(dashboard).subscribe(
       res => {
-        console.log(res);
+        this.logger.debug('', res)
       },
       err => console.log(err)
-    )
+    );
   }
 
   addWidget() {
@@ -439,7 +484,7 @@ export class ServiceTestComponent {
         console.log(res);
       },
       err => console.log(err)
-    )
+    );
   }
 
 
@@ -448,11 +493,12 @@ export class ServiceTestComponent {
   getAllUsers() {
     this.hUserService.findAllHUser().subscribe(
       res => {
-        console.log(res);
+        this.logger.debug('', res);
         this.userList = <HUser[]>res;
+        this.logger.trace('User list:', this.userList);
       },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
 
@@ -461,11 +507,12 @@ export class ServiceTestComponent {
   getAllRoles() {
     this.rolesService.findAllRoles().subscribe(
       res => {
-        console.log(res);
+        this.logger.debug('', res);
         this.roleList = <Role[]>res;
+        this.logger.trace('Role list:', this.roleList);
       },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   permissionList: Permission[];
@@ -473,11 +520,12 @@ export class ServiceTestComponent {
   getAllPermissions() {
     this.permissionService.findAllPermission().subscribe(
       res => {
-        console.log(res);
+        this.logger.debug('', res);
         this.permissionList = <Permission[]>res;
+        this.logger.trace('Permission list:', this.permissionList);
       },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   projectList: HProject[];
@@ -485,11 +533,12 @@ export class ServiceTestComponent {
   getAllProject() {
     this.hProjectService.findAllHProject().subscribe(
       res => {
-        console.log(res);
+        this.logger.debug('', res);
         this.projectList = <HProject[]>res;
+        this.logger.trace('Project list:', this.projectList);
       },
-      err => { if (err.status == 401) console.log("redirect to login...") }
-    )
+      err => { if (err.status == 401) this.logger.error('', err); }
+    );
   }
 
   devicesList: HDevice[];
@@ -572,6 +621,7 @@ export class ServiceTestComponent {
     var usera;
     hUserService.findHUser(50).subscribe(
       res => {
+        this.logger.debug('');
         usera = res;
       }
     )
