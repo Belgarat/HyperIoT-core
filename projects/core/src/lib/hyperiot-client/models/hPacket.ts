@@ -13,6 +13,8 @@ import { HPacketField } from './hPacketField';
 export interface HPacket { 
     id?: number;
     entityVersion: number;
+    readonly entityCreateDate?: Date;
+    readonly entityModifyDate?: Date;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     name?: string;
@@ -25,7 +27,6 @@ export interface HPacket {
     valid?: boolean;
     timestampField?: string;
     timestampFormat?: string;
-    timestamp?: number;
     trafficPlan?: HPacket.TrafficPlanEnum;
 }
 export namespace HPacket {

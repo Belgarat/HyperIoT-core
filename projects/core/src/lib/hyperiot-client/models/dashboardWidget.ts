@@ -13,6 +13,8 @@ import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 export interface DashboardWidget { 
     id?: number;
     entityVersion: number;
+    readonly entityCreateDate?: Date;
+    readonly entityModifyDate?: Date;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     widgetConf?: string;

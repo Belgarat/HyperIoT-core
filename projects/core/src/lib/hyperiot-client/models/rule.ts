@@ -16,6 +16,8 @@ import { RuleNode } from './ruleNode';
 export interface Rule { 
     id?: number;
     entityVersion: number;
+    readonly entityCreateDate?: Date;
+    readonly entityModifyDate?: Date;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     name?: string;

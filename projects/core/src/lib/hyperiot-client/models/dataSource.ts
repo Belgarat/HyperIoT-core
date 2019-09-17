@@ -11,8 +11,8 @@ import { OutputStream } from './outputStream';
 
 
 export interface DataSource { 
-    contentType?: string;
     outputStream?: OutputStream;
+    contentType?: string;
     name?: string;
     inputStream?: InputStream;
 }

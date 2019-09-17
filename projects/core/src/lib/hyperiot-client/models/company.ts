@@ -13,6 +13,8 @@ import { HyperIoTUser } from './hyperIoTUser';
 export interface Company { 
     id?: number;
     entityVersion: number;
+    readonly entityCreateDate?: Date;
+    readonly entityModifyDate?: Date;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     businessName?: string;
@@ -21,7 +23,7 @@ export interface Company {
     postalCode?: string;
     nation?: string;
     vatNumber?: string;
-    userOwner?: HyperIoTUser;
     user?: HUser;
+    userOwner?: HyperIoTUser;
     huserCreator?: HUser;
 }
