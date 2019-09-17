@@ -9,7 +9,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "compodocCore": "npx compodoc -p projects/core/tsconfig.lib.json -d documentation/hyperiot-core"
+    "compodocCore": "npx compodoc -p projects/core/tsconfig.lib.json -d documentation/hyperiot-core",
+    "publish": "gulp publish",
+    "publishAll": "gulp publishAll"
   },
   "private": true,
   "dependencies": {
