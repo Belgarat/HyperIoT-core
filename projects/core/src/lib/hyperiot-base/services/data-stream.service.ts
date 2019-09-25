@@ -34,7 +34,7 @@ export class DataStreamService {
   isConnected: boolean;
   eventStream: Subject<any>;
 
-  private wsUrl = 'ws://' + location.hostname + (location.port ? ':' + location.port : '') + '/hyperiot/ws/project';
+  private wsUrl = 'ws://' + location.hostname + (location.port ? ':' + location.port : '') + '/hyperiot/ws/project?projectId=';
   private ws: WebSocket;
 
   constructor() {
@@ -46,9 +46,9 @@ export class DataStreamService {
    * 
    * @param url WebSocket endpoint url
    */
-  connect(url?: string) {
+  connect( projectId: number, url?: string) {
     this.disconnect();
-    this.ws = new WebSocket(url != null ? url : this.wsUrl);
+    this.ws = new WebSocket(url != null ? url : this.wsUrl+projectId);
     this.ws.onmessage = this.onWsMessage.bind(this);
     this.ws.onerror = this.onWsError.bind(this);
     this.ws.onclose = this.onWsClose.bind(this);
