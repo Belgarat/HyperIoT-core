@@ -6,8 +6,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Dashboard } from './dashboard';
-import { HyperIoTBaseEntity } from './hyperIoTBaseEntity';
 
 
 export interface DashboardWidget { 
@@ -18,6 +16,4 @@ export interface DashboardWidget {
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     widgetConf?: string;
-    dashboard?: Dashboard;
-    parent?: HyperIoTBaseEntity;
 }

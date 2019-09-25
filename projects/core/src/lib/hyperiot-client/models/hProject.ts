@@ -6,6 +6,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { HDevice } from './hDevice';
 import { HUser } from './hUser';
 
 
@@ -22,4 +23,5 @@ export interface HProject {
     deviceCount?: number;
     statisticsCount?: number;
     rulesCount?: number;
+    devices?: Array<HDevice>;
 }

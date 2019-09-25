@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { Configuration, MailTemplate, MailtemplatesService, ConfigurationParameters, AuthenticationService, JWTLoginResponse, HUser, RolesService, Role, PermissionsService, Permission, HprojectsService, HProject, HdevicesService, HDevice, HpacketsService, HPacket, HPacketField, Rule, RulesService, HUserPasswordReset, Dashboard, DashboardsService, DashboardWidget } from '@hyperiot/core';
+import { Configuration, MailTemplate, MailtemplatesService, ConfigurationParameters, AuthenticationService, JWTLoginResponse, HUser, AssetstagsService, AssetscategoriesService, RolesService, Role, PermissionsService, Permission, HprojectsService, HProject, HdevicesService, HDevice, HpacketsService, HPacket, HPacketField, Rule, RulesService, HUserPasswordReset, Dashboard, DashboardsService, DashboardWidget } from '@hyperiot/core';
 import { HusersService } from '@hyperiot/core'
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -40,6 +40,8 @@ export class ServiceTestComponent {
     private rulesService: RulesService,
     private rolesService: RolesService,
     private dashboardService: DashboardsService,
+    private tagService: AssetstagsService,
+    private categoryService: AssetscategoriesService,
     private loggerService: LoggerService
   ) {
     this.config = new Configuration(this.conf)
@@ -644,7 +646,9 @@ export class ServiceTestComponent {
     { name: "Device", value: 'Device' },
     { name: "Packet", value: 'Packet' },
     { name: "Field", value: 'Field' },
-    { name: "Rule", value: 'Rule' }
+    { name: "Rule", value: 'Rule' },
+    { name: "Tag", value: 'Tag' },
+    { name: "Category", value: 'Category' }
   ]
 
   number: number;
@@ -695,6 +699,20 @@ export class ServiceTestComponent {
           );
           break;
         }
+        case 'Tag': {
+          this.tagService.deleteAssetTag(this.number).subscribe(
+            res => this.esito = "OK",
+            err => this.esito = "ERRORE"
+          );
+          break;
+        }
+        case 'Category': {
+          this.categoryService.deleteAssetCategory(this.number).subscribe(
+            res => this.esito = "OK",
+            err => this.esito = "ERRORE"
+          );
+          break;
+        }
         default:
           alert("errore")
       }
@@ -709,12 +727,12 @@ export class ServiceTestComponent {
       setTimeout(() => {
         var bar = document.getElementById("myBar");
         let count = -1;
-        let width = 0;
+        let width = 2;
         let interval = setInterval(() => {
-          width += 20;
+          width += 14;
           bar.style.width = width + '%';
           count++;
-          if (count == 4) {
+          if (count == 6) {
             clearInterval(interval)
             setTimeout(() => {
               this.showBar = false;
@@ -778,8 +796,37 @@ export class ServiceTestComponent {
         )
         break;
       }
+      case 4: {
+        console.log("Deleting tags");
+        this.tagService.findAllAssetTag().subscribe(
+          res => {
+            res.forEach((x) => {
+              this.tagService.deleteAssetTag(x.id).subscribe();
+            })
+          }
+        )
+        break;
+      }
+      case 5: {
+        console.log("Deleting categories");
+        this.categoryService.findAllAssetCategory().subscribe(
+          res => {
+            res.forEach((x) => {
+              this.categoryService.deleteAssetCategory(x.id).subscribe();
+            })
+          }
+        )
+        break;
+      }
     }
 
+  }
+
+  cardView() {
+    this.hProjectService.cardsView().subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    )
   }
 
 }

@@ -368,6 +368,52 @@ export class HprojectsService {
     }
 
     /**
+     * /hyperiot/hprojects/{id}/tree
+     * Return the project tree in JSON format
+     * @param id id of the project
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getHProjectTreeView(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getHProjectTreeView(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getHProjectTreeView(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getHProjectTreeView(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getHProjectTreeView.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}/tree`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/hprojects
      * Service for adding a new hproject entity
      * @param body HProject entity which must be saved 

@@ -141,18 +141,59 @@ export class HdevicesService {
 
     /**
      * /hyperiot/hdevices/all
+     * Service for finding all hdevice entities
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findAllHDevice(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllHDevice(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllHDevice(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllHDevice(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/all`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hdevices/all
      * Service for finding all hdevice entities for a given project id
      * @param projectId The project id to get list of devices from
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findAllHDevice(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllHDevice(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllHDevice(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllHDevice(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findAllHDeviceByProjectId(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllHDeviceByProjectId(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllHDeviceByProjectId(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllHDeviceByProjectId(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (projectId === null || projectId === undefined) {
-            throw new Error('Required parameter projectId was null or undefined when calling findAllHDevice.');
+            throw new Error('Required parameter projectId was null or undefined when calling findAllHDeviceByProjectId.');
         }
 
         let headers = this.defaultHeaders;
@@ -231,47 +272,6 @@ export class HdevicesService {
         return this.httpClient.get<any>(`${this.basePath}/`,
             {
                 params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/hdevices/all
-     * Service for finding all hdevice entities
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findAllHDevice_1(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllHDevice_1(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllHDevice_1(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllHDevice_1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/all`,
-            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

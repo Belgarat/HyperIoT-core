@@ -6,6 +6,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { HPacket } from './hPacket';
 import { HProject } from './hProject';
 import { HyperIoTRole } from './hyperIoTRole';
 
@@ -26,6 +27,7 @@ export interface HDevice {
     softwareVersion?: string;
     description?: string;
     project?: HProject;
+    packets?: Array<HPacket>;
     admin?: boolean;
     loginWithSSLCert?: boolean;
     pubKey?: Array<string>;
