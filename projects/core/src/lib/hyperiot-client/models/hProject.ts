@@ -6,6 +6,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Area } from './area';
+import { Dashboard } from './dashboard';
 import { HDevice } from './hDevice';
 import { HUser } from './hUser';
 
@@ -24,4 +26,6 @@ export interface HProject {
     statisticsCount?: number;
     rulesCount?: number;
     devices?: Array<HDevice>;
+    dashboards?: Array<Dashboard>;
+    areas?: Array<Area>;
 }
