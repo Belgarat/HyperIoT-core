@@ -287,13 +287,13 @@ export class DashboardsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findHProjectOfflimeDashboard(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findHProjectOfflimeDashboard(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findHProjectOfflimeDashboard(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findHProjectOfflimeDashboard(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findHProjectOfflineDashboard(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findHProjectOfflineDashboard(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findHProjectOfflineDashboard(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findHProjectOfflineDashboard(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (projectId === null || projectId === undefined) {
-            throw new Error('Required parameter projectId was null or undefined when calling findHProjectOfflimeDashboard.');
+            throw new Error('Required parameter projectId was null or undefined when calling findHProjectOfflineDashboard.');
         }
 
         let headers = this.defaultHeaders;
