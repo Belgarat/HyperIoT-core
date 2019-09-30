@@ -6,6 +6,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Dashboard } from './dashboard';
 import { HProject } from './hProject';
 
 
@@ -19,5 +20,6 @@ export interface Area {
     name?: string;
     description?: string;
     project?: HProject;
+    readonly dashboards?: Array<Dashboard>;
     parentArea?: Area;
 }
