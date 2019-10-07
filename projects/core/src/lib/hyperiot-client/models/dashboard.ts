@@ -6,6 +6,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { DashboardWidget } from './dashboardWidget';
 import { HProject } from './hProject';
 
 
@@ -18,6 +19,7 @@ export interface Dashboard {
     tagIds?: Array<number>;
     name?: string;
     dashboardType?: Dashboard.DashboardTypeEnum;
+    readonly widgets?: Array<DashboardWidget>;
     hproject?: HProject;
 }
 export namespace Dashboard {

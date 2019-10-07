@@ -16,7 +16,7 @@ export interface HyperIoTAuthenticable {
     entityVersion?: number;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    entityCreateDate?: Date;
     systemApiClassName?: string;
+    entityCreateDate?: Date;
     resourceName?: string;
 }

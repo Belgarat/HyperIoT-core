@@ -24,6 +24,6 @@ export interface Company {
     nation?: string;
     vatNumber?: string;
     user?: HUser;
-    huserCreator?: HUser;
     userOwner?: HyperIoTUser;
+    huserCreator?: HUser;
 }
