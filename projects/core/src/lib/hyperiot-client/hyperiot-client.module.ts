@@ -17,6 +17,7 @@ import { StormService } from './storm-manager-client/api-module/api/storm.servic
 import { DashboardsService } from './dashboard-client/api-module/api/dashboards.service';
 import { DashboardwidgetsService } from './dashboard-widgets-client/api-module/api/dashboardwidgets.service';
 import { CompaniesService } from './company-client/api-module/api/companies.service';
+import { WidgetsService } from './widgets-client/api-module/api/widgets.service';
 import { Configuration } from './models/models';
 
 @NgModule({
@@ -41,7 +42,8 @@ import { Configuration } from './models/models';
     StormService,
     DashboardsService,
     DashboardwidgetsService,
-    CompaniesService
+    CompaniesService,
+    WidgetsService
   ]
 })
 export class HyperiotClientModule {

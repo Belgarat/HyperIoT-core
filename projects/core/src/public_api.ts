@@ -30,6 +30,7 @@ export { StormService } from './lib/hyperiot-client/storm-manager-client/api-mod
 export { DashboardsService } from './lib/hyperiot-client/dashboard-client/api-module/index';
 export { DashboardwidgetsService } from './lib/hyperiot-client/dashboard-widgets-client/api-module/index';
 export { CompaniesService } from './lib/hyperiot-client/company-client/api-module/index';
+export { WidgetsService } from './lib/hyperiot-client/widgets-client/api-module/index';
 
 export { ApiModule as AreasClientModule } from './lib/hyperiot-client/area-client/api-module/api.module';
 export { ApiModule as AssetscategoriesClientModule } from './lib/hyperiot-client/asset-category-client/api-module/api.module';
@@ -48,6 +49,7 @@ export { ApiModule as StormClientModule } from './lib/hyperiot-client/storm-mana
 export { ApiModule as DashboardClientModule } from './lib/hyperiot-client/dashboard-client/api-module/api.module';
 export { ApiModule as DashboardWidgetsClientModule } from './lib/hyperiot-client/dashboard-widgets-client/api-module/api.module';
 export { ApiModule as CompanyClient } from './lib/hyperiot-client/company-client/api-module/api.module';
+export { ApiModule as WidgetsClientModule } from './lib/hyperiot-client/widgets-client/api-module/api.module';
 
 export { HyperiotClientModule } from './lib/hyperiot-client/hyperiot-client.module';
 

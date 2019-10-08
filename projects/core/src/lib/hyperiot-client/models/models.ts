@@ -34,3 +34,4 @@ export * from './role';
 export * from './rule';
 export * from './ruleAction';
 export * from './ruleNode';
+export * from './widget';
