@@ -44,3 +44,6 @@ Thumbs.db
 
 # Lock File
 package-lock.json
+
+# generator
+/generator
