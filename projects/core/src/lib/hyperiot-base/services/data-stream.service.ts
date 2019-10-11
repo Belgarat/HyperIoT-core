@@ -101,7 +101,7 @@ export class DataStreamService {
     this.eventStream.next(event);
     // Serialized packet from Kafka-Flux
     let packet = JSON.parse(event.data);
-    packet = JSON.parse(packet.payload);
+    packet = atob(packet.payload);
     for (const id in this.dataChannels) {
       if (this.dataChannels.hasOwnProperty(id)) {
         const channelData: DataChannel = this.dataChannels[id];
