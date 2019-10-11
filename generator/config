@@ -1,5 +1,5 @@
 #swaggerPath (path/to/swagger-codegen-cli.jar)
-swaggerPath=""
+swaggerPath="./swagger-codegen-cli.jar"
 
 #docFile (path/to/doc)
 docFile="./configuration/docTest"

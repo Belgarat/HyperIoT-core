@@ -1,3 +1,3 @@
-1. Install Swagger (https://github.com/swagger-api/swagger-codegen)
-2. Configure config file: you have to set your 'swagger-codegen-cli.jar' path and which documentation you want to use (default is docTest)
-3. Run 'acsgen.sh' in 'generator' folder (this folder)
+1. Install Swagger (https://github.com/swagger-api/swagger-codegen) and move swagger-codegen-cli.jar in 'generator' folder (this folder).
+2. Configure config file: you have to set which documentation you want to use (default is docTest).
+3. Run 'acsgen.sh' in 'generator' folder (this folder).
