@@ -1,0 +1,136 @@
+../projects/core/src/lib/hyperiot-client/authentication-client/api-module/api/authentication.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/authentication-client/api-module/api/authentication.service.ts#https://localhost/hyperiot/authentication#/hyperiot/authentication#
+../projects/core/src/lib/hyperiot-client/authentication-client/api-module/api/authentication.service.ts#void;#any;#
+../projects/core/src/lib/hyperiot-client/authentication-client/api-module/api/authentication.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/authentication-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/authentication-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/authentication-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/api/husers.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/api/husers.service.ts#https://localhost/hyperiot/husers#/hyperiot/husers#
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/api/husers.service.ts#import { HUser } from '../model/hUser';#import { HUser } from '../../../models/hUser';#
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/api/husers.service.ts#import { HUserPasswordReset } from '../model/hUserPasswordReset';#import { HUserPasswordReset } from '../../../models/hUserPasswordReset';#
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/api/husers.service.ts#void;#any;#
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/api/husers.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/role-client/api-module/api/roles.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/role-client/api-module/api/roles.service.ts#https://localhost/hyperiot/roles#/hyperiot/roles#
+../projects/core/src/lib/hyperiot-client/role-client/api-module/api/roles.service.ts#import { Role } from '../model/role';#import { Role } from '../../../models/role';#
+../projects/core/src/lib/hyperiot-client/role-client/api-module/api/roles.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/role-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/role-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/role-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/permission-client/api-module/api/permissions.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/permission-client/api-module/api/permissions.service.ts#https://localhost/hyperiot/permissions#/hyperiot/permissions#
+../projects/core/src/lib/hyperiot-client/permission-client/api-module/api/permissions.service.ts#import { Permission } from '../model/permission';#import { Permission } from '../../../models/permission';#
+../projects/core/src/lib/hyperiot-client/permission-client/api-module/api/permissions.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/permission-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/permission-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/permission-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/api/mailtemplates.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/api/mailtemplates.service.ts#https://localhost/hyperiot/mail/templates#/hyperiot/mail/templates#
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/api/mailtemplates.service.ts#import { MailTemplate } from '../model/mailTemplate';#import { MailTemplate } from '../../../models/mailTemplate';#
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/api/mailtemplates.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/h-project-client/api-module/api/hprojects.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/h-project-client/api-module/api/hprojects.service.ts#https://localhost/hyperiot/hprojects#/hyperiot/hprojects#
+../projects/core/src/lib/hyperiot-client/h-project-client/api-module/api/hprojects.service.ts#import { HProject } from '../model/hProject';#import { HProject } from '../../../models/hProject';#
+../projects/core/src/lib/hyperiot-client/h-project-client/api-module/api/hprojects.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/h-project-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/h-project-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/h-project-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/h-device-client/api-module/api/hdevices.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/h-device-client/api-module/api/hdevices.service.ts#https://localhost/hyperiot/hdevices#/hyperiot/hdevices#
+../projects/core/src/lib/hyperiot-client/h-device-client/api-module/api/hdevices.service.ts#import { HDevice } from '../model/hDevice';#import { HDevice } from '../../../models/hDevice';#
+../projects/core/src/lib/hyperiot-client/h-device-client/api-module/api/hdevices.service.ts#void;#any;#
+../projects/core/src/lib/hyperiot-client/h-device-client/api-module/api/hdevices.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/h-device-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/h-device-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/h-device-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/h-packet-client/api-module/api/hpackets.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/h-packet-client/api-module/api/hpackets.service.ts#https://localhost/hyperiot/hpackets#/hyperiot/hpackets#
+../projects/core/src/lib/hyperiot-client/h-packet-client/api-module/api/hpackets.service.ts#import { HPacket } from '../model/hPacket';#import { HPacket } from '../../../models/hPacket';#
+../projects/core/src/lib/hyperiot-client/h-packet-client/api-module/api/hpackets.service.ts#import { HPacketField } from '../model/hPacketField';#import { HPacketField } from '../../../models/hPacketField';#
+../projects/core/src/lib/hyperiot-client/h-packet-client/api-module/api/hpackets.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/h-packet-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/h-packet-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/h-packet-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#https://localhost/hyperiot/areas#/hyperiot/areas#
+../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#import { Area } from '../model/area';#import { Area } from '../../../models/area';#
+../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/area-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/area-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/area-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/asset-category-client/api-module/api/assetscategories.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/asset-category-client/api-module/api/assetscategories.service.ts#https://localhost/hyperiot/assets/categories#/hyperiot/assets/categories#
+../projects/core/src/lib/hyperiot-client/asset-category-client/api-module/api/assetscategories.service.ts#import { AssetCategory } from '../model/assetCategory';#import { AssetCategory } from '../../../models/assetCategory';#
+../projects/core/src/lib/hyperiot-client/asset-category-client/api-module/api/assetscategories.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/asset-category-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/asset-category-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/asset-category-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/asset-tag-client/api-module/api/assetstags.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/asset-tag-client/api-module/api/assetstags.service.ts#https://localhost/hyperiot/assets/tags#/hyperiot/assets/tags#
+../projects/core/src/lib/hyperiot-client/asset-tag-client/api-module/api/assetstags.service.ts#import { AssetTag } from '../model/assetTag';#import { AssetTag } from '../../../models/assetTag';#
+../projects/core/src/lib/hyperiot-client/asset-tag-client/api-module/api/assetstags.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/asset-tag-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/asset-tag-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/asset-tag-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/rule-client/api-module/api/rules.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/rule-client/api-module/api/rules.service.ts#https://localhost/hyperiot/rules#/hyperiot/rules#
+../projects/core/src/lib/hyperiot-client/rule-client/api-module/api/rules.service.ts#import { Rule } from '../model/rule';#import { Rule } from '../../../models/rule';#
+../projects/core/src/lib/hyperiot-client/rule-client/api-module/api/rules.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/rule-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/rule-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/rule-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#https://localhost/hyperiot/kafka#/hyperiot/kafka#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#import { MqttConnectorConfig } from '../model/mqttConnectorConfig';#import { MqttConnectorConfig } from '../../../models/mqttConnectorConfig';#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/storm-manager-client/api-module/api/storm.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/storm-manager-client/api-module/api/storm.service.ts#https://localhost/hyperiot/storm#/hyperiot/storm#
+../projects/core/src/lib/hyperiot-client/storm-manager-client/api-module/api/storm.service.ts#import { Attachment } from '../model/attachment';#import { Attachment } from '../../../models/attachment';#
+../projects/core/src/lib/hyperiot-client/storm-manager-client/api-module/api/storm.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/storm-manager-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/storm-manager-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/storm-manager-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/company-client/api-module/api/companies.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/company-client/api-module/api/companies.service.ts#https://localhost/hyperiot/companies#/hyperiot/companies#
+../projects/core/src/lib/hyperiot-client/company-client/api-module/api/companies.service.ts#import { Company } from '../model/company';#import { Company } from '../../../models/company';#
+../projects/core/src/lib/hyperiot-client/company-client/api-module/api/companies.service.ts#void;#any;#
+../projects/core/src/lib/hyperiot-client/company-client/api-module/api/companies.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/company-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/company-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/company-client/api-module/api/companies.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/company-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/dashboard-client/api-module/api/dashboards.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/dashboard-client/api-module/api/dashboards.service.ts#https://localhost/hyperiot/dashboards#/hyperiot/dashboards#
+../projects/core/src/lib/hyperiot-client/dashboard-client/api-module/api/dashboards.service.ts#import { Dashboard } from '../model/dashboard';#import { Dashboard } from '../../../models/dashboard';#
+../projects/core/src/lib/hyperiot-client/dashboard-client/api-module/api/dashboards.service.ts#void;#any;#
+../projects/core/src/lib/hyperiot-client/dashboard-client/api-module/api/dashboards.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/dashboard-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/dashboard-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/dashboard-client/api-module/api/dashboard.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/dashboard-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module/api/dashboardwidgets.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module/api/dashboardwidgets.service.ts#https://localhost/hyperiot/dashboardwidgets#/hyperiot/dashboardwidgets#
+../projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module/api/dashboardwidgets.service.ts#import { DashboardWidget } from '../model/dashboardWidget';#import { DashboardWidget } from '../../../models/dashboardWidget';#
+../projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module/api/dashboardwidgets.service.ts#void;#any;#
+../projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module/api/dashboardwidgets.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module/api/dashboardwidgets.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/widgets-client/api-module/api/widgets.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/widgets-client/api-module/api/widgets.service.ts#https://localhost/hyperiot/widgets#/hyperiot/widgets#
+../projects/core/src/lib/hyperiot-client/widgets-client/api-module/api/widgets.service.ts#import { Widget } from '../model/widget';#import { Widget } from '../../../models/widget';#
+../projects/core/src/lib/hyperiot-client/widgets-client/api-module/api/widgets.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/widgets-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/widgets-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/widgets-client/api-module/index.ts#export.*from './configuration';##

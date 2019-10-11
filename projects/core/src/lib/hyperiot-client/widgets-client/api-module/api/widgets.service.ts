@@ -183,25 +183,13 @@ export class WidgetsService {
     /**
      * /hyperiot/widgets/listed
      * Service for finding widgets divided into categories
-     * @param delta 
-     * @param page 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findAllWidgetInCategories(delta?: number, page?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllWidgetInCategories(delta?: number, page?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllWidgetInCategories(delta?: number, page?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllWidgetInCategories(delta?: number, page?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (delta !== undefined && delta !== null) {
-            queryParameters = queryParameters.set('delta', <any>delta);
-        }
-        if (page !== undefined && page !== null) {
-            queryParameters = queryParameters.set('page', <any>page);
-        }
+    public findAllWidgetInCategories(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllWidgetInCategories(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllWidgetInCategories(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllWidgetInCategories(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -225,7 +213,6 @@ export class WidgetsService {
 
         return this.httpClient.get<any>(`${this.basePath}/listed`,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -325,6 +312,63 @@ export class WidgetsService {
         ];
 
         return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/widgets/rate/{rate}
+     * Service for adding a new widgetRating
+     * @param rate rating value
+     * @param body Updated user object
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public rateWidget(rate: number, body: Widget, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public rateWidget(rate: number, body: Widget, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public rateWidget(rate: number, body: Widget, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public rateWidget(rate: number, body: Widget, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (rate === null || rate === undefined) {
+            throw new Error('Required parameter rate was null or undefined when calling rateWidget.');
+        }
+
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling rateWidget.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/rate/${encodeURIComponent(String(rate))}`,
+            body,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -16,6 +16,7 @@ export interface Widget {
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     name?: string;
+    description?: string;
     widgetCategory?: Widget.WidgetCategoryEnum;
     domains?: Array<Widget.DomainsEnum>;
     baseConfig?: string;
@@ -23,6 +24,7 @@ export interface Widget {
     cols?: number;
     rows?: number;
     image?: Array<string>;
+    preView?: Array<string>;
     avgRating?: number;
 }
 export namespace Widget {

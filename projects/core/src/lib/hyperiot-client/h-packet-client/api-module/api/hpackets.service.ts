@@ -198,21 +198,16 @@ export class HpacketsService {
     }
 
     /**
-     * /hyperiot/hpackets/{id}/fields/{fieldId}
+     * /hyperiot/hpackets/fields/{fieldId}
      * Service for deleting a hpacket field entity
-     * @param id The hpacket  which must be updated
      * @param fieldId The hpacket field id which must be deleted
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteHPacketField(id: number, fieldId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteHPacketField(id: number, fieldId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteHPacketField(id: number, fieldId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteHPacketField(id: number, fieldId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteHPacketField.');
-        }
+    public deleteHPacketField(fieldId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteHPacketField(fieldId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteHPacketField(fieldId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteHPacketField(fieldId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (fieldId === null || fieldId === undefined) {
             throw new Error('Required parameter fieldId was null or undefined when calling deleteHPacketField.');
@@ -239,7 +234,7 @@ export class HpacketsService {
             'application/json'
         ];
 
-        return this.httpClient.delete<any>(`${this.basePath}/${encodeURIComponent(String(id))}/fields/${encodeURIComponent(String(fieldId))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/fields/${encodeURIComponent(String(fieldId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
