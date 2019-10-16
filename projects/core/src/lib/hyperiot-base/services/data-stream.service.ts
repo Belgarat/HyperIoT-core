@@ -101,27 +101,32 @@ export class DataStreamService {
     this.eventStream.next(event);
     // Serialized packet from Kafka-Flux
     let packet = JSON.parse(event.data);
-    packet = atob(packet.payload);
-    for (const id in this.dataChannels) {
-      if (this.dataChannels.hasOwnProperty(id)) {
-        const channelData: DataChannel = this.dataChannels[id];
-        // check if message is valid for the current
-        // channel, if so emit a new event
-        if (packet.id == channelData.packet.packetId) {
-          channelData.packet.fields.map((fieldName: string) => {
-            if (packet.hasOwnProperty(fieldName)) {
-              const field = {};
-              field[fieldName] = packet[fieldName];
-              let timestamp = new Date();
-              // get timestamp from packet if present
-              if (field['timestamp']) {
-                timestamp = new Date(field['timestamp']);
+    if(packet.type == "APPLICATION") {
+      packet = atob(packet.payload);
+      for (const id in this.dataChannels) {
+        if (this.dataChannels.hasOwnProperty(id)) {
+          const channelData: DataChannel = this.dataChannels[id];
+          // check if message is valid for the current
+          // channel, if so emit a new event
+          if (packet.id == channelData.packet.packetId) {
+            channelData.packet.fields.map((fieldName: string) => {
+              if (packet.hasOwnProperty(fieldName)) {
+                const field = {};
+                field[fieldName] = packet[fieldName];
+                let timestamp = new Date();
+                // get timestamp from packet if present
+                if (field['timestamp']) {
+                  timestamp = new Date(field['timestamp']);
+                }
+                channelData.subject.next([timestamp, field]);
               }
-              channelData.subject.next([timestamp, field]);
-            }
-          });
+            });
+          }
         }
       }
+    }
+    else {
+      console.error("Invalid packet type:", packet.type)
     }
   }
 }
