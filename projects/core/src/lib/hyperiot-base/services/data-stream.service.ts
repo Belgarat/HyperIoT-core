@@ -34,8 +34,15 @@ export class DataStreamService {
   isConnected: boolean;
   eventStream: Subject<any>;
 
+  private timer;
   private wsUrl = 'ws://' + location.hostname + (location.port ? ':' + location.port : '') + '/hyperiot/ws/project?projectId=';
   private ws: WebSocket;
+
+  pingMessage = {
+    cmd: null,
+    type: "PING",
+    payload: ""
+  }
 
   constructor() {
     this.eventStream = new Subject<any>();
@@ -47,12 +54,32 @@ export class DataStreamService {
    * @param url WebSocket endpoint url
    */
   connect(projectId: number, url?: string) {
+    console.log("Connecting websocket....");
     this.disconnect();
     this.ws = new WebSocket(url != null ? url : this.wsUrl + projectId);
     this.ws.onmessage = this.onWsMessage.bind(this);
     this.ws.onerror = this.onWsError.bind(this);
     this.ws.onclose = this.onWsClose.bind(this);
     this.ws.onopen = this.onWsOpen.bind(this);
+    this.keepAlive();
+  }
+
+
+  keepAlive() {
+    this.timer = setTimeout(() => {
+      if (this.ws != null && this.ws.readyState == this.ws.OPEN) {
+        console.log("Sending heartbeat to websocket...");
+        this.ws.send(JSON.stringify(this.pingMessage));
+      }
+      this.keepAlive();
+    }, 120000);
+  }
+
+  cancelKeepAlive() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = null;
+    }
   }
 
   /**
@@ -63,6 +90,7 @@ export class DataStreamService {
       this.ws.close();
       this.ws = null;
     }
+    this.cancelKeepAlive();
     this.isConnected = false;
   }
 
@@ -98,22 +126,26 @@ export class DataStreamService {
     // TODO: report error
   }
   private onWsMessage(event: MessageEvent) {
-    this.eventStream.next(event);
     // Serialized packet from Kafka-Flux
-    let packet = JSON.parse(event.data);
-    console.log(packet);
-    if (packet.type == "APPLICATION") {
-      packet = atob(packet.payload);
+    let wsData = JSON.parse(event.data);
+    //web socket payload
+    let decodedWsPayload = atob(wsData.payload);
+    //so event.data will contain all the info
+    this.eventStream.next({ data: decodedWsPayload });
+    let wsPayload = JSON.parse(decodedWsPayload);
+    //HPacket payload
+    let payload = JSON.parse(wsPayload.payload);
+    if (wsData.type == "APPLICATION") {
       for (const id in this.dataChannels) {
         if (this.dataChannels.hasOwnProperty(id)) {
           const channelData: DataChannel = this.dataChannels[id];
           // check if message is valid for the current
           // channel, if so emit a new event
-          if (packet.id == channelData.packet.packetId) {
+          if (payload.id == channelData.packet.packetId) {
             channelData.packet.fields.map((fieldName: string) => {
-              if (packet.hasOwnProperty(fieldName)) {
+              if (payload.hasOwnProperty(fieldName)) {
                 const field = {};
-                field[fieldName] = packet[fieldName];
+                field[fieldName] = payload[fieldName];
                 let timestamp = new Date();
                 // get timestamp from packet if present
                 if (field['timestamp']) {
@@ -126,8 +158,10 @@ export class DataStreamService {
         }
       }
     }
-    else {
-      console.error("Invalid packet type:", packet.type)
+    else if (wsData.type == 'ERROR') {
+      console.error("Error on websocket:", wsPayload)
+    } else {
+      console.error("Invalid packet type : ", wsData.type)
     }
   }
 }
