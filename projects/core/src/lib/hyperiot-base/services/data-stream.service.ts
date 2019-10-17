@@ -46,9 +46,9 @@ export class DataStreamService {
    * 
    * @param url WebSocket endpoint url
    */
-  connect( projectId: number, url?: string) {
+  connect(projectId: number, url?: string) {
     this.disconnect();
-    this.ws = new WebSocket(url != null ? url : this.wsUrl+projectId);
+    this.ws = new WebSocket(url != null ? url : this.wsUrl + projectId);
     this.ws.onmessage = this.onWsMessage.bind(this);
     this.ws.onerror = this.onWsError.bind(this);
     this.ws.onclose = this.onWsClose.bind(this);
@@ -101,7 +101,8 @@ export class DataStreamService {
     this.eventStream.next(event);
     // Serialized packet from Kafka-Flux
     let packet = JSON.parse(event.data);
-    if(packet.type == "APPLICATION") {
+    console.log(packet);
+    if (packet.type == "APPLICATION") {
       packet = atob(packet.payload);
       for (const id in this.dataChannels) {
         if (this.dataChannels.hasOwnProperty(id)) {
