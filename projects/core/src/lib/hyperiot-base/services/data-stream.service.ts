@@ -72,7 +72,7 @@ export class DataStreamService {
         this.ws.send(JSON.stringify(this.pingMessage));
       }
       this.keepAlive();
-    }, 120000);
+    }, 40000);
   }
 
   cancelKeepAlive() {
