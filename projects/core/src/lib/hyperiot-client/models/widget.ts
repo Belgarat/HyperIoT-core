@@ -26,6 +26,8 @@ export interface Widget {
     image?: Array<string>;
     preView?: Array<string>;
     avgRating?: number;
+    offline?: boolean;
+    realTime?: boolean;
 }
 export namespace Widget {
     export type WidgetCategoryEnum = 'ALL' | 'BAR' | 'LINE' | 'PIE' | 'RADAR' | 'GAUGES' | 'MAP' | 'ACTION' | 'TABLES';

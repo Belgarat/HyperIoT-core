@@ -10,6 +10,7 @@ import { Area } from './area';
 import { Dashboard } from './dashboard';
 import { HDevice } from './hDevice';
 import { HUser } from './hUser';
+import { Rule } from './rule';
 
 
 export interface HProject { 
@@ -28,4 +29,6 @@ export interface HProject {
     devices?: Array<HDevice>;
     dashboards?: Array<Dashboard>;
     areas?: Array<Area>;
+    rules?: Array<Rule>;
+    pubKey?: Array<string>;
 }

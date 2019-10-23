@@ -18,6 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { AutoRegisterProjectRequest } from '../../../models/autoRegisterProjectRequest';
 import { HProject } from '../../../models/hProject';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -55,6 +56,53 @@ export class HprojectsService {
         return false;
     }
 
+
+    /**
+     * /hyperiot/hprojects/register
+     * Service for adding a new empty hproject entity for register devices with gateway
+     * @param body HProject entity which must be saved 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public autoRegisterHProject(body: AutoRegisterProjectRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public autoRegisterHProject(body: AutoRegisterProjectRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public autoRegisterHProject(body: AutoRegisterProjectRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public autoRegisterHProject(body: AutoRegisterProjectRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling autoRegisterHProject.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/register`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * /hyperiot/hprojects/all/cards
@@ -124,6 +172,54 @@ export class HprojectsService {
         ];
 
         return this.httpClient.get<any>(`${this.basePath}/module/status`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hprojects/auto-register-project/challenge/{projectId}
+     * Service for adding a new empty hproject entity for autoregister devices with gateway
+     * @param projectId HProject id which must be used forgenerating the challenge 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public createChallengeForAutoRegister(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public createChallengeForAutoRegister(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public createChallengeForAutoRegister(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public createChallengeForAutoRegister(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (projectId === null || projectId === undefined) {
+            throw new Error('Required parameter projectId was null or undefined when calling createChallengeForAutoRegister.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.post<any>(`${this.basePath}/auto-register-project/challenge/${encodeURIComponent(String(projectId))}`,
+            null,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -404,6 +500,58 @@ export class HprojectsService {
         ];
 
         return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}/tree`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hprojects/auto-register-project
+     * Service for adding a new empty hproject entity for autoregister devices with gateway
+     * @param body HProject entity which must be saved 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public saveAutoRegisteredHProject(body: HProject, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public saveAutoRegisteredHProject(body: HProject, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public saveAutoRegisteredHProject(body: HProject, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public saveAutoRegisteredHProject(body: HProject, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling saveAutoRegisteredHProject.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/auto-register-project`,
+            body,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

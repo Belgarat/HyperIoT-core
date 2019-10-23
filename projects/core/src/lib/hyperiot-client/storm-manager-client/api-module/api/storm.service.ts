@@ -18,7 +18,6 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Attachment } from '../../../models/attachment';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
@@ -57,19 +56,19 @@ export class StormService {
 
 
     /**
-     * /hyperiot/storm/topology/activate/{project_id}
-     * Activates a project topology
-     * @param projectId Project id
+     * /hyperiot/storm/topology/{projectId}/activate
+     * Activates a topology
+     * @param projectId ID of the project
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public activateProjectTopology(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public activateProjectTopology(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public activateProjectTopology(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public activateProjectTopology(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public activateTopology(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public activateTopology(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public activateTopology(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public activateTopology(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (projectId === null || projectId === undefined) {
-            throw new Error('Required parameter projectId was null or undefined when calling activateProjectTopology.');
+            throw new Error('Required parameter projectId was null or undefined when calling activateTopology.');
         }
 
         let headers = this.defaultHeaders;
@@ -92,110 +91,7 @@ export class StormService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/topology/activate/${encodeURIComponent(String(projectId))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/storm/topology/{topology_name}/activate
-     * Activates a topology
-     * @param topologyName name of the topology to activate
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public activateTopology(topologyName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public activateTopology(topologyName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public activateTopology(topologyName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public activateTopology(topologyName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (topologyName === null || topologyName === undefined) {
-            throw new Error('Required parameter topologyName was null or undefined when calling activateTopology.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/topology/${encodeURIComponent(String(topologyName))}/activate`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/storm/topology/add
-     * Adds a topology to the topology repo
-     * @param body Topology JAR file
-     * @param body2 Topology file name
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public addTopology(body: Attachment, body2: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public addTopology(body: Attachment, body2: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public addTopology(body: Attachment, body2: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public addTopology(body: Attachment, body2: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling addTopology.');
-        }
-
-        if (body2 === null || body2 === undefined) {
-            throw new Error('Required parameter body2 was null or undefined when calling addTopology.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'multipart/form-data'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<any>(`${this.basePath}/topology/add`,
-            body2,
+        return this.httpClient.get<any>(`${this.basePath}/topology/${encodeURIComponent(String(projectId))}/activate`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -242,19 +138,19 @@ export class StormService {
     }
 
     /**
-     * /hyperiot/storm/topology/deactivate/{project_id}
-     * Deactivates a project topology
-     * @param projectId Project id
+     * /hyperiot/storm/topology/{projectId}/deactivate
+     * Deactivates a topology
+     * @param projectId ID of the project
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deactivateProjectTopology(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deactivateProjectTopology(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deactivateProjectTopology(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deactivateProjectTopology(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public deactivateTopology(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deactivateTopology(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deactivateTopology(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deactivateTopology(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (projectId === null || projectId === undefined) {
-            throw new Error('Required parameter projectId was null or undefined when calling deactivateProjectTopology.');
+            throw new Error('Required parameter projectId was null or undefined when calling deactivateTopology.');
         }
 
         let headers = this.defaultHeaders;
@@ -277,53 +173,7 @@ export class StormService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/topology/deactivate/${encodeURIComponent(String(projectId))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/storm/topology/{topology_name}/deactivate
-     * Deactivates a topology
-     * @param topologyName name of the topology to deactivate
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deactivateTopology(topologyName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deactivateTopology(topologyName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deactivateTopology(topologyName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deactivateTopology(topologyName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (topologyName === null || topologyName === undefined) {
-            throw new Error('Required parameter topologyName was null or undefined when calling deactivateTopology.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/topology/${encodeURIComponent(String(topologyName))}/deactivate`,
+        return this.httpClient.get<any>(`${this.basePath}/topology/${encodeURIComponent(String(projectId))}/deactivate`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -380,19 +230,19 @@ export class StormService {
     }
 
     /**
-     * /hyperiot/storm/topology/status/{project_id}
-     * Gets a project topology
-     * @param projectId Project id
+     * /hyperiot/storm/topology/{projectId}
+     * Gets topology status
+     * @param projectId ID of the project
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getProjectTopology(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getProjectTopology(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getProjectTopology(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getProjectTopology(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getTopology(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getTopology(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getTopology(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getTopology(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (projectId === null || projectId === undefined) {
-            throw new Error('Required parameter projectId was null or undefined when calling getProjectTopology.');
+            throw new Error('Required parameter projectId was null or undefined when calling getTopology.');
         }
 
         let headers = this.defaultHeaders;
@@ -415,99 +265,7 @@ export class StormService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/topology/status/${encodeURIComponent(String(projectId))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/storm/topology/{topology_name}
-     * Gets topology status
-     * @param topologyName topology name from which to get status
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getTopology(topologyName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getTopology(topologyName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getTopology(topologyName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getTopology(topologyName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (topologyName === null || topologyName === undefined) {
-            throw new Error('Required parameter topologyName was null or undefined when calling getTopology.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/topology/${encodeURIComponent(String(topologyName))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/storm/topology/{topology_name}/errors
-     * Gets topology errors
-     * @param topologyName topology name from which to get errors
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getTopologyErrors(topologyName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getTopologyErrors(topologyName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getTopologyErrors(topologyName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getTopologyErrors(topologyName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (topologyName === null || topologyName === undefined) {
-            throw new Error('Required parameter topologyName was null or undefined when calling getTopologyErrors.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/topology/${encodeURIComponent(String(topologyName))}/errors`,
+        return this.httpClient.get<any>(`${this.basePath}/topology/${encodeURIComponent(String(projectId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -559,65 +317,19 @@ export class StormService {
     }
 
     /**
-     * /hyperiot/storm/topology/kill/{project_id}
-     * Kills a project topology
-     * @param projectId Project id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public killProjectTopology(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public killProjectTopology(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public killProjectTopology(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public killProjectTopology(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (projectId === null || projectId === undefined) {
-            throw new Error('Required parameter projectId was null or undefined when calling killProjectTopology.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/topology/kill/${encodeURIComponent(String(projectId))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * /hyperiot/storm/topology/{topology_name}/kill
      * Kills a topology
-     * @param topologyName name of the topology to kill
+     * @param projectId ID of the project
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public killTopology(topologyName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public killTopology(topologyName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public killTopology(topologyName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public killTopology(topologyName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public killTopology(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public killTopology(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public killTopology(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public killTopology(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (topologyName === null || topologyName === undefined) {
-            throw new Error('Required parameter topologyName was null or undefined when calling killTopology.');
+        if (projectId === null || projectId === undefined) {
+            throw new Error('Required parameter projectId was null or undefined when calling killTopology.');
         }
 
         let headers = this.defaultHeaders;
@@ -640,63 +352,7 @@ export class StormService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/topology/${encodeURIComponent(String(topologyName))}/kill`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/storm/topology/{topology_name}/rebalance/{deactivation_seconds}/{new_num_workers}
-     * Re-balances topology
-     * @param topologyName name of the topology to re-balance
-     * @param deactivationSeconds topology deactivation seconds
-     * @param newNumWorkers new number of workers
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public rebalanceTopology(topologyName: string, deactivationSeconds: number, newNumWorkers: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public rebalanceTopology(topologyName: string, deactivationSeconds: number, newNumWorkers: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public rebalanceTopology(topologyName: string, deactivationSeconds: number, newNumWorkers: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public rebalanceTopology(topologyName: string, deactivationSeconds: number, newNumWorkers: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (topologyName === null || topologyName === undefined) {
-            throw new Error('Required parameter topologyName was null or undefined when calling rebalanceTopology.');
-        }
-
-        if (deactivationSeconds === null || deactivationSeconds === undefined) {
-            throw new Error('Required parameter deactivationSeconds was null or undefined when calling rebalanceTopology.');
-        }
-
-        if (newNumWorkers === null || newNumWorkers === undefined) {
-            throw new Error('Required parameter newNumWorkers was null or undefined when calling rebalanceTopology.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/topology/${encodeURIComponent(String(topologyName))}/rebalance/${encodeURIComponent(String(deactivationSeconds))}/${encodeURIComponent(String(newNumWorkers))}`,
+        return this.httpClient.get<any>(`${this.basePath}/topology/${encodeURIComponent(String(projectId))}/kill`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -743,68 +399,6 @@ export class StormService {
         ];
 
         return this.httpClient.get<any>(`${this.basePath}/topology/submit/${encodeURIComponent(String(projectId))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/storm/topology/submit
-     * Submits a topology
-     * @param body Topology JAR file
-     * @param body2 Topology definition YAML file (Flux)
-     * @param body3 Topology properties file
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public submitTopology(body: Attachment, body2: Attachment, body3: Attachment, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public submitTopology(body: Attachment, body2: Attachment, body3: Attachment, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public submitTopology(body: Attachment, body2: Attachment, body3: Attachment, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public submitTopology(body: Attachment, body2: Attachment, body3: Attachment, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling submitTopology.');
-        }
-
-        if (body2 === null || body2 === undefined) {
-            throw new Error('Required parameter body2 was null or undefined when calling submitTopology.');
-        }
-
-        if (body3 === null || body3 === undefined) {
-            throw new Error('Required parameter body3 was null or undefined when calling submitTopology.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'multipart/form-data'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<any>(`${this.basePath}/topology/submit`,
-            body3,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
