@@ -40,8 +40,8 @@ export class DataStreamService {
 
   pingMessage = {
     cmd: null,
-    type: "PING",
-    payload: ""
+    type: 'PING',
+    payload: ''
   }
 
   constructor() {
@@ -54,7 +54,7 @@ export class DataStreamService {
    * @param url WebSocket endpoint url
    */
   connect(projectId: number, url?: string) {
-    console.log("Connecting websocket....");
+    console.log('Connecting websocket...');
     this.disconnect();
     this.ws = new WebSocket(url != null ? url : this.wsUrl + projectId);
     this.ws.onmessage = this.onWsMessage.bind(this);
@@ -68,7 +68,7 @@ export class DataStreamService {
   keepAlive() {
     this.timer = setTimeout(() => {
       if (this.ws != null && this.ws.readyState == this.ws.OPEN) {
-        console.log("Sending heartbeat to websocket...");
+        console.log('Sending heartbeat to websocket...');
         this.ws.send(JSON.stringify(this.pingMessage));
       }
       this.keepAlive();
@@ -127,29 +127,30 @@ export class DataStreamService {
   }
   private onWsMessage(event: MessageEvent) {
     // Serialized packet from Kafka-Flux
-    let wsData = JSON.parse(event.data);
-    //web socket payload
-    let decodedWsPayload = atob(wsData.payload);
-    //so event.data will contain all the info
+    const wsData = JSON.parse(event.data);
+    // web socket payload
+    const decodedWsPayload = atob(wsData.payload);
+    // so event.data will contain all the info
     this.eventStream.next({ data: decodedWsPayload });
-    let wsPayload = JSON.parse(decodedWsPayload);
-    //HPacket payload
-    let payload = JSON.parse(wsPayload.payload);
-    if (wsData.type == "APPLICATION") {
+    const wsPayload = JSON.parse(decodedWsPayload);
+    // HPacket payload
+    const payload = JSON.parse(wsPayload.payload);
+    if (wsData.type === 'APPLICATION') {
       for (const id in this.dataChannels) {
         if (this.dataChannels.hasOwnProperty(id)) {
           const channelData: DataChannel = this.dataChannels[id];
           // check if message is valid for the current
           // channel, if so emit a new event
           if (payload.id == channelData.packet.packetId) {
-            channelData.packet.fields.map((fieldName: string) => {
+            Object.keys(channelData.packet.fields).map((fieldId: any) => {
+              const fieldName = channelData.packet.fields[fieldId];
               if (payload.hasOwnProperty(fieldName)) {
                 const field = {};
                 field[fieldName] = payload[fieldName];
                 let timestamp = new Date();
                 // get timestamp from packet if present
-                if (field['timestamp']) {
-                  timestamp = new Date(field['timestamp']);
+                if (payload['timestamp']) {
+                  timestamp = new Date(payload['timestamp']);
                 }
                 channelData.subject.next([timestamp, field]);
               }
@@ -157,11 +158,10 @@ export class DataStreamService {
           }
         }
       }
-    }
-    else if (wsData.type == 'ERROR') {
-      console.error("Error on websocket:", wsPayload)
+    } else if (wsData.type === 'ERROR') {
+      console.error('Error on websocket:', wsPayload);
     } else {
-      console.error("Invalid packet type : ", wsData.type)
+      console.error('Invalid packet type:', wsData.type);
     }
   }
 }
