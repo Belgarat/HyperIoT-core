@@ -19,6 +19,7 @@ export interface HPacketField {
     description?: string;
     type?: HPacketField.TypeEnum;
     multiplicity?: HPacketField.MultiplicityEnum;
+    unit?: string;
     parentField?: HPacketField;
     innerFields?: Array<HPacketField>;
     value?: any;
