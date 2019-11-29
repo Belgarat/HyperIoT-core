@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { DataPacketFilter } from './data-packet-filter';
 import { Subject } from 'rxjs';
 
+import { Type } from 'avsc';
+
 export class DataChannel {
   packet: DataPacketFilter;
   subject: Subject<[any, any]>;
@@ -42,7 +44,8 @@ export class DataStreamService {
     cmd: null,
     type: 'PING',
     payload: ''
-  }
+  };
+  packetSchema: Type;
 
   constructor() {
     this.eventStream = new Subject<any>();
@@ -129,7 +132,17 @@ export class DataStreamService {
     // Serialized packet from Kafka-Flux
     const wsData = JSON.parse(event.data);
     // web socket payload
-    const decodedWsPayload = atob(wsData.payload);
+    let decodedWsPayload = atob(wsData.payload);
+    if (wsData.type === 'INFO') {
+      this.packetSchema = Type.forSchema(JSON.parse(decodedWsPayload));
+console.log('PACKET SCHEMA', this.packetSchema);
+      return;
+    } else if (!this.packetSchema) {
+      return;
+    }
+console.log('RAW AVRO PAYLOAD', decodedWsPayload);
+    decodedWsPayload = this.packetSchema.fromBuffer(new Buffer(decodedWsPayload, 'binary'));
+console.log('DECODED AVRO PAYLOAD', decodedWsPayload);
     // so event.data will contain all the info
     this.eventStream.next({ data: decodedWsPayload });
     const wsPayload = JSON.parse(decodedWsPayload);
