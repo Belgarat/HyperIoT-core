@@ -3,6 +3,7 @@ import { DataPacketFilter } from './data-packet-filter';
 import { Subject } from 'rxjs';
 
 import { Type } from 'avsc';
+import { HPacket } from '../../../public_api';
 
 export class DataChannel {
   packet: DataPacketFilter;
@@ -129,41 +130,45 @@ export class DataStreamService {
     // TODO: report error
   }
   private onWsMessage(event: MessageEvent) {
-    // Serialized packet from Kafka-Flux
+    // read AVRO-serialized HPacket from Kafka-Flux
     const wsData = JSON.parse(event.data);
-    // web socket payload
-    let decodedWsPayload = atob(wsData.payload);
+    // decode base-64 payload
+    const decodedWsPayload = atob(wsData.payload);
+    // TODO: add specific type 'SCHEMA' instead of using 'INFO'
     if (wsData.type === 'INFO') {
       this.packetSchema = Type.forSchema(JSON.parse(decodedWsPayload));
-console.log('PACKET SCHEMA', this.packetSchema);
       return;
     } else if (!this.packetSchema) {
+      // cannot continue without schema definition
       return;
     }
-console.log('RAW AVRO PAYLOAD', decodedWsPayload);
-    decodedWsPayload = this.packetSchema.fromBuffer(new Buffer(decodedWsPayload, 'binary'));
-console.log('DECODED AVRO PAYLOAD', decodedWsPayload);
-    // so event.data will contain all the info
-    this.eventStream.next({ data: decodedWsPayload });
-    const wsPayload = JSON.parse(decodedWsPayload);
-    // HPacket payload
-    const payload = JSON.parse(wsPayload.payload);
+    // decode AVRO data to HPacket instance
+    const hpacket = this.packetSchema.fromBuffer(new Buffer(decodedWsPayload, 'binary')) as HPacket;
+    // route received HPacket to eventStream subscribers
+    this.eventStream.next({ data: hpacket });
     if (wsData.type === 'APPLICATION') {
+      // extract and route subscribed fields to data channels
       for (const id in this.dataChannels) {
         if (this.dataChannels.hasOwnProperty(id)) {
           const channelData: DataChannel = this.dataChannels[id];
           // check if message is valid for the current
           // channel, if so emit a new event
-          if (payload.id == channelData.packet.packetId) {
+          if (hpacket.id == channelData.packet.packetId) {
             Object.keys(channelData.packet.fields).map((fieldId: any) => {
               const fieldName = channelData.packet.fields[fieldId];
-              if (payload.hasOwnProperty(fieldName)) {
+              if (hpacket.fields.hasOwnProperty(fieldName)) {
                 const field = {};
-                field[fieldName] = payload[fieldName];
+                const value = hpacket.fields[fieldName].value;
+                // based on the type, the input packet field value
+                // will be stored in the corresponding type property
+                // eg. if packet field is "DOUBLE" then the effective value
+                // will be stored into 'value.double' property
+                const valueKey = Object.keys(value)[0];
+                field[fieldName] = hpacket.fields[fieldName].value[valueKey];
                 let timestamp = new Date();
                 // get timestamp from packet if present
-                if (payload['timestamp']) {
-                  timestamp = new Date(payload['timestamp']);
+                if (hpacket.fields['timestamp']) {
+                  timestamp = new Date(hpacket.fields['timestamp'].value.long);
                 }
                 channelData.subject.next([timestamp, field]);
               }
@@ -172,7 +177,7 @@ console.log('DECODED AVRO PAYLOAD', decodedWsPayload);
         }
       }
     } else if (wsData.type === 'ERROR') {
-      console.error('Error on websocket:', wsPayload);
+      console.error('Error on websocket:', hpacket);
     } else {
       console.error('Invalid packet type:', wsData.type);
     }
