@@ -1,6 +1,11 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/core",
+  "whitelistedNonPeerDependencies": [
+    "avsc",
+    "plotly.js",
+    "angular-plotly.js"
+  ],
   "lib": {
     "entryFile": "src/public_api.ts"
   }
