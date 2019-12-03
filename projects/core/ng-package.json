@@ -3,6 +3,9 @@
   "dest": "../../dist/core",
   "whitelistedNonPeerDependencies": [
     "avsc",
+    "path",
+    "stream",
+    "zlib",
     "plotly.js",
     "angular-plotly.js"
   ],
