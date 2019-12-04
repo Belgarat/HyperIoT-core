@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { DataPacketFilter } from './data-packet-filter';
 import { Subject } from 'rxjs';
 
-import { Type } from 'avsc';
 import { HPacket } from '../../../public_api';
 
 export class DataChannel {
@@ -46,7 +45,7 @@ export class DataStreamService {
     type: 'PING',
     payload: ''
   };
-  packetSchema: Type;
+  packetSchema: any;
 
   constructor() {
     this.eventStream = new Subject<any>();
@@ -130,20 +129,28 @@ export class DataStreamService {
     // TODO: report error
   }
   private onWsMessage(event: MessageEvent) {
+    // avsc.js must be manually included in the hosting page
+    const avro = window['avsc'];
+    if (!avro) {
+      const errorMessage = '@hyperiot/core/data-stream-service - ERROR: https://github.com/aszmyd/avsc-js (dist) must be included in the hosting page.';
+      console.error(errorMessage);
+      throw Error(errorMessage);
+    }
     // read AVRO-serialized HPacket from Kafka-Flux
     const wsData = JSON.parse(event.data);
     // decode base-64 payload
     const decodedWsPayload = atob(wsData.payload);
     // TODO: add specific type 'SCHEMA' instead of using 'INFO'
     if (wsData.type === 'INFO') {
-      this.packetSchema = Type.forSchema(JSON.parse(decodedWsPayload));
+      this.packetSchema = avro.parse(JSON.parse(decodedWsPayload));
       return;
     } else if (!this.packetSchema) {
       // cannot continue without schema definition
       return;
     }
     // decode AVRO data to HPacket instance
-    const hpacket = this.packetSchema.fromBuffer(new Buffer(decodedWsPayload, 'binary')) as HPacket;
+    const hpacket = this.packetSchema.decode(new Buffer(decodedWsPayload, 'binary')) as HPacket;
+console.log("HPacket", hpacket)
     // route received HPacket to eventStream subscribers
     this.eventStream.next({ data: hpacket });
     if (wsData.type === 'APPLICATION') {
@@ -156,19 +163,19 @@ export class DataStreamService {
           if (hpacket.id == channelData.packet.packetId) {
             Object.keys(channelData.packet.fields).map((fieldId: any) => {
               const fieldName = channelData.packet.fields[fieldId];
-              if (hpacket.fields.hasOwnProperty(fieldName)) {
+              if (hpacket.fields.map.hasOwnProperty(fieldName)) {
                 const field = {};
-                const value = hpacket.fields[fieldName].value;
+                const value = hpacket.fields.map[fieldName].value;
                 // based on the type, the input packet field value
                 // will be stored in the corresponding type property
                 // eg. if packet field is "DOUBLE" then the effective value
                 // will be stored into 'value.double' property
                 const valueKey = Object.keys(value)[0];
-                field[fieldName] = hpacket.fields[fieldName].value[valueKey];
+                field[fieldName] = hpacket.fields.map[fieldName].value[valueKey];
                 let timestamp = new Date();
                 // get timestamp from packet if present
-                if (hpacket.fields['timestamp']) {
-                  timestamp = new Date(hpacket.fields['timestamp'].value.long);
+                if (hpacket.fields.map['timestamp']) {
+                  timestamp = new Date(hpacket.fields.map['timestamp'].value.long);
                 }
                 channelData.subject.next([timestamp, field]);
               }

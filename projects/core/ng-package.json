@@ -2,10 +2,6 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/core",
   "whitelistedNonPeerDependencies": [
-    "avsc",
-    "path",
-    "stream",
-    "browserify-zlib",
     "plotly.js",
     "angular-plotly.js"
   ],
