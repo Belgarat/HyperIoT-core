@@ -150,7 +150,6 @@ export class DataStreamService {
     }
     // decode AVRO data to HPacket instance
     const hpacket = this.packetSchema.decode(new Buffer(decodedWsPayload, 'binary')) as HPacket;
-console.log("HPacket", hpacket)
     // route received HPacket to eventStream subscribers
     this.eventStream.next({ data: hpacket });
     if (wsData.type === 'APPLICATION') {
