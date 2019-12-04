@@ -6,6 +6,7 @@
     "path",
     "stream",
     "zlib",
+    "browserify-zlib",
     "plotly.js",
     "angular-plotly.js"
   ],
