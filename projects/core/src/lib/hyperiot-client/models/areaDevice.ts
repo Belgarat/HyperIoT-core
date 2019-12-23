@@ -6,18 +6,18 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { HDevice } from './hDevice';
 
 
-export interface Area { 
+export interface AreaDevice { 
     id?: number;
     entityVersion: number;
     readonly entityCreateDate?: Date;
     readonly entityModifyDate?: Date;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    name?: string;
-    description?: string;
-    imagePath?: string;
-    parentArea?: Area;
-    innerArea?: Array<Area>;
+    device?: HDevice;
+    icon?: string;
+    x?: number;
+    y?: number;
 }

@@ -2,7 +2,7 @@
 swaggerPath="./swagger-codegen-cli.jar"
 
 #docFile (path/to/doc)
-docFile="./configuration/docTest"
+docFile="./configuration/docSelf"
 
 #replaceFile (path/to/replaceFile)
 replaceFile="./configuration/replace"

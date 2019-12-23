@@ -8,14 +8,8 @@
  */
 
 
-export interface MqttConnectorConfig { 
+export interface ConnectorConfig { 
     name?: string;
-    topic?: string;
-    mqttServer?: string;
-    mqttTopic?: string;
-    mqttReconnect?: boolean;
-    mqttUsername?: string;
-    mqttPassword?: string;
     maxPollIntervalMs?: number;
     connectorClass?: string;
     tasksMax?: number;

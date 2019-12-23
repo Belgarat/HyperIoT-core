@@ -18,7 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { MqttConnectorConfig } from '../../../models/mqttConnectorConfig';
+import { ConnectorConfig } from '../../../models/connectorConfig';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
@@ -57,7 +57,7 @@ export class KafkaService {
 
 
     /**
-     * /hyperiot/kafka/mqtt/connectors/{instance_name}/delete
+     * /hyperiot/kafka/connectors/{instance_name}/delete
      * Delete connector
      * @param instanceName name of the connector to delete
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -92,7 +92,7 @@ export class KafkaService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/mqtt/connectors/${encodeURIComponent(String(instanceName))}/delete`,
+        return this.httpClient.get<any>(`${this.basePath}/connectors/${encodeURIComponent(String(instanceName))}/delete`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -109,10 +109,10 @@ export class KafkaService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(body: MqttConnectorConfig, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public add(body: MqttConnectorConfig, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public add(body: MqttConnectorConfig, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public add(body: MqttConnectorConfig, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(body: ConnectorConfig, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public add(body: ConnectorConfig, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public add(body: ConnectorConfig, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public add(body: ConnectorConfig, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling add.');
@@ -180,94 +180,7 @@ export class KafkaService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/mqtt/module/status`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/kafka/mqtt/connectors/{instance_name}
-     * Get connector info
-     * @param instanceName name of the connector to get
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public get(instanceName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public get(instanceName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public get(instanceName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public get(instanceName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (instanceName === null || instanceName === undefined) {
-            throw new Error('Required parameter instanceName was null or undefined when calling get.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/mqtt/connectors/${encodeURIComponent(String(instanceName))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/kafka/mqtt/connectors/list
-     * Get the connectors list
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public list(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public list(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public list(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public list(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/mqtt/connectors/list`,
+        return this.httpClient.get<any>(`${this.basePath}/module/status`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -285,10 +198,10 @@ export class KafkaService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(instanceName: string, body: MqttConnectorConfig, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public update(instanceName: string, body: MqttConnectorConfig, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public update(instanceName: string, body: MqttConnectorConfig, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public update(instanceName: string, body: MqttConnectorConfig, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public update(instanceName: string, body: ConnectorConfig, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public update(instanceName: string, body: ConnectorConfig, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public update(instanceName: string, body: ConnectorConfig, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public update(instanceName: string, body: ConnectorConfig, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (instanceName === null || instanceName === undefined) {
             throw new Error('Required parameter instanceName was null or undefined when calling update.');

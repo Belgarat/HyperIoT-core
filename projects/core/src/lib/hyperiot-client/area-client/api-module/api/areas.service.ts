@@ -19,6 +19,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { Area } from '../../../models/area';
+import { AreaDevice } from '../../../models/areaDevice';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
@@ -57,24 +58,24 @@ export class AreasService {
 
 
     /**
-     * /hyperiot/areas/{id}/devices/{deviceId}
-     * Adds a device to the give area
+     * /hyperiot/areas/{id}/devices/{areaDevice}
+     * Adds or updates an area device
      * @param id id of the area
-     * @param deviceId id of the device
+     * @param body the area device
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addAreaDevice(id: number, deviceId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public addAreaDevice(id: number, deviceId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public addAreaDevice(id: number, deviceId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public addAreaDevice(id: number, deviceId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addAreaDevice(id: number, body: AreaDevice, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addAreaDevice(id: number, body: AreaDevice, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addAreaDevice(id: number, body: AreaDevice, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addAreaDevice(id: number, body: AreaDevice, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling addAreaDevice.');
         }
 
-        if (deviceId === null || deviceId === undefined) {
-            throw new Error('Required parameter deviceId was null or undefined when calling addAreaDevice.');
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling addAreaDevice.');
         }
 
         let headers = this.defaultHeaders;
@@ -95,10 +96,15 @@ export class AreasService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'application/json'
         ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
 
-        return this.httpClient.put<any>(`${this.basePath}/${encodeURIComponent(String(id))}/devices/${encodeURIComponent(String(deviceId))}`,
-            null,
+        return this.httpClient.put<any>(`${this.basePath}/${encodeURIComponent(String(id))}/devices`,
+            body,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -333,6 +339,52 @@ export class AreasService {
     }
 
     /**
+     * /hyperiot/areas/{id}/tree
+     * Service for finding inner areas
+     * @param id id of parent area
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findInnerAreas(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findInnerAreas(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findInnerAreas(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findInnerAreas(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling findInnerAreas.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}/tree`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/areas/{id}/devices
      * Return the list of devices in an area
      * @param id id of the area
@@ -379,24 +431,19 @@ export class AreasService {
     }
 
     /**
-     * /hyperiot/areas/{id}/devices/{deviceId}
-     * Deletes a device to the give area
-     * @param id id of the area
-     * @param deviceId id of the device
+     * /hyperiot/areas/{id}/image
+     * Service to get the area background image
+     * @param id The area id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeAreaDevice(id: number, deviceId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public removeAreaDevice(id: number, deviceId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public removeAreaDevice(id: number, deviceId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public removeAreaDevice(id: number, deviceId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAreaImage(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAreaImage(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAreaImage(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAreaImage(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling removeAreaDevice.');
-        }
-
-        if (deviceId === null || deviceId === undefined) {
-            throw new Error('Required parameter deviceId was null or undefined when calling removeAreaDevice.');
+            throw new Error('Required parameter id was null or undefined when calling getAreaImage.');
         }
 
         let headers = this.defaultHeaders;
@@ -419,7 +466,59 @@ export class AreasService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.delete<any>(`${this.basePath}/${encodeURIComponent(String(id))}/devices/${encodeURIComponent(String(deviceId))}`,
+        return this.httpClient.post<any>(`${this.basePath}/${encodeURIComponent(String(id))}/image`,
+            null,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/areas/{id}/devices/{areaDeviceId}
+     * Deletes an area device
+     * @param id id of the area
+     * @param areaDeviceId id of the area device
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public removeAreaDevice(id: number, areaDeviceId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeAreaDevice(id: number, areaDeviceId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeAreaDevice(id: number, areaDeviceId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeAreaDevice(id: number, areaDeviceId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling removeAreaDevice.');
+        }
+
+        if (areaDeviceId === null || areaDeviceId === undefined) {
+            throw new Error('Required parameter areaDeviceId was null or undefined when calling removeAreaDevice.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.delete<any>(`${this.basePath}/${encodeURIComponent(String(id))}/devices/${encodeURIComponent(String(areaDeviceId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

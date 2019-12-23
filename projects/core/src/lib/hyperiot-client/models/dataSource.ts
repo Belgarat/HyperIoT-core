@@ -6,16 +6,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { InputStream } from './inputStream';
+import { OutputStream } from './outputStream';
 
 
-export interface HyperIoTRole { 
+export interface DataSource { 
+    outputStream?: OutputStream;
+    contentType?: string;
     name?: string;
-    description?: string;
-    tagIds?: Array<number>;
-    categoryIds?: Array<number>;
-    entityCreateDate?: Date;
-    systemApiClassName?: string;
-    id?: number;
-    entityVersion?: number;
-    resourceName?: string;
+    inputStream?: InputStream;
 }
