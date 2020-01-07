@@ -431,53 +431,6 @@ export class AreasService {
     }
 
     /**
-     * /hyperiot/areas/{id}/image
-     * Service to get the area background image
-     * @param id The area id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getAreaImage(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getAreaImage(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getAreaImage(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getAreaImage(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getAreaImage.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.post<any>(`${this.basePath}/${encodeURIComponent(String(id))}/image`,
-            null,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * /hyperiot/areas/{id}/devices/{areaDeviceId}
      * Deletes an area device
      * @param id id of the area
@@ -571,6 +524,53 @@ export class AreasService {
 
         return this.httpClient.post<any>(`${this.basePath}/`,
             body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/areas/{id}/image
+     * Service to unset the area background image
+     * @param id The area id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public unsetAreaImage(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public unsetAreaImage(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public unsetAreaImage(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public unsetAreaImage(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling unsetAreaImage.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.post<any>(`${this.basePath}/${encodeURIComponent(String(id))}/image`,
+            null,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -8,6 +8,7 @@
  */
 import { HDevice } from './hDevice';
 import { HPacketField } from './hPacketField';
+import { Rule } from './rule';
 
 
 export interface HPacket { 
@@ -28,6 +29,7 @@ export interface HPacket {
     timestampField?: string;
     timestampFormat?: string;
     trafficPlan?: HPacket.TrafficPlanEnum;
+    rules?: Array<Rule>;
 }
 export namespace HPacket {
     export type TypeEnum = 'INPUT' | 'OUTPUT' | 'IO';

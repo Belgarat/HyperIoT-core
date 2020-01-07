@@ -1,3 +1,4 @@
+export * from './aCLConfig';
 export * from './areaDevice';
 export * from './area';
 export * from './assetCategory';
@@ -23,6 +24,7 @@ export * from './hUser';
 export * from './hyperIoTAssetOwnerImpl';
 export * from './hyperIoTAuthenticable';
 export * from './hyperIoTBaseEntity';
+export * from './hyperIoTKafkaPermission';
 export * from './hyperIoTRole';
 export * from './hyperIoTUser';
 export * from './inputStream';
@@ -36,4 +38,5 @@ export * from './role';
 export * from './ruleAction';
 export * from './ruleNode';
 export * from './rule';
+export * from './topicConfig';
 export * from './widget';

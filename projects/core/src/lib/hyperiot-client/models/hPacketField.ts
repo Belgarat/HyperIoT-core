@@ -25,7 +25,7 @@ export interface HPacketField {
     value?: any;
 }
 export namespace HPacketField {
-    export type TypeEnum = 'OBJECT' | 'INTEGER' | 'DOUBLE' | 'FLOAT' | 'BOOLEAN' | 'DATE' | 'TEXT' | 'TIMESTAMP' | 'CATEGORY' | 'TAG';
+    export type TypeEnum = 'OBJECT' | 'INTEGER' | 'DOUBLE' | 'FLOAT' | 'BOOLEAN' | 'DATE' | 'TEXT' | 'TIMESTAMP' | 'CATEGORY' | 'TAG' | 'BYTE';
     export const TypeEnum = {
         OBJECT: 'OBJECT' as TypeEnum,
         INTEGER: 'INTEGER' as TypeEnum,
@@ -36,7 +36,8 @@ export namespace HPacketField {
         TEXT: 'TEXT' as TypeEnum,
         TIMESTAMP: 'TIMESTAMP' as TypeEnum,
         CATEGORY: 'CATEGORY' as TypeEnum,
-        TAG: 'TAG' as TypeEnum
+        TAG: 'TAG' as TypeEnum,
+        BYTE: 'BYTE' as TypeEnum
     };
     export type MultiplicityEnum = 'SINGLE' | 'ARRAY' | 'MATRIX';
     export const MultiplicityEnum = {
