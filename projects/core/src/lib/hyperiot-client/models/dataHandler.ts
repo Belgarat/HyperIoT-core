@@ -14,12 +14,12 @@ import { OutputStream } from './outputStream';
 
 
 export interface DataHandler { 
+    contentType?: string;
     outputStream?: OutputStream;
     dataSource?: DataSource;
     transferDataFlavors?: Array<DataFlavor>;
     preferredCommands?: Array<CommandInfo>;
     allCommands?: Array<CommandInfo>;
-    contentType?: string;
     name?: string;
     inputStream?: InputStream;
     content?: any;

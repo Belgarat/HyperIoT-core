@@ -431,6 +431,52 @@ export class AreasService {
     }
 
     /**
+     * /hyperiot/areas/{id}/path
+     * Service for getting area path
+     * @param id id of area
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAreaPath(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAreaPath(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAreaPath(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAreaPath(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getAreaPath.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}/path`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/areas/{id}/devices/{areaDeviceId}
      * Deletes an area device
      * @param id id of the area
