@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 
 import { Area } from '../../../models/area';
 import { AreaDevice } from '../../../models/areaDevice';
+import { Attachment } from '../../../models/attachment';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
@@ -385,6 +386,57 @@ export class AreasService {
     }
 
     /**
+     * /hyperiot/areas/{id}/devices/{areaDeviceId}
+     * Gets an area device
+     * @param id id of the area
+     * @param areaDeviceId id of the area device
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAreaDevice(id: number, areaDeviceId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAreaDevice(id: number, areaDeviceId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAreaDevice(id: number, areaDeviceId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAreaDevice(id: number, areaDeviceId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getAreaDevice.');
+        }
+
+        if (areaDeviceId === null || areaDeviceId === undefined) {
+            throw new Error('Required parameter areaDeviceId was null or undefined when calling getAreaDevice.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}/devices/${encodeURIComponent(String(areaDeviceId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/areas/{id}/devices
      * Return the list of devices in an area
      * @param id id of the area
@@ -421,6 +473,52 @@ export class AreasService {
         ];
 
         return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}/devices`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/areas/{id}/image
+     * Service to get the area background image
+     * @param id The area id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAreaImage(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAreaImage(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAreaImage(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAreaImage(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getAreaImage.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/octet-stream'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}/image`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -581,6 +679,60 @@ export class AreasService {
 
     /**
      * /hyperiot/areas/{id}/image
+     * Service for setting the area background image
+     * @param id The area id
+     * @param body 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public setAreaImage(id: number, body?: Attachment, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public setAreaImage(id: number, body?: Attachment, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public setAreaImage(id: number, body?: Attachment, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public setAreaImage(id: number, body?: Attachment, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling setAreaImage.');
+        }
+
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'multipart/form-data'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/${encodeURIComponent(String(id))}/image`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/areas/{id}/image
      * Service to unset the area background image
      * @param id The area id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -615,8 +767,7 @@ export class AreasService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.post<any>(`${this.basePath}/${encodeURIComponent(String(id))}/image`,
-            null,
+        return this.httpClient.delete<any>(`${this.basePath}/${encodeURIComponent(String(id))}/image`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -60,6 +60,8 @@
 ../projects/core/src/lib/hyperiot-client/h-packet-client/api-module/index.ts#export.*from './model/models';##
 ../projects/core/src/lib/hyperiot-client/h-packet-client/api-module/index.ts#export.*from './configuration';##
 ../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#import { AreaDevice } from '../model/areaDevice';#import { AreaDevice } from '../../../models/areaDevice';#
+../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#import { Attachment } from '../model/attachment';#import { Attachment } from '../../../models/attachment';#
 ../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#https://localhost/hyperiot/areas#/hyperiot/areas#
 ../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#import { Area } from '../model/area';#import { Area } from '../../../models/area';#
 ../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
@@ -88,6 +90,9 @@
 ../projects/core/src/lib/hyperiot-client/rule-client/api-module/index.ts#export.*from './model/models';##
 ../projects/core/src/lib/hyperiot-client/rule-client/api-module/index.ts#export.*from './configuration';##
 ../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#import { ACLConfig } from '../model/aCLConfig';#import { ACLConfig } from '../../../models/aCLConfig';#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#import { ConnectorConfig } from '../model/connectorConfig';#import { ConnectorConfig } from '../../../models/connectorConfig';#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#import { TopicConfig } from '../model/topicConfig';#import { TopicConfig } from '../../../models/topicConfig';#
 ../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#https://localhost/hyperiot/kafka#/hyperiot/kafka#
 ../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#import { MqttConnectorConfig } from '../model/mqttConnectorConfig';#import { MqttConnectorConfig } from '../../../models/mqttConnectorConfig';#
 ../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
