@@ -3,14 +3,14 @@ import { Configuration } from '../../models/configuration';
 import { HttpClient } from '@angular/common/http';
 
 
-import { HprojectsService } from './api/hprojects.service';
+import { HbaseconnectorsService } from './api/hbaseconnectors.service';
 
 @NgModule({
   imports:      [],
   declarations: [],
   exports:      [],
   providers: [
-    HprojectsService ]
+    HbaseconnectorsService ]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders {

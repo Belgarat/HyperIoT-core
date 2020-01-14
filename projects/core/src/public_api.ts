@@ -17,6 +17,7 @@ export { AreasService } from './lib/hyperiot-client/area-client/api-module/index
 export { AssetscategoriesService } from './lib/hyperiot-client/asset-category-client/api-module/index';
 export { AssetstagsService } from './lib/hyperiot-client/asset-tag-client/api-module/index';
 export { AuthenticationService } from './lib/hyperiot-client/authentication-client/api-module/index';
+export { HbaseconnectorsService } from './lib/hyperiot-client/h-base-connectors-client/api-module/index';
 export { HdevicesService } from './lib/hyperiot-client/h-device-client/api-module/index';
 export { HpacketsService } from './lib/hyperiot-client/h-packet-client/api-module/index';
 export { HprojectsService } from './lib/hyperiot-client/h-project-client/api-module/index';
@@ -36,6 +37,7 @@ export { ApiModule as AreasClientModule } from './lib/hyperiot-client/area-clien
 export { ApiModule as AssetscategoriesClientModule } from './lib/hyperiot-client/asset-category-client/api-module/api.module';
 export { ApiModule as AssetstagsClientModule } from './lib/hyperiot-client/asset-tag-client/api-module/api.module';
 export { ApiModule as AuthenticationClientModule } from './lib/hyperiot-client/authentication-client/api-module/api.module';
+export { ApiModule as HbaseconnectorsClientModule } from './lib/hyperiot-client/h-base-connectors-client/api-module/api.module';
 export { ApiModule as HdevicesClientModule } from './lib/hyperiot-client/h-device-client/api-module/api.module';
 export { ApiModule as HpacketsClientModule } from './lib/hyperiot-client/h-packet-client/api-module/api.module';
 export { ApiModule as HprojectsClientModule } from './lib/hyperiot-client/h-project-client/api-module/api.module';

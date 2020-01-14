@@ -16,3 +16,4 @@ company#http://karaf-microservices-test.hyperiot.cloud/hyperiot/companies/swagge
 dashboard#http://karaf-microservices-test.hyperiot.cloud/hyperiot/dashboards/swagger.json#../projects/core/src/lib/hyperiot-client/dashboard-client/api-module#
 dashboardWidgets#http://karaf-microservices-test.hyperiot.cloud/hyperiot/dashboardwidgets/swagger.json#../projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module#
 widgets#http://karaf-microservices-test.hyperiot.cloud/hyperiot/widgets/swagger.json#../projects/core/src/lib/hyperiot-client/widgets-client/api-module#
+hbaseconnectors#http://karaf-microservices-test.hyperiot.cloud/hyperiot/hbaseconnectors/swagger.json#../projects/core/src/lib/hyperiot-client/h-base-connectors-client/api-module#
