@@ -6,6 +6,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { AreaMapInfo } from './areaMapInfo';
 import { HDevice } from './hDevice';
 
 
@@ -17,7 +18,5 @@ export interface AreaDevice {
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     device?: HDevice;
-    icon?: string;
-    x?: number;
-    y?: number;
+    mapInfo?: AreaMapInfo;
 }

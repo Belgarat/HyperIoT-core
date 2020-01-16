@@ -6,6 +6,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { AreaMapInfo } from './areaMapInfo';
 
 
 export interface Area { 
@@ -18,6 +19,7 @@ export interface Area {
     name?: string;
     description?: string;
     imagePath?: string;
+    mapInfo?: AreaMapInfo;
     parentArea?: Area;
     innerArea?: Array<Area>;
 }

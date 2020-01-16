@@ -8,12 +8,9 @@
  */
 
 
-export interface HyperIoTBaseEntity { 
-    categoryIds?: Array<number>;
-    tagIds?: Array<number>;
-    systemApiClassName?: string;
-    entityCreateDate?: Date;
-    id?: number;
-    entityVersion?: number;
-    resourceName?: string;
+export interface AreaMapInfo { 
+    icon?: string;
+    x?: number;
+    y?: number;
+    z?: number;
 }
