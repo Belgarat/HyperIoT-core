@@ -437,6 +437,52 @@ export class AreasService {
     }
 
     /**
+     * /hyperiot/areas/{id}/tree/devices
+     * Service for finding devices of an area and its inner areas
+     * @param id id of the area
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAreaDeviceDeepList(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAreaDeviceDeepList(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAreaDeviceDeepList(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAreaDeviceDeepList(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getAreaDeviceDeepList.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}/tree/devices`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/areas/{id}/devices
      * Return the list of devices in an area
      * @param id id of the area
