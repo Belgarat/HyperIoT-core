@@ -6,6 +6,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Area } from './area';
 import { AreaMapInfo } from './areaMapInfo';
 import { HDevice } from './hDevice';
 
@@ -17,6 +18,7 @@ export interface AreaDevice {
     readonly entityModifyDate?: Date;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
+    area?: Area;
     device?: HDevice;
     mapInfo?: AreaMapInfo;
 }
