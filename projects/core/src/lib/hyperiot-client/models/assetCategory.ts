@@ -19,4 +19,5 @@ export interface AssetCategory {
     name?: string;
     owner?: HyperIoTAssetOwnerImpl;
     parent?: AssetCategory;
+    innerAssets?: Array<AssetCategory>;
 }
