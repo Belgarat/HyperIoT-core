@@ -551,6 +551,67 @@ export class HbaseconnectorsService {
     }
 
     /**
+     * /hyperiot/hbaseconnector/scanHProject/{hProjectId}/{hPacketIds}/{rowKeyLowerBound}/{rowKeyUpperBound}
+     * Service for scan HProject data
+     * @param hProjectId HProject ID from retrieve HPackets in Avro format
+     * @param hPacketIds HPacket list, containing comma separated ID
+     * @param rowKeyLowerBound HBase row key lower bound
+     * @param rowKeyUpperBound HBase row key upper bound
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public scanHProject(hProjectId: number, hPacketIds: string, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public scanHProject(hProjectId: number, hPacketIds: string, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public scanHProject(hProjectId: number, hPacketIds: string, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public scanHProject(hProjectId: number, hPacketIds: string, rowKeyLowerBound: number, rowKeyUpperBound: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (hProjectId === null || hProjectId === undefined) {
+            throw new Error('Required parameter hProjectId was null or undefined when calling scanHProject.');
+        }
+
+        if (hPacketIds === null || hPacketIds === undefined) {
+            throw new Error('Required parameter hPacketIds was null or undefined when calling scanHProject.');
+        }
+
+        if (rowKeyLowerBound === null || rowKeyLowerBound === undefined) {
+            throw new Error('Required parameter rowKeyLowerBound was null or undefined when calling scanHProject.');
+        }
+
+        if (rowKeyUpperBound === null || rowKeyUpperBound === undefined) {
+            throw new Error('Required parameter rowKeyUpperBound was null or undefined when calling scanHProject.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/scanHProject/${encodeURIComponent(String(hProjectId))}/${encodeURIComponent(String(hPacketIds))}/${encodeURIComponent(String(rowKeyLowerBound))}/${encodeURIComponent(String(rowKeyUpperBound))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/hbaseconnector/timeline/scan/{tableName}/{packetIds}/{step}/{granularity}/{startTime}/{endTime}
      * Service for scan data and get it back for timeline queries
      * @param tableName Table name which count hpacket event number from
