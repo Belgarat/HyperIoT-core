@@ -60,3 +60,6 @@ export * from './lib/hyperiot-client/models/models';
 export * from './lib/hyperiot-service/hyperiot-logger/logger';
 export * from './lib/hyperiot-service/hyperiot-logger/logger-config';
 export * from './lib/hyperiot-service/hyperiot-logger/logger.service';
+
+export * from './lib/hyperiot-service/hyperiot-offline-data/dashboard-offline-data.service';
+
