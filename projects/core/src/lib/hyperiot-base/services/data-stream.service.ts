@@ -160,25 +160,27 @@ export class DataStreamService {
           // check if message is valid for the current
           // channel, if so emit a new event
           if (hpacket.id == channelData.packet.packetId) {
-            Object.keys(channelData.packet.fields).map((fieldId: any) => {
-              const fieldName = channelData.packet.fields[fieldId];
-              if (hpacket.fields.map.hasOwnProperty(fieldName)) {
-                const field = {};
-                const value = hpacket.fields.map[fieldName].value;
-                // based on the type, the input packet field value
-                // will be stored in the corresponding type property
-                // eg. if packet field is "DOUBLE" then the effective value
-                // will be stored into 'value.double' property
-                const valueKey = Object.keys(value)[0];
-                field[fieldName] = hpacket.fields.map[fieldName].value[valueKey];
-                let timestamp = new Date();
-                // get timestamp from packet if present
-                if (hpacket.fields.map['timestamp']) {
-                  timestamp = new Date(hpacket.fields.map['timestamp'].value.long);
+            if(channelData.packet.wholePacketMode) {
+              // emitted event is going to contain all filtered fields
+              let fields = {};
+              Object.keys(channelData.packet.fields).forEach(fieldId => {
+                const field = this.getField(channelData, hpacket, fieldId)
+                if (Object.keys(field).length > 0)
+                  Object.assign(fields, field);
+              });
+              const timestamp = this.getTimestamp(hpacket);
+              channelData.subject.next([timestamp, fields]);
+            }
+            else {
+              // emitted event is going to contain one field
+              Object.keys(channelData.packet.fields).map((fieldId: any) => {
+                const field = this.getField(channelData, hpacket, fieldId);
+                if (Object.keys(field).length > 0) {
+                  const timestamp = this.getTimestamp(hpacket);
+                  channelData.subject.next([timestamp, field]);
                 }
-                channelData.subject.next([timestamp, field]);
-              }
-            });
+              });
+            }
           }
         }
       }
@@ -188,4 +190,28 @@ export class DataStreamService {
       console.error('Invalid packet type:', wsData.type);
     }
   }
+
+  private getField(channelData: DataChannel, hpacket: HPacket, fieldId: any): Object {
+    let field = {};
+    const fieldName = channelData.packet.fields[fieldId];
+    if (hpacket.fields.map.hasOwnProperty(fieldName)) {
+      const tmpValue = hpacket.fields.map[fieldName].value;
+      // based on the type, the input packet field value
+      // will be stored in the corresponding type property
+      // eg. if packet field is "DOUBLE" then the effective value
+      // will be stored into 'value.double' property
+      const valueKey = Object.keys(tmpValue)[0];
+      const value = hpacket.fields.map[fieldName].value[valueKey];
+      field[fieldName] = value;
+    }
+    return field;
+  }
+
+  private getTimestamp(hpacket: HPacket): Date {
+    // get timestamp from packet if present
+    if (hpacket.fields.map['timestamp'])
+      return new Date(hpacket.fields.map['timestamp'].value.long);
+    return new Date();
+  }
+
 }
