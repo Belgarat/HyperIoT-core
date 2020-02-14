@@ -16,11 +16,11 @@ export interface HyperIoTUser {
     lastname?: string;
     name?: string;
     id?: number;
+    entityVersion?: number;
+    tagIds?: Array<number>;
     categoryIds?: Array<number>;
     entityCreateDate?: Date;
-    tagIds?: Array<number>;
     systemApiClassName?: string;
-    entityVersion?: number;
     resourceName?: string;
     screenName?: string;
 }

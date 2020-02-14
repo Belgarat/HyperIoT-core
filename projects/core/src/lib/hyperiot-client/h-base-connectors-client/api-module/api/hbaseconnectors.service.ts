@@ -612,6 +612,77 @@ export class HbaseconnectorsService {
     }
 
     /**
+     * /hyperiot/hbaseconnector/timeline/event/count/{tableName}/{packetIds}/{step}/{granularity}/{startTime}/{endTime}
+     * Service for count data and get it backì
+     * @param tableName Table name which count hpacket event number from
+     * @param packetIds HPacket list, containing comma separated ID
+     * @param step Scanning step
+     * @param granularity Scanning granularity
+     * @param startTime Scanning start time
+     * @param endTime Scanning end time
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public timelineEventCount(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public timelineEventCount(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public timelineEventCount(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public timelineEventCount(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (tableName === null || tableName === undefined) {
+            throw new Error('Required parameter tableName was null or undefined when calling timelineEventCount.');
+        }
+
+        if (packetIds === null || packetIds === undefined) {
+            throw new Error('Required parameter packetIds was null or undefined when calling timelineEventCount.');
+        }
+
+        if (step === null || step === undefined) {
+            throw new Error('Required parameter step was null or undefined when calling timelineEventCount.');
+        }
+
+        if (granularity === null || granularity === undefined) {
+            throw new Error('Required parameter granularity was null or undefined when calling timelineEventCount.');
+        }
+
+        if (startTime === null || startTime === undefined) {
+            throw new Error('Required parameter startTime was null or undefined when calling timelineEventCount.');
+        }
+
+        if (endTime === null || endTime === undefined) {
+            throw new Error('Required parameter endTime was null or undefined when calling timelineEventCount.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/timeline/event/count/${encodeURIComponent(String(tableName))}/${encodeURIComponent(String(packetIds))}/${encodeURIComponent(String(step))}/${encodeURIComponent(String(granularity))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/hbaseconnector/timeline/scan/{tableName}/{packetIds}/{step}/{granularity}/{startTime}/{endTime}
      * Service for scan data and get it back for timeline queries
      * @param tableName Table name which count hpacket event number from
