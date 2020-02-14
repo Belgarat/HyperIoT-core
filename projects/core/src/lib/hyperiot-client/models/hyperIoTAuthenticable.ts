@@ -13,10 +13,10 @@ export interface HyperIoTAuthenticable {
     roles?: Array<HyperIoTRole>;
     screenName?: string;
     id?: number;
-    entityVersion?: number;
     categoryIds?: Array<number>;
-    tagIds?: Array<number>;
     entityCreateDate?: Date;
+    tagIds?: Array<number>;
     systemApiClassName?: string;
+    entityVersion?: number;
     resourceName?: string;
 }

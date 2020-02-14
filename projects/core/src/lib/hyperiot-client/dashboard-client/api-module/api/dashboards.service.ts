@@ -235,6 +235,98 @@ export class DashboardsService {
     }
 
     /**
+     * /hyperiot/dashboards/area/{areaId}/offline
+     * Service for finding offline dashboard related to a specific area
+     * @param areaId The area id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findAreaOfflineDashboard(areaId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAreaOfflineDashboard(areaId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAreaOfflineDashboard(areaId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAreaOfflineDashboard(areaId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (areaId === null || areaId === undefined) {
+            throw new Error('Required parameter areaId was null or undefined when calling findAreaOfflineDashboard.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/area/${encodeURIComponent(String(areaId))}/offline`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/dashboards/area/{areaId}/realtime
+     * Service for finding realtime dashboard related to a specific area
+     * @param areaId The area id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findAreaRealtimeDashboard(areaId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAreaRealtimeDashboard(areaId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAreaRealtimeDashboard(areaId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAreaRealtimeDashboard(areaId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (areaId === null || areaId === undefined) {
+            throw new Error('Required parameter areaId was null or undefined when calling findAreaRealtimeDashboard.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/area/${encodeURIComponent(String(areaId))}/realtime`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/dashboards/{id}
      * Service for finding dashboard
      * @param id id from which dashboard object will retrieve
