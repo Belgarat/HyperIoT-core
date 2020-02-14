@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TestIdbComponent } from './test-idb/test-idb.component';
 
 export function apiConfigFactory(): Configuration {
   const params: ConfigurationParameters = {
@@ -28,7 +29,8 @@ export function apiConfigFactory(): Configuration {
   declarations: [
     AppComponent,
     ServiceTestComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TestIdbComponent
   ],
   imports: [
     BrowserModule,
