@@ -718,8 +718,8 @@ export class ServiceTestComponent {
           break;
         }
         case 'Field': {
-          const foo = prompt('Di quale pacchetto?');
-          this.hPacketService.deleteHPacketField(+foo, this.number).subscribe(
+          //const foo = prompt('Di quale pacchetto?');
+          this.hPacketService.deleteHPacketField(this.number).subscribe(
             res => this.esito = 'OK',
             err => this.esito = 'ERRORE'
           );
