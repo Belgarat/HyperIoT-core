@@ -23,4 +23,20 @@ export class TestIdbComponent {
     console.log(this.indexedDbService.idb);
   }
 
+  addOS() {
+    this.indexedDbService.getCoveredDataByPacketId((document.getElementById('osName') as any).value).then(
+      res => console.log(res)
+    ).catch(err => console.error(err));
+  }
+
+  checkOS() {
+    this.indexedDbService.getOfflineDataByOfflineDataId((document.getElementById('osCheck') as any).value).then(
+      res => console.log(res)
+    ).catch(err => console.error(err));
+    // if (this.indexedDbService.getOfflineDataByOfflineDataId((document.getElementById('osCheck') as any).value)) {
+    //   document.getElementById('osCheck').style.border = 'green solid 1px';
+    // } else {
+    //   document.getElementById('osCheck').style.border = 'red solid 1px';
+    // }
+  }
 }

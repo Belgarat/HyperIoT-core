@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
+import { HPacket } from '../../hyperiot-client/models/models';
 
-interface Value {
-  num1: number;
-  num2: number;
+interface CoveredData {
+  offlineDataId: number;
+  covered: [number, number];
 }
 
 interface HYTDatabase extends DBSchema {
   offlineData: {
     key: number;
-    value: Value;
+    value: HPacket[];
+  };
+  coveredData: {
+    key: number;
+    value: CoveredData[];
   };
 }
 
@@ -24,10 +29,10 @@ export class HyperiotIndexeddbService {
     return openDB<HYTDatabase>('HyperIoTdatabase', 1, {
       upgrade(db) {
         if (!db.objectStoreNames.contains('offlineData')) {
-          db.createObjectStore(
-            'offlineData',
-            { autoIncrement: true }
-          );
+          db.createObjectStore('offlineData');
+        }
+        if (!db.objectStoreNames.contains('coveredData')) {
+          db.createObjectStore('coveredData');
         }
       }
     }).then(db => {
@@ -40,13 +45,21 @@ export class HyperiotIndexeddbService {
     return this.idb = await openDB<HYTDatabase>('HyperIoTdatabase', 1, {
       upgrade(db) {
         if (!db.objectStoreNames.contains('offlineData')) {
-          db.createObjectStore(
-            'offlineData',
-            { autoIncrement: true }
-          );
+          db.createObjectStore('offlineData');
+        }
+        if (!db.objectStoreNames.contains('coveredData')) {
+          db.createObjectStore('coveredData');
         }
       }
     });
+  }
+
+  getCoveredDataByPacketId(packetId: number): Promise<CoveredData[]> {
+    return this.idb.get('coveredData', packetId);
+  }
+
+  getOfflineDataByOfflineDataId(packetId: number): Promise<HPacket[]> {
+    return this.idb.get('offlineData', packetId);
   }
 
 }
