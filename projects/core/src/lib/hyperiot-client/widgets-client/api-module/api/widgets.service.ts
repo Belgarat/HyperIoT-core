@@ -181,15 +181,20 @@ export class WidgetsService {
     }
 
     /**
-     * /hyperiot/widgets/listed
+     * /hyperiot/widgets/listed/{type}
      * Service for finding widgets divided into categories
+     * @param type 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findAllWidgetInCategories(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllWidgetInCategories(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllWidgetInCategories(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllWidgetInCategories(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findAllWidgetInCategories(type: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllWidgetInCategories(type: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllWidgetInCategories(type: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllWidgetInCategories(type: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (type === null || type === undefined) {
+            throw new Error('Required parameter type was null or undefined when calling findAllWidgetInCategories.');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -211,7 +216,7 @@ export class WidgetsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/listed`,
+        return this.httpClient.get<any>(`${this.basePath}/listed/${encodeURIComponent(String(type))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
