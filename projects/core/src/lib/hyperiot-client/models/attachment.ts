@@ -16,6 +16,6 @@ export interface Attachment {
     object?: any;
     contentType?: MediaType;
     dataHandler?: DataHandler;
-    contentDisposition?: ContentDisposition;
     contentId?: string;
+    contentDisposition?: ContentDisposition;
 }

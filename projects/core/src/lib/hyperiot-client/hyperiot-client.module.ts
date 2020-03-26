@@ -49,7 +49,7 @@ import { WidgetsService } from './widgets-client/api-module/api/widgets.service'
   ]
 })
 export class HyperiotClientModule {
-  public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders {
+  public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<HyperiotClientModule> {
     return {
       ngModule: HyperiotClientModule,
       providers: [{ provide: Configuration, useFactory: configurationFactory }]
