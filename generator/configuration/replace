@@ -147,3 +147,14 @@
 ../projects/core/src/lib/hyperiot-client/h-base-connectors-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration';#
 ../projects/core/src/lib/hyperiot-client/h-base-connectors-client/api-module/index.ts#export.*from './model/models';##
 ../projects/core/src/lib/hyperiot-client/h-base-connectors-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api/algorithms.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api/algorithms.service.ts#https://localhost/hyperiot/algorithms#/hyperiot/algorithms#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api/algorithms.service.ts#import { Algorithm } from '../model/algorithm';#import { Algorithm } from '../../../models/algorithm';#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api/algorithms.service.ts#import { AlgorithmConfig } from '../model/algorithmConfig';#import { AlgorithmConfig } from '../../../models/algorithmConfig';#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api/algorithms.service.ts#import { AlgorithmOutputField } from '../model/algorithmOutputField';#import { AlgorithmOutputField } from '../../../models/algorithmOutputField';#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api/algorithms.service.ts#void;#any;#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api/algorithms.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/index.ts#export.*from './configuration';##
+

@@ -14,8 +14,8 @@ import { OutputStream } from './outputStream';
 
 
 export interface DataHandler { 
-    outputStream?: OutputStream;
     contentType?: string;
+    outputStream?: OutputStream;
     dataSource?: DataSource;
     transferDataFlavors?: Array<DataFlavor>;
     preferredCommands?: Array<CommandInfo>;

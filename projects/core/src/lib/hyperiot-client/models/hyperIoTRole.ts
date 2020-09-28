@@ -11,11 +11,11 @@
 export interface HyperIoTRole { 
     description?: string;
     name?: string;
-    id?: number;
-    entityVersion?: number;
+    systemApiClassName?: string;
+    tagIds?: Array<number>;
     categoryIds?: Array<number>;
     entityCreateDate?: Date;
-    tagIds?: Array<number>;
-    systemApiClassName?: string;
+    id?: number;
+    entityVersion?: number;
     resourceName?: string;
 }
