@@ -20,7 +20,7 @@ import { Observable }                                        from 'rxjs';
 
 import { Algorithm } from '../../../models/algorithm';
 import { AlgorithmConfig } from '../../../models/algorithmConfig';
-import { AlgorithmOutputField } from '../../../models/algorithmOutputField';
+import { AlgorithmIOField } from '../../../models/algorithmIOField';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
@@ -59,24 +59,24 @@ export class AlgorithmsService {
 
 
     /**
-     * /hyperiot/algorithms/{id}/outputFields
-     * Service for adding output field
+     * /hyperiot/algorithms/{id}/ioFields
+     * Service for adding IO field
      * @param id The algorithm which must be updated
-     * @param body The output field which must be added
+     * @param body The IO field which must be added
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addOutputField(id: number, body: AlgorithmOutputField, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public addOutputField(id: number, body: AlgorithmOutputField, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public addOutputField(id: number, body: AlgorithmOutputField, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public addOutputField(id: number, body: AlgorithmOutputField, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addIOField(id: number, body: AlgorithmIOField, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addIOField(id: number, body: AlgorithmIOField, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addIOField(id: number, body: AlgorithmIOField, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addIOField(id: number, body: AlgorithmIOField, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling addOutputField.');
+            throw new Error('Required parameter id was null or undefined when calling addIOField.');
         }
 
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling addOutputField.');
+            throw new Error('Required parameter body was null or undefined when calling addIOField.');
         }
 
         let headers = this.defaultHeaders;
@@ -104,7 +104,7 @@ export class AlgorithmsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/${encodeURIComponent(String(id))}/outputFields`,
+        return this.httpClient.post<any>(`${this.basePath}/${encodeURIComponent(String(id))}/ioFields`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -199,24 +199,29 @@ export class AlgorithmsService {
     }
 
     /**
-     * /hyperiot/algorithms/{id}/outputFields/{outputFieldId}
-     * Service for deleting output field
+     * /hyperiot/algorithms/{id}/ioFields/{fieldType}/{ioFieldId}
+     * Service for deleting IO field
      * @param id The algorithm which must be updated
-     * @param outputFieldId The output field which must be deleted
+     * @param fieldType IO field type
+     * @param ioFieldId The IO field which must be deleted
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteOutputField(id: number, outputFieldId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteOutputField(id: number, outputFieldId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteOutputField(id: number, outputFieldId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteOutputField(id: number, outputFieldId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public deleteIOField(id: number, fieldType: 'INPUT' | 'OUTPUT', ioFieldId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteIOField(id: number, fieldType: 'INPUT' | 'OUTPUT', ioFieldId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteIOField(id: number, fieldType: 'INPUT' | 'OUTPUT', ioFieldId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteIOField(id: number, fieldType: 'INPUT' | 'OUTPUT', ioFieldId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteOutputField.');
+            throw new Error('Required parameter id was null or undefined when calling deleteIOField.');
         }
 
-        if (outputFieldId === null || outputFieldId === undefined) {
-            throw new Error('Required parameter outputFieldId was null or undefined when calling deleteOutputField.');
+        if (fieldType === null || fieldType === undefined) {
+            throw new Error('Required parameter fieldType was null or undefined when calling deleteIOField.');
+        }
+
+        if (ioFieldId === null || ioFieldId === undefined) {
+            throw new Error('Required parameter ioFieldId was null or undefined when calling deleteIOField.');
         }
 
         let headers = this.defaultHeaders;
@@ -239,7 +244,7 @@ export class AlgorithmsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.delete<any>(`${this.basePath}/${encodeURIComponent(String(id))}/outputFields/${encodeURIComponent(String(outputFieldId))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/${encodeURIComponent(String(id))}/ioFields/${encodeURIComponent(String(fieldType))}/${encodeURIComponent(String(ioFieldId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -598,6 +603,63 @@ export class AlgorithmsService {
     }
 
     /**
+     * /hyperiot/algorithms/{id}/ioFields
+     * Service for updating IO field
+     * @param id The algorithm which must be updated
+     * @param body The IO field which must be updated
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateIOField(id: number, body: AlgorithmIOField, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateIOField(id: number, body: AlgorithmIOField, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateIOField(id: number, body: AlgorithmIOField, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateIOField(id: number, body: AlgorithmIOField, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling updateIOField.');
+        }
+
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling updateIOField.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<any>(`${this.basePath}/${encodeURIComponent(String(id))}/ioFields`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/algorithms/{algorithmId}/jar
      * Service for updating jar of algorithm
      * @param algorithmId Algorithm ID which updates jar for
@@ -643,63 +705,6 @@ export class AlgorithmsService {
         }
 
         return this.httpClient.put<any>(`${this.basePath}/${encodeURIComponent(String(algorithmId))}/jar`,
-            body,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/algorithms/{id}/outputFields
-     * Service for updating output field
-     * @param id The algorithm which must be updated
-     * @param body The output field which must be updated
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public updateOutputField(id: number, body: AlgorithmOutputField, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public updateOutputField(id: number, body: AlgorithmOutputField, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public updateOutputField(id: number, body: AlgorithmOutputField, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public updateOutputField(id: number, body: AlgorithmOutputField, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling updateOutputField.');
-        }
-
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateOutputField.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.put<any>(`${this.basePath}/${encodeURIComponent(String(id))}/outputFields`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,

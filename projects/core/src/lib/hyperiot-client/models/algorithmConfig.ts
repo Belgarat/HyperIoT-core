@@ -6,11 +6,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { AlgorithmInput } from './algorithmInput';
-import { AlgorithmOutputField } from './algorithmOutputField';
+import { AlgorithmIOField } from './algorithmIOField';
 
 
 export interface AlgorithmConfig { 
-    input?: AlgorithmInput;
-    output?: Array<AlgorithmOutputField>;
+    input?: Array<AlgorithmIOField>;
+    output?: Array<AlgorithmIOField>;
 }

@@ -16,5 +16,5 @@ company#http://localhost:8181/hyperiot/companies/swagger.json#../projects/core/s
 dashboard#http://localhost:8181/hyperiot/dashboards/swagger.json#../projects/core/src/lib/hyperiot-client/dashboard-client/api-module#
 dashboardWidgets#http://localhost:8181/hyperiot/dashboardwidgets/swagger.json#../projects/core/src/lib/hyperiot-client/dashboard-widgets-client/api-module#
 widgets#http://localhost:8181/hyperiot/widgets/swagger.json#../projects/core/src/lib/hyperiot-client/widgets-client/api-module#
-hbaseconnectors#http://karaf-microservices-test.hyperiot.cloud/hyperiot/hbaseconnectors/swagger.json#../projects/core/src/lib/hyperiot-client/h-base-connectors-client/api-module#
+hbaseconnectors#http://localhost:8181/hyperiot/hbaseconnectors/swagger.json#../projects/core/src/lib/hyperiot-client/h-base-connectors-client/api-module#
 algorithms#http://localhost:8181/hyperiot/algorithms/swagger.json#../projects/core/src/lib/hyperiot-client/algorithms-client/api-module#
