@@ -22,6 +22,7 @@ export { HbaseconnectorsService } from './lib/hyperiot-client/h-base-connectors-
 export { HdevicesService } from './lib/hyperiot-client/h-device-client/api-module/index';
 export { HpacketsService } from './lib/hyperiot-client/h-packet-client/api-module/index';
 export { HprojectsService } from './lib/hyperiot-client/h-project-client/api-module/index';
+export { HprojectalgorithmsService } from './lib/hyperiot-client/hproject-algorithms-client/api-module/index';
 export { HusersService } from './lib/hyperiot-client/h-user-client/api-module/index';
 export { KafkaService } from './lib/hyperiot-client/kafka-connector-client/api-module/index';
 export { MailtemplatesService } from './lib/hyperiot-client/mail-templates-client/api-module/index';
@@ -43,6 +44,7 @@ export { ApiModule as HbaseconnectorsClientModule } from './lib/hyperiot-client/
 export { ApiModule as HdevicesClientModule } from './lib/hyperiot-client/h-device-client/api-module/api.module';
 export { ApiModule as HpacketsClientModule } from './lib/hyperiot-client/h-packet-client/api-module/api.module';
 export { ApiModule as HprojectsClientModule } from './lib/hyperiot-client/h-project-client/api-module/api.module';
+export { ApiModule as HprojectalgorithmsClientModule } from './lib/hyperiot-client/hproject-algorithms-client/api-module/api.module';
 export { ApiModule as HUserClientModule } from './lib/hyperiot-client/h-user-client/api-module/api.module';
 export { ApiModule as KafkaClientModule } from './lib/hyperiot-client/kafka-connector-client/api-module/api.module';
 export { ApiModule as MailtemplatesClientModule } from './lib/hyperiot-client/mail-templates-client/api-module/api.module';
