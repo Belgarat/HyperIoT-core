@@ -6,24 +6,19 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { HUser } from './hUser';
-import { HyperIoTUser } from './hyperIoTUser';
+import { Algorithm } from './algorithm';
+import { HProject } from './hProject';
 
 
-export interface Company { 
+export interface HProjectAlgorithm { 
     id?: number;
     entityVersion: number;
     readonly entityCreateDate?: Date;
     readonly entityModifyDate?: Date;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    businessName?: string;
-    invoiceAddress?: string;
-    city?: string;
-    postalCode?: string;
-    nation?: string;
-    vatNumber?: string;
-    user?: HUser;
-    userOwner?: HyperIoTUser;
-    huserCreator?: HUser;
+    gethProject?: HProject;
+    algorithm?: Algorithm;
+    config?: string;
+    trigger?: string;
 }

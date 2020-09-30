@@ -22,6 +22,7 @@ export * from './dataSource';
 export * from './hDevice';
 export * from './hPacketField';
 export * from './hPacket';
+export * from './hProjectAlgorithm';
 export * from './hProject';
 export * from './hUserPasswordReset';
 export * from './hUser';
