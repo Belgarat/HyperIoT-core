@@ -16,9 +16,9 @@ export interface HyperIoTUser {
     username?: string;
     name?: string;
     categoryIds?: Array<number>;
+    systemApiClassName?: string;
     entityCreateDate?: Date;
     tagIds?: Array<number>;
-    systemApiClassName?: string;
     id?: number;
     entityVersion?: number;
     resourceName?: string;

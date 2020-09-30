@@ -14,8 +14,8 @@ import { MediaType } from './mediaType';
 export interface Attachment { 
     headers?: { [key: string]: Array<string>; };
     object?: any;
-    contentId?: string;
     contentDisposition?: ContentDisposition;
+    contentId?: string;
     dataHandler?: DataHandler;
     contentType?: MediaType;
 }
