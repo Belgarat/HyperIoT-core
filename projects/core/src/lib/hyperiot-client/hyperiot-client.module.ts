@@ -12,6 +12,7 @@ import { HbaseconnectorsService } from './h-base-connectors-client/api-module/ap
 import { HdevicesService } from './h-device-client/api-module/api/hdevices.service';
 import { HpacketsService } from './h-packet-client/api-module/api/hpackets.service';
 import { HprojectsService } from './h-project-client/api-module/api/hprojects.service';
+import { HprojectalgorithmsService } from './hproject-algorithms-client/api-module/api/hprojectalgorithms.service';
 import { HusersService } from './h-user-client/api-module/api/husers.service';
 import { KafkaService } from './kafka-connector-client/api-module/api/kafka.service';
 import { MailtemplatesService } from './mail-templates-client/api-module/api/mailtemplates.service';
@@ -37,6 +38,7 @@ import { WidgetsService } from './widgets-client/api-module/api/widgets.service'
     HdevicesService,
     HpacketsService,
     HprojectsService,
+    HprojectalgorithmsService,
     HusersService,
     KafkaService,
     MailtemplatesService,
