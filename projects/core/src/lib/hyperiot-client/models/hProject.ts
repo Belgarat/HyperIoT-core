@@ -9,6 +9,7 @@
 import { Area } from './area';
 import { Dashboard } from './dashboard';
 import { HDevice } from './hDevice';
+import { HProjectAlgorithm } from './hProjectAlgorithm';
 import { HUser } from './hUser';
 import { Rule } from './rule';
 
@@ -30,5 +31,6 @@ export interface HProject {
     dashboards?: Array<Dashboard>;
     areas?: Array<Area>;
     rules?: Array<Rule>;
+    hprojectalgorithms?: Array<HProjectAlgorithm>;
     pubKey?: Array<string>;
 }

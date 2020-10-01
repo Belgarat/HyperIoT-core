@@ -235,6 +235,52 @@ export class HprojectalgorithmsService {
     }
 
     /**
+     * /hyperiot/hprojectalgorithms/projects/{id}
+     * Return the list of algorithms which have been defined for project with given ID
+     * @param id ID of the project
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findByHProjectId(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findByHProjectId(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findByHProjectId(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findByHProjectId(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling findByHProjectId.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/projects/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/hprojectalgorithms/{id}
      * Service for finding hprojectalgorithm
      * @param id 
