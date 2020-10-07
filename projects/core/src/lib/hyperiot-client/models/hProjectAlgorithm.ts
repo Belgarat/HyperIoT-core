@@ -20,5 +20,5 @@ export interface HProjectAlgorithm {
     project?: HProject;
     algorithm?: Algorithm;
     config?: string;
-    trigger?: string;
+    cronExpression?: string;
 }
