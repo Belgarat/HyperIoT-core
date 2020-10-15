@@ -673,7 +673,7 @@ export class HbaseconnectorsService {
     }
 
     /**
-     * /hyperiot/hbaseconnector/timeline/scan/{tableName}/{packetIds}/{step}/{granularity}/{startTime}/{endTime}
+     * /hyperiot/hbaseconnector/timeline/scan/{tableName}/{packetIds}/{step}/{granularity}/{startTime}/{endTime}/{timezone}
      * Service for scan data and get it back for timeline queries
      * @param tableName Table name which count hpacket event number from
      * @param packetIds HPacket list, containing comma separated ID
@@ -681,13 +681,14 @@ export class HbaseconnectorsService {
      * @param granularity Scanning granularity
      * @param startTime Scanning start time
      * @param endTime Scanning end time
+     * @param timezone Timezone Timezone of client which has invoked the method, i.e. Europe/Rome
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (tableName === null || tableName === undefined) {
             throw new Error('Required parameter tableName was null or undefined when calling timelineScan.');
@@ -713,6 +714,10 @@ export class HbaseconnectorsService {
             throw new Error('Required parameter endTime was null or undefined when calling timelineScan.');
         }
 
+        if (timezone === null || timezone === undefined) {
+            throw new Error('Required parameter timezone was null or undefined when calling timelineScan.');
+        }
+
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
@@ -733,7 +738,7 @@ export class HbaseconnectorsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/timeline/scan/${encodeURIComponent(String(tableName))}/${encodeURIComponent(String(packetIds))}/${encodeURIComponent(String(step))}/${encodeURIComponent(String(granularity))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}`,
+        return this.httpClient.get<any>(`${this.basePath}/timeline/scan/${encodeURIComponent(String(tableName))}/${encodeURIComponent(String(packetIds))}/${encodeURIComponent(String(step))}/${encodeURIComponent(String(granularity))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}/${encodeURIComponent(String(timezone))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
