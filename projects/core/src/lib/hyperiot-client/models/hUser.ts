@@ -20,6 +20,7 @@ export interface HUser {
     lastname?: string;
     username?: string;
     password?: string;
+    admin?: boolean;
     passwordConfirm?: string;
     email?: string;
     roles?: Array<Role>;

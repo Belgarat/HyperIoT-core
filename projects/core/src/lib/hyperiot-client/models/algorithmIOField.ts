@@ -17,8 +17,9 @@ export interface AlgorithmIOField {
     type?: AlgorithmIOField.TypeEnum;
 }
 export namespace AlgorithmIOField {
-    export type FieldTypeEnum = 'INTEGER' | 'LONG' | 'DOUBLE' | 'FLOAT' | 'TEXT' | 'BYTE';
+    export type FieldTypeEnum = 'NUMBER' | 'INTEGER' | 'LONG' | 'DOUBLE' | 'FLOAT' | 'TEXT' | 'BYTE';
     export const FieldTypeEnum = {
+        NUMBER: 'NUMBER' as FieldTypeEnum,
         INTEGER: 'INTEGER' as FieldTypeEnum,
         LONG: 'LONG' as FieldTypeEnum,
         DOUBLE: 'DOUBLE' as FieldTypeEnum,
