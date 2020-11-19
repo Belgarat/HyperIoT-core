@@ -133,7 +133,7 @@ export class HbaseconnectorsService {
     }
 
     /**
-     * /hyperiot/hbaseconnector/createTable
+     * /hyperiot/hbaseconnector/tables
      * Service for creating new table
      * @param tableName 
      * @param columnFamilies 
@@ -186,7 +186,7 @@ export class HbaseconnectorsService {
             formParams = formParams.append('columnFamilies', <any>columnFamilies) || formParams;
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/createTable`,
+        return this.httpClient.post<any>(`${this.basePath}/tables`,
             convertFormParamsToString ? formParams.toString() : formParams,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -198,7 +198,7 @@ export class HbaseconnectorsService {
     }
 
     /**
-     * /hyperiot/hbaseconnector/deleteData
+     * /hyperiot/hbaseconnector/tables/rows
      * Service for delete data
      * @param tableName 
      * @param rowKey 
@@ -251,7 +251,7 @@ export class HbaseconnectorsService {
             formParams = formParams.append('rowKey', <any>rowKey) || formParams;
         }
 
-        return this.httpClient.delete<any>(`${this.basePath}/deleteData`,
+        return this.httpClient.delete<any>(`${this.basePath}/tables/rows`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -262,55 +262,7 @@ export class HbaseconnectorsService {
     }
 
     /**
-     * /hyperiot/hbaseconnector/disableTable/{tableName}
-     * Service for disabling table
-     * @param tableName Table name which must be disabled
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public disableTable(tableName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public disableTable(tableName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public disableTable(tableName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public disableTable(tableName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (tableName === null || tableName === undefined) {
-            throw new Error('Required parameter tableName was null or undefined when calling disableTable.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.put<any>(`${this.basePath}/disableTable/${encodeURIComponent(String(tableName))}`,
-            null,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/hbaseconnector/dropTable/{tableName}
+     * /hyperiot/hbaseconnector/tables/{tableName}
      * Service for deleting a table
      * @param tableName The table name which must be dropped
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -346,7 +298,7 @@ export class HbaseconnectorsService {
             'application/json'
         ];
 
-        return this.httpClient.delete<any>(`${this.basePath}/dropTable/${encodeURIComponent(String(tableName))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/tables/${encodeURIComponent(String(tableName))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -357,19 +309,24 @@ export class HbaseconnectorsService {
     }
 
     /**
-     * /hyperiot/hbaseconnector/enableTable/{tableName}
-     * Service for enabling table
-     * @param tableName Table name which must be enabled 
+     * /hyperiot/hbaseconnector/tables/{tableName}
+     * Service for changing table status, i.e. enabled or disabled
+     * @param tableName Table name whose status must be updated
+     * @param tableName2 True if table must be enabled, false otherwise
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public enableTable(tableName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public enableTable(tableName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public enableTable(tableName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public enableTable(tableName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public enableTable(tableName: string, tableName2: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public enableTable(tableName: string, tableName2: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public enableTable(tableName: string, tableName2: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public enableTable(tableName: string, tableName2: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (tableName === null || tableName === undefined) {
             throw new Error('Required parameter tableName was null or undefined when calling enableTable.');
+        }
+
+        if (tableName2 === null || tableName2 === undefined) {
+            throw new Error('Required parameter tableName2 was null or undefined when calling enableTable.');
         }
 
         let headers = this.defaultHeaders;
@@ -393,7 +350,7 @@ export class HbaseconnectorsService {
             'application/json'
         ];
 
-        return this.httpClient.put<any>(`${this.basePath}/enableTable/${encodeURIComponent(String(tableName))}`,
+        return this.httpClient.put<any>(`${this.basePath}/tables/${encodeURIComponent(String(tableName))}`,
             null,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -405,7 +362,7 @@ export class HbaseconnectorsService {
     }
 
     /**
-     * /hyperiot/hbaseconnector/insertData
+     * /hyperiot/hbaseconnector/tables
      * Service for insert data
      * @param tableName 
      * @param rowKey 
@@ -473,272 +430,8 @@ export class HbaseconnectorsService {
             formParams = formParams.append('cellValue', <any>cellValue) || formParams;
         }
 
-        return this.httpClient.put<any>(`${this.basePath}/insertData`,
+        return this.httpClient.put<any>(`${this.basePath}/tables`,
             convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/hbaseconnector/scanAvroHPackets/{tableName}/{columnFamily}/{column}/{rowKeyLowerBound}/{rowKeyUpperBound}
-     * Service for scan data
-     * @param tableName Table name which retrieve hpackets from
-     * @param columnFamily HBase table column family
-     * @param column Column inside a column family
-     * @param rowKeyLowerBound HBase row key lower bound
-     * @param rowKeyUpperBound HBase row key upper bound
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public scanAvroHPackets(tableName: string, columnFamily: string, column: number, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public scanAvroHPackets(tableName: string, columnFamily: string, column: number, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public scanAvroHPackets(tableName: string, columnFamily: string, column: number, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public scanAvroHPackets(tableName: string, columnFamily: string, column: number, rowKeyLowerBound: number, rowKeyUpperBound: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (tableName === null || tableName === undefined) {
-            throw new Error('Required parameter tableName was null or undefined when calling scanAvroHPackets.');
-        }
-
-        if (columnFamily === null || columnFamily === undefined) {
-            throw new Error('Required parameter columnFamily was null or undefined when calling scanAvroHPackets.');
-        }
-
-        if (column === null || column === undefined) {
-            throw new Error('Required parameter column was null or undefined when calling scanAvroHPackets.');
-        }
-
-        if (rowKeyLowerBound === null || rowKeyLowerBound === undefined) {
-            throw new Error('Required parameter rowKeyLowerBound was null or undefined when calling scanAvroHPackets.');
-        }
-
-        if (rowKeyUpperBound === null || rowKeyUpperBound === undefined) {
-            throw new Error('Required parameter rowKeyUpperBound was null or undefined when calling scanAvroHPackets.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/scanAvroHPackets/${encodeURIComponent(String(tableName))}/${encodeURIComponent(String(columnFamily))}/${encodeURIComponent(String(column))}/${encodeURIComponent(String(rowKeyLowerBound))}/${encodeURIComponent(String(rowKeyUpperBound))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/hbaseconnector/scanHProject/{hProjectId}/{hPacketIds}/{rowKeyLowerBound}/{rowKeyUpperBound}
-     * Service for scan HProject data
-     * @param hProjectId HProject ID from retrieve HPackets in Avro format
-     * @param hPacketIds HPacket list, containing comma separated ID
-     * @param rowKeyLowerBound HBase row key lower bound
-     * @param rowKeyUpperBound HBase row key upper bound
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public scanHProject(hProjectId: number, hPacketIds: string, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public scanHProject(hProjectId: number, hPacketIds: string, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public scanHProject(hProjectId: number, hPacketIds: string, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public scanHProject(hProjectId: number, hPacketIds: string, rowKeyLowerBound: number, rowKeyUpperBound: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (hProjectId === null || hProjectId === undefined) {
-            throw new Error('Required parameter hProjectId was null or undefined when calling scanHProject.');
-        }
-
-        if (hPacketIds === null || hPacketIds === undefined) {
-            throw new Error('Required parameter hPacketIds was null or undefined when calling scanHProject.');
-        }
-
-        if (rowKeyLowerBound === null || rowKeyLowerBound === undefined) {
-            throw new Error('Required parameter rowKeyLowerBound was null or undefined when calling scanHProject.');
-        }
-
-        if (rowKeyUpperBound === null || rowKeyUpperBound === undefined) {
-            throw new Error('Required parameter rowKeyUpperBound was null or undefined when calling scanHProject.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/scanHProject/${encodeURIComponent(String(hProjectId))}/${encodeURIComponent(String(hPacketIds))}/${encodeURIComponent(String(rowKeyLowerBound))}/${encodeURIComponent(String(rowKeyUpperBound))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/hbaseconnector/timeline/event/count/{tableName}/{packetIds}/{startTime}/{endTime}
-     * Service for count data and get it back
-     * @param tableName Table name which count hpacket event number from
-     * @param packetIds HPacket list, containing comma separated ID
-     * @param startTime Scanning start time
-     * @param endTime Scanning end time
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public timelineEventCount(tableName: string, packetIds: string, startTime: number, endTime: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public timelineEventCount(tableName: string, packetIds: string, startTime: number, endTime: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public timelineEventCount(tableName: string, packetIds: string, startTime: number, endTime: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public timelineEventCount(tableName: string, packetIds: string, startTime: number, endTime: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (tableName === null || tableName === undefined) {
-            throw new Error('Required parameter tableName was null or undefined when calling timelineEventCount.');
-        }
-
-        if (packetIds === null || packetIds === undefined) {
-            throw new Error('Required parameter packetIds was null or undefined when calling timelineEventCount.');
-        }
-
-        if (startTime === null || startTime === undefined) {
-            throw new Error('Required parameter startTime was null or undefined when calling timelineEventCount.');
-        }
-
-        if (endTime === null || endTime === undefined) {
-            throw new Error('Required parameter endTime was null or undefined when calling timelineEventCount.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/timeline/event/count/${encodeURIComponent(String(tableName))}/${encodeURIComponent(String(packetIds))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/hbaseconnector/timeline/scan/{tableName}/{packetIds}/{step}/{granularity}/{startTime}/{endTime}/{timezone}
-     * Service for scan data and get it back for timeline queries
-     * @param tableName Table name which count hpacket event number from
-     * @param packetIds HPacket list, containing comma separated ID
-     * @param step Scanning step
-     * @param granularity Scanning granularity
-     * @param startTime Scanning start time
-     * @param endTime Scanning end time
-     * @param timezone Timezone Timezone of client which has invoked the method, i.e. Europe/Rome
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (tableName === null || tableName === undefined) {
-            throw new Error('Required parameter tableName was null or undefined when calling timelineScan.');
-        }
-
-        if (packetIds === null || packetIds === undefined) {
-            throw new Error('Required parameter packetIds was null or undefined when calling timelineScan.');
-        }
-
-        if (step === null || step === undefined) {
-            throw new Error('Required parameter step was null or undefined when calling timelineScan.');
-        }
-
-        if (granularity === null || granularity === undefined) {
-            throw new Error('Required parameter granularity was null or undefined when calling timelineScan.');
-        }
-
-        if (startTime === null || startTime === undefined) {
-            throw new Error('Required parameter startTime was null or undefined when calling timelineScan.');
-        }
-
-        if (endTime === null || endTime === undefined) {
-            throw new Error('Required parameter endTime was null or undefined when calling timelineScan.');
-        }
-
-        if (timezone === null || timezone === undefined) {
-            throw new Error('Required parameter timezone was null or undefined when calling timelineScan.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/timeline/scan/${encodeURIComponent(String(tableName))}/${encodeURIComponent(String(packetIds))}/${encodeURIComponent(String(step))}/${encodeURIComponent(String(granularity))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}/${encodeURIComponent(String(timezone))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

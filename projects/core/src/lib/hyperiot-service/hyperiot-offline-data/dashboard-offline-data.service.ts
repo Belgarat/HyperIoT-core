@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HbaseconnectorsService } from '../../hyperiot-client/h-base-connectors-client/api-module';
+import { HprojectsService } from '../../hyperiot-client/h-project-client/api-module';
 import { HyperiotIndexeddbService } from '../hyperiot-indexeddb/hyperiot-indexeddb.service';
 
 interface Slot {
@@ -42,7 +43,7 @@ export class DashboardOfflineDataService {
   public totalDataCount = [];
 
   constructor(
-    private hbaseconnectorsService: HbaseconnectorsService,
+    private hprojectsService: HprojectsService,
     private indexeddbService: HyperiotIndexeddbService
   ) {
     this.hPacketMap = new Map<number, Subject<any>>();
@@ -79,7 +80,7 @@ export class DashboardOfflineDataService {
   // PRIMA CHIAMATA ARRIVA DALLA DASHBOARD DOPO SELEZIONE VERDE
   // SETTA OfflineCountMap
   public getEventCount(rowKeyLowerBound: number, rowKeyUpperBound: number): void {
-    this.hbaseconnectorsService.timelineEventCount(
+    this.hprojectsService.timelineEventCount(
       `timeline_hproject_${this.hProjectId}`,
       [...this.hPacketMap.keys()].toString(),
       rowKeyLowerBound,
@@ -146,7 +147,7 @@ export class DashboardOfflineDataService {
   }
 
   public getHPacketMap(rowKeyLowerBound: number, rowKeyUpperBound: number): void {
-    this.hbaseconnectorsService.scanHProject(
+    this.hprojectsService.scanHProject(
       this.hProjectId,
       [...this.hPacketMap.keys()].toString(),
       rowKeyLowerBound,
@@ -167,7 +168,7 @@ export class DashboardOfflineDataService {
 
   getData(packetId, indexes) {
     const slot: Slot = this.OfflineCountMap.get(packetId).slots[Math.floor(indexes[0] / 1000)];
-    return this.hbaseconnectorsService.scanHProject(this.hProjectId, packetId, slot.start, slot.end + 1);
+    return this.hprojectsService.scanHProject(this.hProjectId, packetId, slot.start, slot.end + 1);
   }
 
 }
