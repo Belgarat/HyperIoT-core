@@ -160,6 +160,7 @@
 ../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/api/hprojectalgorithms.service.ts#rxjs/Observable#rxjs#
 ../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/api/hprojectalgorithms.service.ts#https://localhost/hyperiot/hprojectalgorithms#/hyperiot/hprojectalgorithms#
 ../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/api/hprojectalgorithms.service.ts#import { HProjectAlgorithm } from '../model/hProjectAlgorithm';#import { HProjectAlgorithm } from '../../../models/hProjectAlgorithm';#
+../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/api/hprojectalgorithms.service.ts#import { HProjectAlgorithmConfig } from '../model/hProjectAlgorithmConfig';#import { HProjectAlgorithmConfig } from '../../../models/hProjectAlgorithmConfig';#
 ../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/api/hprojectalgorithms.service.ts#void;#any;#
 ../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/api/hprojectalgorithms.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
 ../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration';#

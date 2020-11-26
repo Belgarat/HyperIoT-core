@@ -22,6 +22,8 @@ export * from './dataSource';
 export * from './hDevice';
 export * from './hPacketField';
 export * from './hPacket';
+export * from './hProjectAlgorithmConfig';
+export * from './hProjectAlgorithmInputField';
 export * from './hProjectAlgorithm';
 export * from './hProject';
 export * from './hUserPasswordReset';

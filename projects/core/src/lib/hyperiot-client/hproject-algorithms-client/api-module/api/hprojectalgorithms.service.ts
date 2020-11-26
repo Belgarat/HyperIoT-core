@@ -19,6 +19,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { HProjectAlgorithm } from '../../../models/hProjectAlgorithm';
+import { HProjectAlgorithmConfig } from '../../../models/hProjectAlgorithmConfig';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
@@ -368,6 +369,63 @@ export class HprojectalgorithmsService {
         }
 
         return this.httpClient.post<any>(`${this.basePath}/`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hprojectalgorithms/{hProjectAlgorithmId}/config
+     * Service to update configuration of HProjectAlgorithm
+     * @param hProjectAlgorithmId HProjectAlgorithm ID whose update configuration
+     * @param body Base config
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateBaseConfig(hProjectAlgorithmId: number, body: HProjectAlgorithmConfig, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateBaseConfig(hProjectAlgorithmId: number, body: HProjectAlgorithmConfig, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateBaseConfig(hProjectAlgorithmId: number, body: HProjectAlgorithmConfig, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateBaseConfig(hProjectAlgorithmId: number, body: HProjectAlgorithmConfig, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (hProjectAlgorithmId === null || hProjectAlgorithmId === undefined) {
+            throw new Error('Required parameter hProjectAlgorithmId was null or undefined when calling updateBaseConfig.');
+        }
+
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling updateBaseConfig.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/${encodeURIComponent(String(hProjectAlgorithmId))}/config`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,

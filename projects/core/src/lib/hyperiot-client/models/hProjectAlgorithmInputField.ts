@@ -6,13 +6,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InputStream } from './inputStream';
-import { OutputStream } from './outputStream';
+import { AlgorithmIOField } from './algorithmIOField';
 
 
-export interface DataSource { 
-    contentType?: string;
-    outputStream?: OutputStream;
-    name?: string;
-    inputStream?: InputStream;
+export interface HProjectAlgorithmInputField { 
+    packetId?: number;
+    mappedInput?: { [key: string]: AlgorithmIOField; };
 }
