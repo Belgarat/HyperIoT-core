@@ -660,20 +660,25 @@ export class AlgorithmsService {
     }
 
     /**
-     * /hyperiot/algorithms/{algorithmId}/jar
+     * /hyperiot/algorithms/{algorithmId}/jar/{mainClassName}
      * Service for updating jar of algorithm
      * @param algorithmId Algorithm ID which updates jar for
+     * @param mainClassname Classname containing main method
      * @param body Jar file 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateJar(algorithmId: number, body: Blob, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public updateJar(algorithmId: number, body: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public updateJar(algorithmId: number, body: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public updateJar(algorithmId: number, body: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateJar(algorithmId: number, mainClassname: string, body: Blob, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateJar(algorithmId: number, mainClassname: string, body: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateJar(algorithmId: number, mainClassname: string, body: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateJar(algorithmId: number, mainClassname: string, body: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (algorithmId === null || algorithmId === undefined) {
             throw new Error('Required parameter algorithmId was null or undefined when calling updateJar.');
+        }
+
+        if (mainClassname === null || mainClassname === undefined) {
+            throw new Error('Required parameter mainClassname was null or undefined when calling updateJar.');
         }
 
         if (body === null || body === undefined) {
@@ -704,7 +709,7 @@ export class AlgorithmsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<any>(`${this.basePath}/${encodeURIComponent(String(algorithmId))}/jar`,
+        return this.httpClient.put<any>(`${this.basePath}/${encodeURIComponent(String(algorithmId))}/jar/${encodeURIComponent(String(mainClassname))}`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
