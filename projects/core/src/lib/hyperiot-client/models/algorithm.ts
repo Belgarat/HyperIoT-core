@@ -19,4 +19,5 @@ export interface Algorithm {
     description?: string;
     baseConfig?: string;
     jarName?: string;
+    mainClassName?: string;
 }
