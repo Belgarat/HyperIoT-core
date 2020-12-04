@@ -38,6 +38,7 @@ export * from './inputStream';
 export * from './jWTLoginResponse';
 export * from './jWTProfile';
 export * from './mailTemplate';
+export * from './mappedInput';
 export * from './mediaType';
 export * from './outputStream';
 export * from './permission';

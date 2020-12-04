@@ -6,10 +6,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { AlgorithmIOField } from './algorithmIOField';
+import { MappedInput } from './mappedInput';
 
 
 export interface HProjectAlgorithmInputField { 
     packetId?: number;
-    mappedInput?: { [key: string]: AlgorithmIOField; };
+    mappedInputList?: Array<MappedInput>;
 }

@@ -6,12 +6,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { AlgorithmIOField } from './algorithmIOField';
 
 
-export interface MediaType { 
-    type?: string;
-    subtype?: string;
-    parameters?: { [key: string]: string; };
-    wildcardType?: boolean;
-    wildcardSubtype?: boolean;
+export interface MappedInput { 
+    packetFieldId?: number;
+    algorithmInput?: AlgorithmIOField;
 }

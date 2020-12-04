@@ -15,10 +15,10 @@ export interface HyperIoTUser {
     roles?: Array<HyperIoTRole>;
     username?: string;
     name?: string;
-    tagIds?: Array<number>;
-    categoryIds?: Array<number>;
-    systemApiClassName?: string;
     entityCreateDate?: Date;
+    systemApiClassName?: string;
+    categoryIds?: Array<number>;
+    tagIds?: Array<number>;
     id?: number;
     entityVersion?: number;
     resourceName?: string;
