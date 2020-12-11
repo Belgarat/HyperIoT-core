@@ -66,4 +66,4 @@ export * from './lib/hyperiot-service/hyperiot-logger/logger-config';
 export * from './lib/hyperiot-service/hyperiot-logger/logger.service';
 
 export * from './lib/hyperiot-service/hyperiot-offline-data/dashboard-offline-data.service';
-
+export * from './lib/hyperiot-service/hyperiot-algorithm-offline-data/algorithm-offline-data.service';

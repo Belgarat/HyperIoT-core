@@ -9,10 +9,10 @@
 
 
 export interface HyperIoTBaseEntity { 
-    entityCreateDate?: Date;
-    systemApiClassName?: string;
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
+    entityCreateDate?: Date;
+    systemApiClassName?: string;
     id?: number;
     entityVersion?: number;
     resourceName?: string;

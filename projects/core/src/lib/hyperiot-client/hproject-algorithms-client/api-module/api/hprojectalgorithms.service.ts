@@ -328,6 +328,57 @@ export class HprojectalgorithmsService {
     }
 
     /**
+     * /hyperiot/hprojectalgorithms/projects/{projectId}/algorithms/{algorithmId}
+     * Return outputs of algorithm which have been defined for a project
+     * @param projectId ID of project
+     * @param algorithmId ID of algorithm
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAlgorithmOutputs(projectId: number, algorithmId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAlgorithmOutputs(projectId: number, algorithmId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAlgorithmOutputs(projectId: number, algorithmId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAlgorithmOutputs(projectId: number, algorithmId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (projectId === null || projectId === undefined) {
+            throw new Error('Required parameter projectId was null or undefined when calling getAlgorithmOutputs.');
+        }
+
+        if (algorithmId === null || algorithmId === undefined) {
+            throw new Error('Required parameter algorithmId was null or undefined when calling getAlgorithmOutputs.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/projects/${encodeURIComponent(String(projectId))}/algorithms/${encodeURIComponent(String(algorithmId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/hprojectalgorithms
      * Service for adding a new hprojectalgorithm entity
      * @param body HProjectAlgorithm entity which must be saved 
