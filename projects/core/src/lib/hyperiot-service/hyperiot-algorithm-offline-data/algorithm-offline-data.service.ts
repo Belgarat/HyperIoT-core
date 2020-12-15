@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HprojectalgorithmsService } from '../../hyperiot-client/hproject-algorithms-client/api-module';
 
 interface WidgetAlgorithm {
-  algorithmId: number;
+  hProjectAlgorithmId: number;
   widgetId: number;
 }
 
@@ -26,18 +26,18 @@ export class AlgorithmOfflineDataService {
     this.subscriptions = [];
   }
 
-  addWidget(widgetId: number, algorithmId: number) {
+  addWidget(widgetId: number, hProjectAlgorithmId: number) {
     if (!this.subscriptions.some(x => x.widgetId === widgetId)) {
-      this.subscriptions.push({ widgetId: widgetId, algorithmId: algorithmId });
+      this.subscriptions.push({ widgetId: widgetId, hProjectAlgorithmId: hProjectAlgorithmId });
     }
   }
 
-  removeWidget(widgetId: number, algorithmId: number) {
+  removeWidget(widgetId: number, hProjectAlgorithmId: number) {
     this.subscriptions = this.subscriptions.filter(y => y.widgetId !== widgetId);
   }
 
-  getData(algorithmId) {
-    return this.hprojectAlgorithmsService.getAlgorithmOutputs(this.hProjectId, algorithmId);
+  getData(hProjectAlgorithmId: number) {
+    return this.hprojectAlgorithmsService.getAlgorithmOutputs(this.hProjectId, hProjectAlgorithmId);
   }
 
 }
