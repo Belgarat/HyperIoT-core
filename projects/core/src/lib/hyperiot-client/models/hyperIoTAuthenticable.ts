@@ -12,10 +12,10 @@ import { HyperIoTRole } from './hyperIoTRole';
 export interface HyperIoTAuthenticable { 
     screenName?: string;
     roles?: Array<HyperIoTRole>;
-    categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    entityCreateDate?: Date;
+    categoryIds?: Array<number>;
     systemApiClassName?: string;
+    entityCreateDate?: Date;
     id?: number;
     entityVersion?: number;
     resourceName?: string;
