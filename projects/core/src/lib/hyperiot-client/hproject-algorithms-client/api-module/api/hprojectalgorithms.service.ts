@@ -328,24 +328,24 @@ export class HprojectalgorithmsService {
     }
 
     /**
-     * /hyperiot/hprojectalgorithms/projects/{projectId}/algorithms/{algorithmId}
+     * /hyperiot/hprojectalgorithms/projects/{projectId}/algorithms/{hProjectAlgorithmId}
      * Return outputs of algorithm which have been defined for a project
      * @param projectId ID of project
-     * @param algorithmId ID of algorithm
+     * @param hProjectAlgorithmId ID of HProjectAlgorithm
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAlgorithmOutputs(projectId: number, algorithmId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getAlgorithmOutputs(projectId: number, algorithmId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getAlgorithmOutputs(projectId: number, algorithmId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getAlgorithmOutputs(projectId: number, algorithmId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAlgorithmOutputs(projectId: number, hProjectAlgorithmId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAlgorithmOutputs(projectId: number, hProjectAlgorithmId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAlgorithmOutputs(projectId: number, hProjectAlgorithmId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAlgorithmOutputs(projectId: number, hProjectAlgorithmId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (projectId === null || projectId === undefined) {
             throw new Error('Required parameter projectId was null or undefined when calling getAlgorithmOutputs.');
         }
 
-        if (algorithmId === null || algorithmId === undefined) {
-            throw new Error('Required parameter algorithmId was null or undefined when calling getAlgorithmOutputs.');
+        if (hProjectAlgorithmId === null || hProjectAlgorithmId === undefined) {
+            throw new Error('Required parameter hProjectAlgorithmId was null or undefined when calling getAlgorithmOutputs.');
         }
 
         let headers = this.defaultHeaders;
@@ -368,7 +368,7 @@ export class HprojectalgorithmsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/projects/${encodeURIComponent(String(projectId))}/algorithms/${encodeURIComponent(String(algorithmId))}`,
+        return this.httpClient.get<any>(`${this.basePath}/projects/${encodeURIComponent(String(projectId))}/algorithms/${encodeURIComponent(String(hProjectAlgorithmId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
