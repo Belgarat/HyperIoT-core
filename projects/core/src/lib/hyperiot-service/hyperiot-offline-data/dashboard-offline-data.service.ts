@@ -39,6 +39,8 @@ export class DashboardOfflineDataService {
    */
   private hPacketMap: Map<number, Subject<any>>;
   private hProjectId: number;
+  
+  private HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE = 50;
 
   public totalDataCount = [];
 
@@ -167,7 +169,7 @@ export class DashboardOfflineDataService {
   }
 
   getData(packetId, indexes) {
-    const slot: Slot = this.OfflineCountMap.get(packetId).slots[Math.floor(indexes[0] / 1000)];
+    const slot: Slot = this.OfflineCountMap.get(packetId).slots[Math.floor(indexes[0] / this.HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE)];
     return this.hprojectsService.scanHProject(this.hProjectId, packetId, slot.start, slot.end + 1);
   }
 
