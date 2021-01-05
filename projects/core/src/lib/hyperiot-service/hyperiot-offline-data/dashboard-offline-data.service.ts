@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { HbaseconnectorsService } from '../../hyperiot-client/h-base-connectors-client/api-module';
+import { Observable, Subject, of } from 'rxjs';
 import { HprojectsService } from '../../hyperiot-client/h-project-client/api-module';
 import { HyperiotIndexeddbService } from '../hyperiot-indexeddb/hyperiot-indexeddb.service';
 
@@ -34,6 +33,8 @@ export class DashboardOfflineDataService {
 
   private OfflineCountMap: Map<number, OfflineDataSub> = new Map<number, OfflineDataSub>();
 
+  private offlineDataMap: Map<number, any>;
+
   /**
    * HPackets belonging to a particular HProject, grouped by HPacket ID
    */
@@ -49,6 +50,7 @@ export class DashboardOfflineDataService {
     private indexeddbService: HyperiotIndexeddbService
   ) {
     this.hPacketMap = new Map<number, Subject<any>>();
+    this.offlineDataMap = new Map<number, any>();
   }
 
   dashboardPackets: Subject<number[]>;
@@ -89,17 +91,26 @@ export class DashboardOfflineDataService {
       rowKeyUpperBound
     ).subscribe(
       (res: OfflineDataSub[]) => {
-        this.OfflineCountMap.clear();
-        res.forEach(r => {
-          this.OfflineCountMap.set(r.hpacketId, r);
+        const hPacketIds: string = [...this.hPacketMap.keys()].toString();
+        this.hprojectsService.scanHProject(this.hProjectId, hPacketIds, rowKeyLowerBound, rowKeyUpperBound)
+          .subscribe(data => {
+            // retrieve first data slots for every widget
+            if (Array.isArray(data))
+              data.forEach(element => this.offlineDataMap.set(element.hPacketId, element));
+            else
+              this.offlineDataMap.set(data.hPacketId, data);
 
-          if (this.hPacketMap.has(r.hpacketId)) {
-            this.hPacketMap.get(r.hpacketId).next(r.totalCount);
-          } else {
-            throw new Error(r.hpacketId + ' non è nella mappa')
-          }
-
-        });
+            // update count of data slots
+            this.OfflineCountMap.clear();
+            res.forEach(r => {
+              this.OfflineCountMap.set(r.hpacketId, r);
+              if (this.hPacketMap.has(r.hpacketId)) {
+                this.hPacketMap.get(r.hpacketId).next(r.totalCount);
+              } else {
+                throw new Error(r.hpacketId + ' non è nella mappa')
+              }
+            });
+          });
       },
       err => console.error(err)
     );
@@ -168,8 +179,15 @@ export class DashboardOfflineDataService {
       );
   }
 
-  getData(packetId, indexes) {
+  getData(packetId, indexes): Observable<any> {
     const slot: Slot = this.OfflineCountMap.get(packetId).slots[Math.floor(indexes[0] / this.HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE)];
+    if (this.offlineDataMap.has(packetId)) {
+      // client has claimed for first data slot, retrieve it
+      const result: Array<any> = this.offlineDataMap.get(packetId);
+      this.offlineDataMap.delete(packetId);
+      return of(result);
+    }
+    // client has navigated through widget pages, get data from server
     return this.hprojectsService.scanHProject(this.hProjectId, packetId, slot.start, slot.end + 1);
   }
 
