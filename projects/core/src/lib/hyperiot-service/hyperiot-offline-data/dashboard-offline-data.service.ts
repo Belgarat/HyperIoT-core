@@ -24,6 +24,13 @@ interface WidgetPacket {
   widgetId: number;
 }
 
+enum PageStatus {
+  Loading = 0,
+  Standard = 1,
+  New = 2,
+  Error = -1
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -45,12 +52,15 @@ export class DashboardOfflineDataService {
 
   public totalDataCount = [];
 
+  countEventSubject: Subject<PageStatus>;
+
   constructor(
     private hprojectsService: HprojectsService,
     private indexeddbService: HyperiotIndexeddbService
   ) {
     this.hPacketMap = new Map<number, Subject<any>>();
     this.offlineDataMap = new Map<number, any>();
+    this.countEventSubject = new Subject<PageStatus>();
   }
 
   dashboardPackets: Subject<number[]>;
@@ -110,9 +120,15 @@ export class DashboardOfflineDataService {
                 throw new Error(r.hpacketId + ' non è nella mappa')
               }
             });
+            this.countEventSubject.next(PageStatus.Standard);
+          },
+          err => {
+            this.countEventSubject.next(PageStatus.Error);
           });
       },
-      err => console.error(err)
+      err => {
+        this.countEventSubject.next(PageStatus.Error);
+      }
     );
   }
 
