@@ -11,6 +11,7 @@
 export interface RuleAction { 
     actionName?: string;
     ruleId?: number;
+    ruleName?: string;
     ruleType?: RuleAction.RuleTypeEnum;
 }
 export namespace RuleAction {

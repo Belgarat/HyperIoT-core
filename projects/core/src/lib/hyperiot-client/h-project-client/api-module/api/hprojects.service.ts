@@ -616,7 +616,7 @@ export class HprojectsService {
     /**
      * /hyperiot/hprojects/{hProjectId}/hpackets/{hPacketIds}/{rowKeyLowerBound}/{rowKeyUpperBound}
      * Service for scan HProject data
-     * @param hProjectId HProject ID from retrieve HPackets in Avro format
+     * @param hProjectId HProject ID from retrieve HPackets in Avro format and events
      * @param hPacketIds HPacket list, containing comma separated ID
      * @param rowKeyLowerBound HBase row key lower bound
      * @param rowKeyUpperBound HBase row key upper bound
@@ -677,7 +677,7 @@ export class HprojectsService {
     /**
      * /hyperiot/hprojects/timeline/events/count/{tableName}/{packetIds}/{startTime}/{endTime}
      * Service for count data and get it back
-     * @param tableName Table name which count hpacket event number from
+     * @param tableName Table name which count hpackets from
      * @param packetIds HPacket list, containing comma separated ID
      * @param startTime Scanning start time
      * @param endTime Scanning end time
@@ -738,7 +738,7 @@ export class HprojectsService {
     /**
      * /hyperiot/hprojects/timeline/events/{tableName}/{packetIds}/{step}/{granularity}/{startTime}/{endTime}/{timezone}
      * Service for scan data and get it back for timeline queries
-     * @param tableName Table name which count hpacket event number from
+     * @param tableName Table name which count hpackets from
      * @param packetIds HPacket list, containing comma separated ID
      * @param step Scanning step
      * @param granularity Scanning granularity

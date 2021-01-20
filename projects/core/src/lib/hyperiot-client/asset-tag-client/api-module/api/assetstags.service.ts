@@ -281,6 +281,57 @@ export class AssetstagsService {
     }
 
     /**
+     * /hyperiot/assets/tags/all/{resourceName}/{resourceId}
+     * Service for finding all asset tags belonging to a particular entity
+     * @param resourceName Entity resource name
+     * @param resourceId Resource entity ID
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAssetTagResourceList(resourceName: string, resourceId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAssetTagResourceList(resourceName: string, resourceId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAssetTagResourceList(resourceName: string, resourceId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAssetTagResourceList(resourceName: string, resourceId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (resourceName === null || resourceName === undefined) {
+            throw new Error('Required parameter resourceName was null or undefined when calling getAssetTagResourceList.');
+        }
+
+        if (resourceId === null || resourceId === undefined) {
+            throw new Error('Required parameter resourceId was null or undefined when calling getAssetTagResourceList.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/all/${encodeURIComponent(String(resourceName))}/${encodeURIComponent(String(resourceId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/assets/tags
      * Service for adding a new assettag entity
      * @param body AssetTag entity which must be saved 
