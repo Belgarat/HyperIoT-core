@@ -6,12 +6,15 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { AssetTag } from './assetTag';
 
 
 export interface RuleAction { 
     actionName?: string;
     ruleId?: number;
     ruleName?: string;
+    tags?: Array<AssetTag>;
+    active?: boolean;
     ruleType?: RuleAction.RuleTypeEnum;
 }
 export namespace RuleAction {
