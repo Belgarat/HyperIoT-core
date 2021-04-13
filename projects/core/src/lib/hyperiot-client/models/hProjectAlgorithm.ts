@@ -23,4 +23,5 @@ export interface HProjectAlgorithm {
     config?: string;
     className?: string;
     cronExpression?: string;
+    active?: boolean;
 }
