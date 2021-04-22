@@ -1,4 +1,7 @@
 /**
+ * hyperiot HProjectAlgorithm
+ * HyperIoT HProjectAlgorithm API
+ *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -9,10 +12,10 @@
 
 
 export interface HyperIoTBaseEntity { 
-    categoryIds?: Array<number>;
     tagIds?: Array<number>;
-    systemApiClassName?: string;
     entityCreateDate?: Date;
+    systemApiClassName?: string;
+    categoryIds?: Array<number>;
     id?: number;
     entityVersion?: number;
     resourceName?: string;

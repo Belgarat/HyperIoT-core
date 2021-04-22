@@ -1,4 +1,7 @@
 /**
+ * HyperIoT Authentication
+ * HyperIoT Authentication API
+ *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -10,12 +13,12 @@ import { HyperIoTRole } from './hyperIoTRole';
 
 
 export interface HyperIoTAuthenticable { 
-    screenName?: string;
     roles?: Array<HyperIoTRole>;
-    categoryIds?: Array<number>;
+    screenName?: string;
     tagIds?: Array<number>;
-    systemApiClassName?: string;
     entityCreateDate?: Date;
+    systemApiClassName?: string;
+    categoryIds?: Array<number>;
     id?: number;
     entityVersion?: number;
     resourceName?: string;

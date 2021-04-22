@@ -1,4 +1,7 @@
 /**
+ * HyperIoT Company
+ * HyperIoT Company API
+ *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -10,15 +13,15 @@ import { HyperIoTRole } from './hyperIoTRole';
 
 
 export interface HyperIoTUser { 
-    lastname?: string;
+    username?: string;
     email?: string;
     roles?: Array<HyperIoTRole>;
-    username?: string;
     name?: string;
-    categoryIds?: Array<number>;
+    lastname?: string;
     tagIds?: Array<number>;
-    systemApiClassName?: string;
     entityCreateDate?: Date;
+    systemApiClassName?: string;
+    categoryIds?: Array<number>;
     id?: number;
     entityVersion?: number;
     resourceName?: string;

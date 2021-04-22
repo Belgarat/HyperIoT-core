@@ -55,7 +55,7 @@ while read line2; do
 	counterRep=$((counterRep+1))
 	read -r -a repl <<< "$line2"
 	echo -e "${counterRep} sed: ${repl[0]}: '${repl[1]}' -> '${repl[2]}'"
-	sed -i "s@${repl[1]}@${repl[2]}@g" ${repl[0]}
+	sed -i '' "s@${repl[1]}@${repl[2]}@g" ${repl[0]}
 	
 done <"${replaceFile}"
 

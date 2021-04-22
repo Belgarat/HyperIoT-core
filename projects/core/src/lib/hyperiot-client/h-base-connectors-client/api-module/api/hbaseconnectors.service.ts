@@ -69,7 +69,7 @@ export class HbaseconnectorsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -150,7 +150,7 @@ export class HbaseconnectorsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -170,7 +170,7 @@ export class HbaseconnectorsService {
 
         const canConsumeForm = this.canConsumeForm(consumes);
 
-        let formParams: { append(param: string, value: any): any; };
+        let formParams: { append(param: string, value: any): void | HttpParams; };
         let useForm = false;
         let convertFormParamsToString = false;
         if (useForm) {
@@ -215,7 +215,7 @@ export class HbaseconnectorsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -235,7 +235,7 @@ export class HbaseconnectorsService {
 
         const canConsumeForm = this.canConsumeForm(consumes);
 
-        let formParams: { append(param: string, value: any): any; };
+        let formParams: { append(param: string, value: any): void | HttpParams; };
         let useForm = false;
         let convertFormParamsToString = false;
         if (useForm) {
@@ -280,7 +280,7 @@ export class HbaseconnectorsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -332,7 +332,7 @@ export class HbaseconnectorsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -385,7 +385,7 @@ export class HbaseconnectorsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -405,7 +405,7 @@ export class HbaseconnectorsService {
 
         const canConsumeForm = this.canConsumeForm(consumes);
 
-        let formParams: { append(param: string, value: any): any; };
+        let formParams: { append(param: string, value: any): void | HttpParams; };
         let useForm = false;
         let convertFormParamsToString = false;
         if (useForm) {

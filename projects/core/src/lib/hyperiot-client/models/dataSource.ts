@@ -1,4 +1,7 @@
 /**
+ * HyperIoT Area
+ * HyperIoT Area API
+ *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -11,8 +14,8 @@ import { OutputStream } from './outputStream';
 
 
 export interface DataSource { 
-    contentType?: string;
-    outputStream?: OutputStream;
     name?: string;
     inputStream?: InputStream;
+    contentType?: string;
+    outputStream?: OutputStream;
 }

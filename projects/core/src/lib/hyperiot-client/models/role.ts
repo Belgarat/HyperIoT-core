@@ -1,4 +1,7 @@
 /**
+ * hyperiot HProjectAlgorithm
+ * HyperIoT HProjectAlgorithm API
+ *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -6,7 +9,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { HUser } from './hUser';
 
 
 export interface Role { 
@@ -18,5 +20,4 @@ export interface Role {
     tagIds?: Array<number>;
     name?: string;
     description?: string;
-    users?: Array<HUser>;
 }

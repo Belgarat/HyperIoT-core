@@ -1,14 +1,13 @@
 {
   "name": "@hyperiot/core",
-  "version": "0.6.15",
+  "version": "0.6.16",
   "publishConfig": {
     "registry": "https://nexus.acsoftware.it/nexus/repository/acs-npm/",
     "always-auth": "true"
   },
   "peerDependencies": {
-    "@angular/common": "~9.0.6",
-    "@angular/core": "~9.0.6",
+    "@angular/common": "~9.1.13",
+    "@angular/core": "~9.1.13",
     "idb": "^5.0.1"
-  },
-  "dependencies": {}
+  }
 }

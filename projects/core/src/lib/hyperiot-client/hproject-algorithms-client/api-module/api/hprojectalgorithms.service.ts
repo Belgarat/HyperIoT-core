@@ -112,7 +112,7 @@ export class HprojectalgorithmsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -154,7 +154,7 @@ export class HprojectalgorithmsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -207,7 +207,7 @@ export class HprojectalgorithmsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -254,7 +254,7 @@ export class HprojectalgorithmsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -300,7 +300,7 @@ export class HprojectalgorithmsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -351,7 +351,7 @@ export class HprojectalgorithmsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -397,7 +397,7 @@ export class HprojectalgorithmsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -454,7 +454,7 @@ export class HprojectalgorithmsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
@@ -506,7 +506,7 @@ export class HprojectalgorithmsService {
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
-        if (this.configuration.apiKeys["AUTHORIZATION"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
             headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
         }
 
