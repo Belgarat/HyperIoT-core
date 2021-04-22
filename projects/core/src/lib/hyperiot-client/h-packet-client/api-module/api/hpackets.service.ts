@@ -332,24 +332,26 @@ export class HpacketsService {
     }
 
     /**
-     * /hyperiot/hpackets/all/{id}/{type}
-     * Service for finding all hpacket entities of a project with specific packet type
+     * /hyperiot/hpackets/all/{id}/types
+     * Service for finding all hpacket entities of a project with specific packet types passed as comma separated list
      * @param id The project id
-     * @param type Packet type
+     * @param types Packet type
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findAllHPacketByProjectIdAndType(id: number, type: 'INPUT' | 'OUTPUT' | 'IO', observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllHPacketByProjectIdAndType(id: number, type: 'INPUT' | 'OUTPUT' | 'IO', observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllHPacketByProjectIdAndType(id: number, type: 'INPUT' | 'OUTPUT' | 'IO', observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllHPacketByProjectIdAndType(id: number, type: 'INPUT' | 'OUTPUT' | 'IO', observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findAllHPacketByProjectIdAndType(id: number, types?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllHPacketByProjectIdAndType(id: number, types?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllHPacketByProjectIdAndType(id: number, types?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllHPacketByProjectIdAndType(id: number, types?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling findAllHPacketByProjectIdAndType.');
         }
 
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling findAllHPacketByProjectIdAndType.');
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (types !== undefined && types !== null) {
+            queryParameters = queryParameters.set('types', <any>types);
         }
 
         let headers = this.defaultHeaders;
@@ -372,8 +374,9 @@ export class HpacketsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/all/${encodeURIComponent(String(id))}/${encodeURIComponent(String(type))}`,
+        return this.httpClient.get<any>(`${this.basePath}/all/${encodeURIComponent(String(id))}/types`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

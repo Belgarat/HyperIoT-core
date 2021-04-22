@@ -14,8 +14,8 @@
 export interface DataFlavor { 
     mimeType?: string;
     humanPresentableName?: string;
-    subType?: string;
     primaryType?: string;
+    subType?: string;
     mimeTypeSerializedObject?: boolean;
     defaultRepresentationClassAsString?: string;
     representationClassInputStream?: boolean;
