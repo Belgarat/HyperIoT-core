@@ -209,8 +209,9 @@ export class DataStreamService {
 
   private getTimestamp(hpacket: HPacket): Date {
     // get timestamp from packet if present
-    if (hpacket.fields.map['timestamp'])
-      return new Date(hpacket.fields.map['timestamp'].value.long);
+    let timestampFieldName = hpacket.timestampField;
+    if (hpacket.fields.map[timestampFieldName])
+      return new Date(hpacket.fields.map[timestampFieldName].value.long);
     return new Date();
   }
 
