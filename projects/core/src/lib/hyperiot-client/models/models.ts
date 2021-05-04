@@ -44,6 +44,7 @@ export * from './outputStream';
 export * from './permission';
 export * from './role';
 export * from './rule';
+export * from './ruleAction';
 export * from './ruleNode';
 export * from './topicConfig';
 export * from './widget';
