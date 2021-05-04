@@ -15,6 +15,6 @@ export interface MediaType {
     type?: string;
     subtype?: string;
     parameters?: { [key: string]: string; };
-    wildcardType?: boolean;
     wildcardSubtype?: boolean;
+    wildcardType?: boolean;
 }

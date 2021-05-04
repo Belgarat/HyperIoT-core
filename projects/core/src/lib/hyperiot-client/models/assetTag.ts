@@ -1,6 +1,6 @@
 /**
- * hyperiot HProjectAlgorithm
- * HyperIoT HProjectAlgorithm API
+ * HyperIoT AssetTag
+ * HyperIoT AssetTag API
  *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it

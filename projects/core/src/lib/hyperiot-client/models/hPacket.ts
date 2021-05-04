@@ -31,6 +31,8 @@ export interface HPacket {
     valid?: boolean;
     timestampField?: string;
     timestampFormat?: string;
+    unixTimestamp?: boolean;
+    unixTimestampFormatSeconds?: boolean;
     trafficPlan?: HPacket.TrafficPlanEnum;
     rules?: Array<Rule>;
 }
@@ -41,11 +43,12 @@ export namespace HPacket {
         OUTPUT: 'OUTPUT' as TypeEnum,
         IO: 'IO' as TypeEnum
     };
-    export type FormatEnum = 'JSON' | 'XML' | 'CSV';
+    export type FormatEnum = 'JSON' | 'XML' | 'CSV' | 'TEXT';
     export const FormatEnum = {
         JSON: 'JSON' as FormatEnum,
         XML: 'XML' as FormatEnum,
-        CSV: 'CSV' as FormatEnum
+        CSV: 'CSV' as FormatEnum,
+        TEXT: 'TEXT' as FormatEnum
     };
     export type SerializationEnum = 'AVRO' | 'NONE';
     export const SerializationEnum = {
