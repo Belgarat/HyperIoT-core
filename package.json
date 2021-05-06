@@ -15,23 +15,11 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~9.1.13",
-    "@angular/common": "~9.1.13",
-    "@angular/compiler": "~9.1.13",
-    "@angular/core": "~9.1.13",
-    "@angular/forms": "~9.1.13",
-    "@angular/platform-browser": "~9.1.13",
-    "@angular/platform-browser-dynamic": "~9.1.13",
-    "@angular/router": "~9.1.13",
-    "@hyperiot/core": "0.6.15",
     "core-js": "^2.5.4",
     "cross-spawn": "^6.0.5",
     "gulp-json-editor": "^2.5.3",
     "idb": "^5.0.1",
-    "map-stream": "0.0.7",
-    "rxjs": "~6.5.4",
-    "tslib": "^1.10.0",
-    "zone.js": "~0.10.2"
+    "map-stream": "0.0.7"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.0",
@@ -43,7 +31,6 @@
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
-    "codelyzer": "^5.1.2",
     "gulp": "^4.0.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
