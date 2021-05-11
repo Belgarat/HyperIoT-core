@@ -6,6 +6,7 @@
     "always-auth": "true"
   },
   "peerDependencies": {
+    "@angular/localize": "9.1.13",
     "@angular/material-moment-adapter": "8.2.3",
     "@angular/platform-browser-dynamic": "9.1.13",
     "@angular/router": "9.1.13",
