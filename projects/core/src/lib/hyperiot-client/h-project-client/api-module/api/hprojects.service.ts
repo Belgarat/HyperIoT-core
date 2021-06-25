@@ -721,26 +721,23 @@ export class HprojectsService {
     }
 
     /**
-     * /hyperiot/hprojects/timeline/events/count/{tableName}/{packetIds}/{startTime}/{endTime}
+     * /hyperiot/hprojects/timeline/events/count/{projectId}/{startTime}/{endTime}/{delta}
      * Service for count data and get it back
-     * @param tableName Table name which count hpackets from
-     * @param packetIds HPacket list, containing comma separated ID
+     * @param projectId Project ID
      * @param startTime Scanning start time
      * @param endTime Scanning end time
+     * @param delta Pagination delta
+     * @param packetIds HPacket list, containing comma separated ID
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public timelineEventCount(tableName: string, packetIds: string, startTime: number, endTime: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public timelineEventCount(tableName: string, packetIds: string, startTime: number, endTime: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public timelineEventCount(tableName: string, packetIds: string, startTime: number, endTime: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public timelineEventCount(tableName: string, packetIds: string, startTime: number, endTime: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public timelineEventCount(projectId: number, startTime: number, endTime: number, delta: number, packetIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public timelineEventCount(projectId: number, startTime: number, endTime: number, delta: number, packetIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public timelineEventCount(projectId: number, startTime: number, endTime: number, delta: number, packetIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public timelineEventCount(projectId: number, startTime: number, endTime: number, delta: number, packetIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (tableName === null || tableName === undefined) {
-            throw new Error('Required parameter tableName was null or undefined when calling timelineEventCount.');
-        }
-
-        if (packetIds === null || packetIds === undefined) {
-            throw new Error('Required parameter packetIds was null or undefined when calling timelineEventCount.');
+        if (projectId === null || projectId === undefined) {
+            throw new Error('Required parameter projectId was null or undefined when calling timelineEventCount.');
         }
 
         if (startTime === null || startTime === undefined) {
@@ -749,6 +746,19 @@ export class HprojectsService {
 
         if (endTime === null || endTime === undefined) {
             throw new Error('Required parameter endTime was null or undefined when calling timelineEventCount.');
+        }
+
+        if (delta === null || delta === undefined) {
+            throw new Error('Required parameter delta was null or undefined when calling timelineEventCount.');
+        }
+
+        if (packetIds === null || packetIds === undefined) {
+            throw new Error('Required parameter packetIds was null or undefined when calling timelineEventCount.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (packetIds !== undefined && packetIds !== null) {
+            queryParameters = queryParameters.set('packetIds', <any>packetIds);
         }
 
         let headers = this.defaultHeaders;
@@ -771,8 +781,9 @@ export class HprojectsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/timeline/events/count/${encodeURIComponent(String(tableName))}/${encodeURIComponent(String(packetIds))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}`,
+        return this.httpClient.get<any>(`${this.basePath}/timeline/events/count/${encodeURIComponent(String(projectId))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}/${encodeURIComponent(String(delta))}`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

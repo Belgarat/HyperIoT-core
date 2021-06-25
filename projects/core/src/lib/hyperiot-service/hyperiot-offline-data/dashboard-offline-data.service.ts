@@ -95,10 +95,11 @@ export class DashboardOfflineDataService {
   // SETTA OfflineCountMap
   public getEventCount(rowKeyLowerBound: number, rowKeyUpperBound: number): void {
     this.hprojectsService.timelineEventCount(
-      `timeline_hproject_${this.hProjectId}`,
-      [...this.hPacketMap.keys()].toString(),
+      this.hProjectId,
       rowKeyLowerBound,
-      rowKeyUpperBound
+      rowKeyUpperBound,
+      this.HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE,
+      [...this.hPacketMap.keys()].toString()
     ).subscribe(
       (res: OfflineDataSub[]) => {
         const hPacketIds: string = [...this.hPacketMap.keys()].toString();
