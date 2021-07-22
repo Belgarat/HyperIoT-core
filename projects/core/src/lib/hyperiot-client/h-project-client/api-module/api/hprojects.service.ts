@@ -721,20 +721,19 @@ export class HprojectsService {
     }
 
     /**
-     * /hyperiot/hprojects/timeline/events/count/{projectId}/{startTime}/{endTime}/{delta}
+     * /hyperiot/hprojects/timeline/events/count/{projectId}/{startTime}/{endTime}
      * Service for count data and get it back
      * @param projectId Project ID
      * @param startTime Scanning start time
      * @param endTime Scanning end time
-     * @param delta Pagination delta
      * @param packetIds HPacket list, containing comma separated ID
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public timelineEventCount(projectId: number, startTime: number, endTime: number, delta: number, packetIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public timelineEventCount(projectId: number, startTime: number, endTime: number, delta: number, packetIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public timelineEventCount(projectId: number, startTime: number, endTime: number, delta: number, packetIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public timelineEventCount(projectId: number, startTime: number, endTime: number, delta: number, packetIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public timelineEventCount(projectId: number, startTime: number, endTime: number, packetIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public timelineEventCount(projectId: number, startTime: number, endTime: number, packetIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public timelineEventCount(projectId: number, startTime: number, endTime: number, packetIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public timelineEventCount(projectId: number, startTime: number, endTime: number, packetIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (projectId === null || projectId === undefined) {
             throw new Error('Required parameter projectId was null or undefined when calling timelineEventCount.');
@@ -746,10 +745,6 @@ export class HprojectsService {
 
         if (endTime === null || endTime === undefined) {
             throw new Error('Required parameter endTime was null or undefined when calling timelineEventCount.');
-        }
-
-        if (delta === null || delta === undefined) {
-            throw new Error('Required parameter delta was null or undefined when calling timelineEventCount.');
         }
 
         if (packetIds === null || packetIds === undefined) {
@@ -781,7 +776,7 @@ export class HprojectsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/timeline/events/count/${encodeURIComponent(String(projectId))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}/${encodeURIComponent(String(delta))}`,
+        return this.httpClient.get<any>(`${this.basePath}/timeline/events/count/${encodeURIComponent(String(projectId))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
