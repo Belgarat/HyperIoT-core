@@ -15,9 +15,9 @@ interface WidgetPacket {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
-export class DashboardOfflineDataService {
+export class HyperiotOfflineData2Service {
   private subscriptions: WidgetPacket[] = [];
 
   DEFAULT_CHUNK_LENGTH = 100;
@@ -25,6 +25,8 @@ export class DashboardOfflineDataService {
   rowKeyUpperBound = 0;
 
   dashboardPackets: Subject<number[]>;
+
+  fakeTimelineEventCount: (a, b, c, d) => Observable<any>;
 
   hPacketMap: Map<number, PacketSessionData>;
 
@@ -72,7 +74,7 @@ export class DashboardOfflineDataService {
     rowKeyUpperBound: number
   ): void {
     this.rowKeyUpperBound = rowKeyUpperBound;
-    this.hprojectsService.timelineEventCount(
+    this.fakeTimelineEventCount(
       this.hProjectId,
       rowKeyLowerBound,
       this.rowKeyUpperBound,
@@ -97,7 +99,7 @@ export class DashboardOfflineDataService {
         res=> {
           console.log('scanAndSaveHProject()', res)
           const packetData = res[0];
-          currentPacket.rowKeyLowerBound = packetData.tStop + 1;
+          currentPacket.rowKeyLowerBound = packetData.tStop;
           currentPacket.data.push(packetData.values);
           obs.next(currentPacket.data);
         }
