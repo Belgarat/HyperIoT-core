@@ -99,7 +99,7 @@ export class HyperiotOfflineData2Service {
         res=> {
           console.log('scanAndSaveHProject()', res)
           const packetData = res[0];
-          currentPacket.rowKeyLowerBound = packetData.tStop;
+          currentPacket.rowKeyLowerBound = packetData.rowKeyUpperBound + 1;
           currentPacket.data.push(packetData.values);
           obs.next(currentPacket.data);
         }

@@ -97,7 +97,7 @@ export class DashboardOfflineDataService {
         res=> {
           console.log('scanAndSaveHProject()', res)
           const packetData = res[0];
-          currentPacket.rowKeyLowerBound = packetData.tStop + 1;
+          currentPacket.rowKeyLowerBound = packetData.rowKeyUpperBound + 1;
           currentPacket.data.push(packetData.values);
           obs.next(currentPacket.data);
         }
