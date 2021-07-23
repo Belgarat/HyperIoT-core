@@ -9,6 +9,14 @@ interface PacketSessionData {
   data: any[];
 }
 
+enum PageStatus {
+  Loading = 0,
+  Standard = 1,
+  New = 2,
+  Error = -1
+}
+
+
 interface WidgetPacket {
   packetId: number;
   widgetId: number;
@@ -18,6 +26,9 @@ interface WidgetPacket {
   providedIn: 'root'
 })
 export class DashboardOfflineDataService {
+
+  countEventSubject: Subject<PageStatus>;
+
   private subscriptions: WidgetPacket[] = [];
 
   DEFAULT_CHUNK_LENGTH = 100;
@@ -31,7 +42,8 @@ export class DashboardOfflineDataService {
   constructor(
     private hprojectsService: HprojectsService,
   ) {
-    this.hPacketMap = new Map<number, PacketSessionData>();
+    this.hPacketMap = new Map<number, PacketSessionData>();    this.countEventSubject = new Subject<PageStatus>();    this.countEventSubject = new Subject<PageStatus>();
+    this.countEventSubject = new Subject<PageStatus>();
   }
 
   public resetService(hProjectId: number): Subject<number[]> {
@@ -96,14 +108,21 @@ export class DashboardOfflineDataService {
       this.hprojectsService.scanHProject(this.hProjectId, packetId, currentPacket.rowKeyLowerBound, currentPacket.rowKeyUpperBound).subscribe(
         res=> {
           console.log('scanAndSaveHProject()', res)
-          const packetData = res[0];
+          const packetData = res;
           currentPacket.rowKeyLowerBound = packetData.rowKeyUpperBound + 1;
-          currentPacket.data.push(packetData.values);
+          currentPacket.data = currentPacket.data.concat(packetData.values);
           obs.next(currentPacket.data);
         }
       );
     });
   }
+
+  public getEventCountEmpty() {
+    this.hPacketMap.forEach((value, key: number) => {
+      this.hPacketMap.get(key).totalCount.next(0);
+    });
+  }
+
 
   public getPacketDataSubject(hPacketId: number): Subject<number> {
     return this.hPacketMap.has(hPacketId) ? this.hPacketMap.get(hPacketId).totalCount : null;
