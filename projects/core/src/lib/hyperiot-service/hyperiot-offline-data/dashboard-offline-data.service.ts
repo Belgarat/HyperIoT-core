@@ -93,10 +93,10 @@ export class DashboardOfflineDataService {
       console.log('getEventCount()', res)
       this.hPacketMap.forEach((value, key: number) => {
         const currentPacket = this.hPacketMap.get(key);
+        currentPacket.data = [];
         currentPacket.rowKeyLowerBound = rowKeyLowerBound;
         currentPacket.rowKeyUpperBound = rowKeyUpperBound;
         currentPacket.totalCount.next(res.find(x=>x.hpacketId==key).totalCount);
-        currentPacket.totalCount = new Subject();
       });
 
     });
