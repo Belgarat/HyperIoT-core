@@ -95,7 +95,7 @@ export class HyperiotOfflineData2Service {
   scanAndSaveHProject(packetId): Observable<any> {
     return new Observable(obs => {
       const currentPacket = this.hPacketMap.get(packetId)
-      this.hprojectsService.scanHProject(this.hProjectId, packetId, currentPacket.rowKeyLowerBound, currentPacket.rowKeyUpperBound).subscribe(
+      this.hprojectsService.scanHProject(this.hProjectId, currentPacket.rowKeyLowerBound, currentPacket.rowKeyUpperBound, packetId).subscribe(
         res=> {
           console.log('scanAndSaveHProject()', res)
           const packetData = res[0];

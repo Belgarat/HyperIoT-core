@@ -660,26 +660,22 @@ export class HprojectsService {
     }
 
     /**
-     * /hyperiot/hprojects/{hProjectId}/hpackets/{hPacketIds}/{rowKeyLowerBound}/{rowKeyUpperBound}
+     * /hyperiot/hprojects/{hProjectId}/hpackets/{rowKeyLowerBound}/{rowKeyUpperBound}
      * Service for scan HProject data
      * @param hProjectId HProject ID from retrieve HPackets in Avro format and events
-     * @param hPacketIds HPacket list, containing comma separated ID
      * @param rowKeyLowerBound HBase row key lower bound
      * @param rowKeyUpperBound HBase row key upper bound
+     * @param packetIds HPacket list, containing comma separated ID
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public scanHProject(hProjectId: number, hPacketIds: string, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public scanHProject(hProjectId: number, hPacketIds: string, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public scanHProject(hProjectId: number, hPacketIds: string, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public scanHProject(hProjectId: number, hPacketIds: string, rowKeyLowerBound: number, rowKeyUpperBound: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (hProjectId === null || hProjectId === undefined) {
             throw new Error('Required parameter hProjectId was null or undefined when calling scanHProject.');
-        }
-
-        if (hPacketIds === null || hPacketIds === undefined) {
-            throw new Error('Required parameter hPacketIds was null or undefined when calling scanHProject.');
         }
 
         if (rowKeyLowerBound === null || rowKeyLowerBound === undefined) {
@@ -688,6 +684,15 @@ export class HprojectsService {
 
         if (rowKeyUpperBound === null || rowKeyUpperBound === undefined) {
             throw new Error('Required parameter rowKeyUpperBound was null or undefined when calling scanHProject.');
+        }
+
+        if (packetIds === null || packetIds === undefined) {
+            throw new Error('Required parameter packetIds was null or undefined when calling scanHProject.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (packetIds !== undefined && packetIds !== null) {
+            queryParameters = queryParameters.set('packetIds', <any>packetIds);
         }
 
         let headers = this.defaultHeaders;
@@ -710,8 +715,9 @@ export class HprojectsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(hProjectId))}/hpackets/${encodeURIComponent(String(hPacketIds))}/${encodeURIComponent(String(rowKeyLowerBound))}/${encodeURIComponent(String(rowKeyUpperBound))}`,
+        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(hProjectId))}/hpackets/${encodeURIComponent(String(rowKeyLowerBound))}/${encodeURIComponent(String(rowKeyUpperBound))}`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -788,29 +794,25 @@ export class HprojectsService {
     }
 
     /**
-     * /hyperiot/hprojects/timeline/events/{tableName}/{packetIds}/{step}/{granularity}/{startTime}/{endTime}/{timezone}
+     * /hyperiot/hprojects/timeline/events/{tableName}/{step}/{granularity}/{startTime}/{endTime}/{timezone}
      * Service for scan data and get it back for timeline queries
      * @param tableName Table name which count hpackets from
-     * @param packetIds HPacket list, containing comma separated ID
      * @param step Scanning step
      * @param granularity Scanning granularity
      * @param startTime Scanning start time
      * @param endTime Scanning end time
      * @param timezone Timezone Timezone of client which has invoked the method, i.e. Europe/Rome
+     * @param packetIds HPacket list, containing comma separated ID
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public timelineScan(tableName: string, packetIds: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public timelineScan(tableName: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public timelineScan(tableName: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public timelineScan(tableName: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public timelineScan(tableName: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (tableName === null || tableName === undefined) {
             throw new Error('Required parameter tableName was null or undefined when calling timelineScan.');
-        }
-
-        if (packetIds === null || packetIds === undefined) {
-            throw new Error('Required parameter packetIds was null or undefined when calling timelineScan.');
         }
 
         if (step === null || step === undefined) {
@@ -833,6 +835,15 @@ export class HprojectsService {
             throw new Error('Required parameter timezone was null or undefined when calling timelineScan.');
         }
 
+        if (packetIds === null || packetIds === undefined) {
+            throw new Error('Required parameter packetIds was null or undefined when calling timelineScan.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (packetIds !== undefined && packetIds !== null) {
+            queryParameters = queryParameters.set('packetIds', <any>packetIds);
+        }
+
         let headers = this.defaultHeaders;
 
         // authentication (jwt-auth) required
@@ -853,8 +864,9 @@ export class HprojectsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/timeline/events/${encodeURIComponent(String(tableName))}/${encodeURIComponent(String(packetIds))}/${encodeURIComponent(String(step))}/${encodeURIComponent(String(granularity))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}/${encodeURIComponent(String(timezone))}`,
+        return this.httpClient.get<any>(`${this.basePath}/timeline/events/${encodeURIComponent(String(tableName))}/${encodeURIComponent(String(step))}/${encodeURIComponent(String(granularity))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}/${encodeURIComponent(String(timezone))}`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
