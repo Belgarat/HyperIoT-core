@@ -97,8 +97,11 @@ export class DashboardOfflineDataService {
         currentPacket.rowKeyLowerBound = rowKeyLowerBound;
         currentPacket.rowKeyUpperBound = rowKeyUpperBound;
         currentPacket.totalCount.next(res.find(x=>x.hpacketId==key).totalCount);
+        this.countEventSubject.next(PageStatus.Standard);
       });
-
+    },
+    err => {
+      this.countEventSubject.next(PageStatus.Error);
     });
   }
 
@@ -107,7 +110,6 @@ export class DashboardOfflineDataService {
       const currentPacket = this.hPacketMap.get(packetId)
       this.hprojectsService.scanHProject(this.hProjectId, currentPacket.rowKeyLowerBound, currentPacket.rowKeyUpperBound, packetId).subscribe(
         res=> {
-          console.log('scanAndSaveHProject()', res)
           const packetData = res;
           currentPacket.rowKeyLowerBound = packetData.rowKeyUpperBound + 1;
           currentPacket.data = currentPacket.data.concat(packetData.values);
@@ -119,7 +121,11 @@ export class DashboardOfflineDataService {
 
   public getEventCountEmpty() {
     this.hPacketMap.forEach((value, key: number) => {
-      this.hPacketMap.get(key).totalCount.next(0);
+      const currentPacket = this.hPacketMap.get(key);
+      currentPacket.data = [];
+      currentPacket.rowKeyLowerBound = 0;
+      currentPacket.rowKeyUpperBound = 0;
+      currentPacket.totalCount.next(0);
     });
   }
 
