@@ -90,7 +90,6 @@ export class DashboardOfflineDataService {
       this.rowKeyUpperBound,
       [...this.hPacketMap.keys()].toString()
     ).subscribe((res) => {
-      console.log('getEventCount()', res)
       this.hPacketMap.forEach((value, key: number) => {
         const currentPacket = this.hPacketMap.get(key);
         currentPacket.data = [];
@@ -136,7 +135,6 @@ export class DashboardOfflineDataService {
 
 
   getData(packetId, lowerBound): Observable<any> {
-    console.log('getData()', packetId, lowerBound)
     lowerBound = lowerBound * this.DEFAULT_CHUNK_LENGTH;
     if (this.hPacketMap.has(packetId)) {
       const packetSession = this.hPacketMap.get(packetId);
