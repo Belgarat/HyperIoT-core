@@ -31,7 +31,7 @@ export class DashboardOfflineDataService {
 
   private subscriptions: WidgetPacket[] = [];
 
-  DEFAULT_CHUNK_LENGTH = 100;
+  DEFAULT_CHUNK_LENGTH = 50;
   hProjectId;
   rowKeyUpperBound = 0;
 
@@ -112,7 +112,7 @@ export class DashboardOfflineDataService {
           const packetData = res;
           currentPacket.rowKeyLowerBound = packetData.rowKeyUpperBound + 1;
           currentPacket.data = currentPacket.data.concat(packetData.values);
-          obs.next(currentPacket.data);
+          obs.next(packetData.values);
         }
       );
     });
@@ -138,7 +138,7 @@ export class DashboardOfflineDataService {
     lowerBound = lowerBound * this.DEFAULT_CHUNK_LENGTH;
     if (this.hPacketMap.has(packetId)) {
       const packetSession = this.hPacketMap.get(packetId);
-      if( packetSession.data.length > lowerBound + this.DEFAULT_CHUNK_LENGTH) {
+      if( packetSession.data.length >= lowerBound + this.DEFAULT_CHUNK_LENGTH) {
         return of(packetSession.data.slice(lowerBound, lowerBound + this.DEFAULT_CHUNK_LENGTH));
       } else {
         return this.scanAndSaveHProject(packetId);
