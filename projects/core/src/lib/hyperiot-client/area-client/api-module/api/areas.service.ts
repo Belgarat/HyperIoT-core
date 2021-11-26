@@ -386,21 +386,16 @@ export class AreasService {
     }
 
     /**
-     * /hyperiot/areas/{id}/devices/{areaDeviceId}
+     * /hyperiot/areas/devices/{areaDeviceId}
      * Gets an area device
-     * @param id id of the area
      * @param areaDeviceId id of the area device
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAreaDevice(id: number, areaDeviceId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getAreaDevice(id: number, areaDeviceId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getAreaDevice(id: number, areaDeviceId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getAreaDevice(id: number, areaDeviceId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getAreaDevice.');
-        }
+    public getAreaDevice(areaDeviceId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAreaDevice(areaDeviceId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAreaDevice(areaDeviceId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAreaDevice(areaDeviceId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (areaDeviceId === null || areaDeviceId === undefined) {
             throw new Error('Required parameter areaDeviceId was null or undefined when calling getAreaDevice.');
