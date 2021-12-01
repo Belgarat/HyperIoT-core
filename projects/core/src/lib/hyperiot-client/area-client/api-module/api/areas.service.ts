@@ -29,7 +29,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class AreasService {
 
-    protected basePath = '/hyperiot/areas';
+    protected basePath = 'https://localhost/areas';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -421,7 +421,7 @@ export class AreasService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}/devices/${encodeURIComponent(String(areaDeviceId))}`,
+        return this.httpClient.get<any>(`${this.basePath}/devices/${encodeURIComponent(String(areaDeviceId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
