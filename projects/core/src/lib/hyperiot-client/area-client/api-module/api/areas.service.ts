@@ -29,7 +29,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class AreasService {
 
-    protected basePath = 'https://localhost/areas';
+    protected basePath = '/hyperiot/areas';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
