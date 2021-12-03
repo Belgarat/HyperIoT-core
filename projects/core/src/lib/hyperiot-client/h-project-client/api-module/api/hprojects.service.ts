@@ -794,11 +794,10 @@ export class HprojectsService {
     }
 
     /**
-     * /hyperiot/hprojects/timeline/events/{tableName}/{step}/{granularity}/{startTime}/{endTime}/{timezone}
+     * /hyperiot/hprojects/timeline/events/{tableName}/{step}/{startTime}/{endTime}/{timezone}
      * Service for scan data and get it back for timeline queries
      * @param tableName Table name which count hpackets from
      * @param step Scanning step
-     * @param granularity Scanning granularity
      * @param startTime Scanning start time
      * @param endTime Scanning end time
      * @param timezone Timezone Timezone of client which has invoked the method, i.e. Europe/Rome
@@ -806,10 +805,10 @@ export class HprojectsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public timelineScan(tableName: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public timelineScan(tableName: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public timelineScan(tableName: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public timelineScan(tableName: string, step: string, granularity: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public timelineScan(tableName: string, step: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public timelineScan(tableName: string, step: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public timelineScan(tableName: string, step: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public timelineScan(tableName: string, step: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (tableName === null || tableName === undefined) {
             throw new Error('Required parameter tableName was null or undefined when calling timelineScan.');
@@ -817,10 +816,6 @@ export class HprojectsService {
 
         if (step === null || step === undefined) {
             throw new Error('Required parameter step was null or undefined when calling timelineScan.');
-        }
-
-        if (granularity === null || granularity === undefined) {
-            throw new Error('Required parameter granularity was null or undefined when calling timelineScan.');
         }
 
         if (startTime === null || startTime === undefined) {
@@ -864,7 +859,7 @@ export class HprojectsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/timeline/events/${encodeURIComponent(String(tableName))}/${encodeURIComponent(String(step))}/${encodeURIComponent(String(granularity))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}/${encodeURIComponent(String(timezone))}`,
+        return this.httpClient.get<any>(`${this.basePath}/timeline/events/${encodeURIComponent(String(tableName))}/${encodeURIComponent(String(step))}/${encodeURIComponent(String(startTime))}/${encodeURIComponent(String(endTime))}/${encodeURIComponent(String(timezone))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
