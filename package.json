@@ -24,7 +24,7 @@
     "core-js": "^2.5.4",
     "cross-spawn": "^6.0.5",
     "gulp-json-editor": "^2.5.3",
-    "idb": "^5.0.1",
+    "idb": "^6.1.5",
     "map-stream": "0.0.7"
   },
   "devDependencies": {
