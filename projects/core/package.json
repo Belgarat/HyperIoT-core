@@ -6,14 +6,14 @@
     "always-auth": "true"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslint": "~6.1.0"
   },
   "peerDependencies": {
-    "@angular/localize": "9.1.13",
-    "@angular/material-moment-adapter": "8.2.3",
-    "@angular/platform-browser-dynamic": "9.1.13",
-    "@angular/router": "9.1.13",
-    "@angular/service-worker": "9.1.13",
-    "idb": "^5.0.1"
+    "@angular/localize": "12.2.16",
+    "@angular/material-moment-adapter": "12.2.13",
+    "@angular/platform-browser-dynamic": "12.2.16",
+    "@angular/router": "12.2.16",
+    "@angular/service-worker": "12.2.16",
+    "idb": "^6.1.5"
   }
 }
