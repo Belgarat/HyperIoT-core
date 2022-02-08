@@ -1,7 +1,4 @@
 /**
- * HyperIoT Authentication
- * HyperIoT Authentication API
- *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -9,8 +6,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Bundle } from './bundle';
 
 
-export interface JWTProfile { 
-    permissions?: Array<string>;
+export interface ServiceReference { 
+    bundle?: Bundle;
+    usingBundles?: Array<Bundle>;
+    propertyKeys?: Array<string>;
 }

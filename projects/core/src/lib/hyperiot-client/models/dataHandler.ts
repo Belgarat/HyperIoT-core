@@ -1,7 +1,4 @@
 /**
- * HyperIoT Area
- * HyperIoT Area API
- *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -18,12 +15,12 @@ import { OutputStream } from './outputStream';
 
 export interface DataHandler { 
     dataSource?: DataSource;
-    transferDataFlavors?: Array<DataFlavor>;
-    preferredCommands?: Array<CommandInfo>;
-    allCommands?: Array<CommandInfo>;
+    name?: string;
+    content?: any;
+    inputStream?: InputStream;
     contentType?: string;
     outputStream?: OutputStream;
-    name?: string;
-    inputStream?: InputStream;
-    content?: any;
+    allCommands?: Array<CommandInfo>;
+    preferredCommands?: Array<CommandInfo>;
+    transferDataFlavors?: Array<DataFlavor>;
 }

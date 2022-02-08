@@ -1,7 +1,4 @@
 /**
- * hyperiot HProjectAlgorithm
- * HyperIoT HProjectAlgorithm API
- *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -22,8 +19,6 @@ export interface HDevice {
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     deviceName?: string;
-    password?: string;
-    passwordConfirm?: string;
     brand?: string;
     model?: string;
     firmwareVersion?: string;

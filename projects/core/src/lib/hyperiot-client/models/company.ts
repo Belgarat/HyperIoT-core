@@ -1,7 +1,4 @@
 /**
- * HyperIoT Company
- * HyperIoT Company API
- *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -26,7 +23,7 @@ export interface Company {
     postalCode?: string;
     nation?: string;
     vatNumber?: string;
+    huserCreator?: HUser;
     user?: HUser;
     userOwner?: HyperIoTUser;
-    huserCreator?: HUser;
 }

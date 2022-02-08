@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 
 import { AutoRegisterProjectRequest } from '../../../models/autoRegisterProjectRequest';
 import { HProject } from '../../../models/hProject';
+import { InputStream } from '../../../models/inputStream';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
@@ -313,6 +314,52 @@ export class HprojectsService {
         ];
 
         return this.httpClient.delete<any>(`${this.basePath}/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hprojects/{id}/exports
+     * Service for export hproject
+     * @param id id from which project object will be retrieve
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public exportHProject(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public exportHProject(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public exportHProject(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public exportHProject(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling exportHProject.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/octet-stream'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}/exports`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -912,6 +959,55 @@ export class HprojectsService {
         }
 
         return this.httpClient.put<any>(`${this.basePath}/`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hprojects/imports
+     * Service for import a new HProject from a jsonFile
+     * @param body 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public uploadFile(body?: InputStream, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public uploadFile(body?: InputStream, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public uploadFile(body?: InputStream, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public uploadFile(body?: InputStream, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'multipart/form-data'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/imports`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,

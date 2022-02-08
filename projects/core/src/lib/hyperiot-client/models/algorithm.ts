@@ -1,7 +1,4 @@
 /**
- * hyperiot HProjectAlgorithm
- * HyperIoT HProjectAlgorithm API
- *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -22,5 +19,6 @@ export interface Algorithm {
     description?: string;
     baseConfig?: string;
     jarName?: string;
+    jarPath?: string;
     mainClassname?: string;
 }
