@@ -15,6 +15,7 @@ export { DataChannel } from './lib/hyperiot-base/services/data-stream.service';
 
 export { AlgorithmsService } from './lib/hyperiot-client/algorithms-client/api-module/index';
 export { AlarmsService } from './lib/hyperiot-client/alarms-client/api-module/index';
+export { AlarmeventsService } from './lib/hyperiot-client/alarmevents-client/api-module/index';
 export { AreasService } from './lib/hyperiot-client/area-client/api-module/index';
 export { AssetscategoriesService } from './lib/hyperiot-client/asset-category-client/api-module/index';
 export { AssetstagsService } from './lib/hyperiot-client/asset-tag-client/api-module/index';
@@ -37,6 +38,7 @@ export { CompaniesService } from './lib/hyperiot-client/company-client/api-modul
 export { WidgetsService } from './lib/hyperiot-client/widgets-client/api-module/index';
 
 export { ApiModule as AlarmsClientModule } from './lib/hyperiot-client/alarms-client/api-module/api.module';
+export { ApiModule as AlarmeventsClientModule } from './lib/hyperiot-client/alarmevents-client/api-module/api.module';
 export { ApiModule as AlgorithmsClientModule } from './lib/hyperiot-client/algorithms-client/api-module/api.module';
 export { ApiModule as AreasClientModule } from './lib/hyperiot-client/area-client/api-module/api.module';
 export { ApiModule as AssetscategoriesClientModule } from './lib/hyperiot-client/asset-category-client/api-module/api.module';

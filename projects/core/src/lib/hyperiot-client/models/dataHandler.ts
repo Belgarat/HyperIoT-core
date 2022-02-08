@@ -15,12 +15,12 @@ import { OutputStream } from './outputStream';
 
 export interface DataHandler { 
     dataSource?: DataSource;
+    transferDataFlavors?: Array<DataFlavor>;
+    preferredCommands?: Array<CommandInfo>;
+    allCommands?: Array<CommandInfo>;
+    contentType?: string;
+    outputStream?: OutputStream;
     name?: string;
     content?: any;
     inputStream?: InputStream;
-    contentType?: string;
-    outputStream?: OutputStream;
-    allCommands?: Array<CommandInfo>;
-    preferredCommands?: Array<CommandInfo>;
-    transferDataFlavors?: Array<DataFlavor>;
 }

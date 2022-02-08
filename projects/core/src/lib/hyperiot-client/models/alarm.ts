@@ -17,5 +17,4 @@ export interface Alarm {
     tagIds?: Array<number>;
     name?: string;
     inhibited?: boolean;
-    hprojectid?: number;
 }

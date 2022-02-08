@@ -1,6 +1,6 @@
 /**
- * hyperiot Alarm
- * HyperIoT Alarm API
+ * hyperiot AlarmEvent
+ * HyperIoT AlarmEvent API
  *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
@@ -18,16 +18,16 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Alarm } from '../../../models/alarm';
+import { AlarmEvent } from '../../../models/alarmEvent';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
 
 
 @Injectable()
-export class AlarmsService {
+export class AlarmeventsService {
 
-    protected basePath = 'https://localhost/hyperiot/alarms';
+    protected basePath = '/hyperiot/alarmevents';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -93,19 +93,19 @@ export class AlarmsService {
     }
 
     /**
-     * /hyperiot/alarms/{id}
-     * Service for deleting a alarm entity
-     * @param id The alarm id which must be deleted
+     * /hyperiot/alarmevents/{id}
+     * Service for deleting a alarmevent entity
+     * @param id The alarmevent id which must be deleted
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteAlarm(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteAlarm(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteAlarm(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteAlarm(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public deleteAlarmEvent(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteAlarmEvent(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteAlarmEvent(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteAlarmEvent(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteAlarm.');
+            throw new Error('Required parameter id was null or undefined when calling deleteAlarmEvent.');
         }
 
         let headers = this.defaultHeaders;
@@ -140,19 +140,19 @@ export class AlarmsService {
     }
 
     /**
-     * /hyperiot/alarms/{id}
-     * Service for finding alarm
+     * /hyperiot/alarmevents/{id}
+     * Service for finding alarmevent
      * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findAlarm(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAlarm(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAlarm(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAlarm(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findAlarmEvent(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAlarmEvent(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAlarmEvent(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAlarmEvent(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling findAlarm.');
+            throw new Error('Required parameter id was null or undefined when calling findAlarmEvent.');
         }
 
         let headers = this.defaultHeaders;
@@ -186,15 +186,15 @@ export class AlarmsService {
     }
 
     /**
-     * /hyperiot/alarms/all
-     * Service for finding all alarm entities
+     * /hyperiot/alarmevents/all
+     * Service for finding all alarmevent entities
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findAllAlarm(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllAlarm(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllAlarm(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllAlarm(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findAllAlarmEvent(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllAlarmEvent(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllAlarmEvent(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllAlarmEvent(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -227,17 +227,17 @@ export class AlarmsService {
     }
 
     /**
-     * /hyperiot/alarms
-     * Service for finding all alarm entities
+     * /hyperiot/alarmevents
+     * Service for finding all alarmevent entities
      * @param delta 
      * @param page 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findAllAlarmPaginated(delta?: number, page?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllAlarmPaginated(delta?: number, page?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllAlarmPaginated(delta?: number, page?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllAlarmPaginated(delta?: number, page?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findAllAlarmEventPaginated(delta?: number, page?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllAlarmEventPaginated(delta?: number, page?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllAlarmEventPaginated(delta?: number, page?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllAlarmEventPaginated(delta?: number, page?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
@@ -281,19 +281,19 @@ export class AlarmsService {
     }
 
     /**
-     * /hyperiot/alarms
-     * Service for adding a new alarm entity
-     * @param body Alarm entity which must be saved 
+     * /hyperiot/alarmevents
+     * Service for adding a new alarmevent entity
+     * @param body AlarmEvent entity which must be saved 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public saveAlarm(body: Alarm, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public saveAlarm(body: Alarm, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public saveAlarm(body: Alarm, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public saveAlarm(body: Alarm, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public saveAlarmEvent(body: AlarmEvent, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public saveAlarmEvent(body: AlarmEvent, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public saveAlarmEvent(body: AlarmEvent, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public saveAlarmEvent(body: AlarmEvent, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling saveAlarm.');
+            throw new Error('Required parameter body was null or undefined when calling saveAlarmEvent.');
         }
 
         let headers = this.defaultHeaders;
@@ -333,19 +333,19 @@ export class AlarmsService {
     }
 
     /**
-     * /hyperiot/alarms
-     * Service for updating a alarm entity
-     * @param body Alarm entity which must be updated 
+     * /hyperiot/alarmevents
+     * Service for updating a alarmevent entity
+     * @param body AlarmEvent entity which must be updated 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateAlarm(body: Alarm, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public updateAlarm(body: Alarm, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public updateAlarm(body: Alarm, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public updateAlarm(body: Alarm, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateAlarmEvent(body: AlarmEvent, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateAlarmEvent(body: AlarmEvent, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateAlarmEvent(body: AlarmEvent, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateAlarmEvent(body: AlarmEvent, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateAlarm.');
+            throw new Error('Required parameter body was null or undefined when calling updateAlarmEvent.');
         }
 
         let headers = this.defaultHeaders;

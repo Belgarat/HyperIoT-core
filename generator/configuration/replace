@@ -166,8 +166,19 @@
 ../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration';#
 ../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/index.ts#export.*from './model/models';##
 ../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/index.ts#export.*from './configuration';##
-../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#rxjs/Observable#rxjs#
-../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#import { Alarm } from '../model/alarm';#import { Alarm } from '../../../models/alarm';#
-../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../models/configuration';#
-../projects/core/src/lib/hyperiot-client/alarms-client/api-module/index.ts#export.*from './model/models';##
-../projects/core/src/lib/hyperiot-client/alarms-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/api/alarms.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/api/alarms.service.ts#https://localhost/hyperiot/alarms#/hyperiot/alarms#
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/api/alarms.service.ts#import { Alarm } from '../model/alarm';#import { Alarm } from '../../../models/alarm';#
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/api/alarms.service.ts#void;#any;#
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/api/alarms.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api/alarmevents.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api/alarmevents.service.ts#https://localhost/hyperiot/alarmevents#/hyperiot/alarmevents#
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api/alarmevents.service.ts#import { AlarmEvent } from '../model/alarmEvent';#import { AlarmEvent } from '../../../models/alarmEvent';#
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api/alarmevents.service.ts#void;#any;#
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api/alarmevents.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/index.ts#export.*from './configuration';##

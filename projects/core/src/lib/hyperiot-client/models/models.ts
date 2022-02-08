@@ -1,5 +1,6 @@
 export * from './aCLConfig';
 export * from './alarm';
+export * from './alarmEvent';
 export * from './algorithm';
 export * from './algorithmConfig';
 export * from './algorithmIOField';

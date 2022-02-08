@@ -6,16 +6,18 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Alarm } from './alarm';
+import { Rule } from './rule';
 
 
-export interface HyperIoTRole { 
-    description?: string;
-    name?: string;
-    categoryIds?: Array<number>;
-    entityCreateDate?: Date;
-    tagIds?: Array<number>;
-    systemApiClassName?: string;
+export interface AlarmEvent { 
     id?: number;
-    entityVersion?: number;
-    resourceName?: string;
+    entityVersion: number;
+    readonly entityCreateDate?: Date;
+    readonly entityModifyDate?: Date;
+    categoryIds?: Array<number>;
+    tagIds?: Array<number>;
+    alarm?: Alarm;
+    event?: Rule;
+    severity?: number;
 }

@@ -13,14 +13,14 @@ import { Version } from './version';
 
 
 export interface Bundle { 
+    version?: Version;
     location?: string;
     state?: number;
-    version?: Version;
-    registeredServices?: Array<ServiceReferenceObject>;
-    lastModified?: number;
-    servicesInUse?: Array<ServiceReferenceObject>;
-    bundleId?: number;
-    symbolicName?: string;
     bundleContext?: BundleContext;
     headers?: DictionaryStringString;
+    bundleId?: number;
+    symbolicName?: string;
+    lastModified?: number;
+    registeredServices?: Array<ServiceReferenceObject>;
+    servicesInUse?: Array<ServiceReferenceObject>;
 }

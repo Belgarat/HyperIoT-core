@@ -26,7 +26,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class StormService {
 
-    protected basePath = '/hyperiot/storm';
+    protected basePath = 'https://localhost/storm';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
