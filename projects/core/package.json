@@ -8,8 +8,8 @@
   "peerDependencies": {
     "@angular/core": "^12.2.16",
     "@angular/localize": "12.2.16",
-    "@angular/material-moment-adapter": "12.2.13",
     "@angular/platform-browser-dynamic": "12.2.16",
+    "@angular/material-moment-adapter": "12.2.13",
     "@angular/router": "12.2.16",
     "@angular/service-worker": "12.2.16",
     "idb": "^6.1.5",
