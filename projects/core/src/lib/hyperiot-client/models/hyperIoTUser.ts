@@ -10,17 +10,17 @@ import { HyperIoTRole } from './hyperIoTRole';
 
 
 export interface HyperIoTUser { 
+    name?: string;
     username?: string;
-    lastname?: string;
     email?: string;
     roles?: Array<HyperIoTRole>;
-    name?: string;
-    categoryIds?: Array<number>;
-    entityCreateDate?: Date;
-    tagIds?: Array<number>;
-    systemApiClassName?: string;
+    lastname?: string;
     id?: number;
     entityVersion?: number;
+    tagIds?: Array<number>;
+    categoryIds?: Array<number>;
+    entityCreateDate?: Date;
+    systemApiClassName?: string;
     resourceName?: string;
     screenName?: string;
 }

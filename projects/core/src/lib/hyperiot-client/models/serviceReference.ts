@@ -11,6 +11,6 @@ import { Bundle } from './bundle';
 
 export interface ServiceReference { 
     bundle?: Bundle;
-    usingBundles?: Array<Bundle>;
     propertyKeys?: Array<string>;
+    usingBundles?: Array<Bundle>;
 }

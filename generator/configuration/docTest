@@ -19,3 +19,5 @@ widgets#http://karaf-microservices-test.hyperiot.cloud/hyperiot/widgets/swagger.
 hbaseconnectors#http://karaf-microservices-test.hyperiot.cloud/hyperiot/hbaseconnectors/swagger.json#../projects/core/src/lib/hyperiot-client/h-base-connectors-client/api-module#
 algorithms#http://karaf-microservices-test.hyperiot.cloud/hyperiot/algorithms/swagger.json#../projects/core/src/lib/hyperiot-client/algorithms-client/api-module#
 hprojectalgorithms#http://karaf-microservices-test.hyperiot.cloud/hyperiot/hprojectalgorithms/swagger.json#../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module#
+alarms#http://karaf-microservices-test.hyperiot.cloud/hyperiot/alarms/swagger.json#../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module#
+

@@ -27,7 +27,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class WidgetsService {
 
-    protected basePath = 'https://localhost/widgets';
+    protected basePath = '/hyperiot/widgets';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

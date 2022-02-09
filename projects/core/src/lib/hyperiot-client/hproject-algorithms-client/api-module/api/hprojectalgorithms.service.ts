@@ -28,7 +28,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class HprojectalgorithmsService {
 
-    protected basePath = 'https://localhost/hprojectalgorithms';
+    protected basePath = '/hyperiot/hprojectalgorithms';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

@@ -32,9 +32,10 @@ export interface Rule {
     parent?: HyperIoTBaseEntity;
 }
 export namespace Rule {
-    export type TypeEnum = 'ENRICHMENT' | 'EVENT';
+    export type TypeEnum = 'ENRICHMENT' | 'EVENT' | 'ALARM_EVENT';
     export const TypeEnum = {
         ENRICHMENT: 'ENRICHMENT' as TypeEnum,
-        EVENT: 'EVENT' as TypeEnum
+        EVENT: 'EVENT' as TypeEnum,
+        ALARMEVENT: 'ALARM_EVENT' as TypeEnum
     };
 }

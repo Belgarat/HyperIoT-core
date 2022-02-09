@@ -15,7 +15,7 @@ export * from './bundle';
 export * from './bundleContext';
 export * from './commandInfo';
 export * from './company';
-export * from './configuration';
+export * from '../models/configuration';
 export * from './connectorConfig';
 export * from './contentDisposition';
 export * from './dashboard';
