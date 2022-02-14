@@ -27,7 +27,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class AlarmsService {
 
-    protected basePath = 'https://localhost/hyperiot/alarms';
+    protected basePath = '/hyperiot/alarms';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
