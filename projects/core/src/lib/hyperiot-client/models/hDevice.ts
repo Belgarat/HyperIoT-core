@@ -20,6 +20,8 @@ export interface HDevice {
     tagIds?: Array<number>;
     deviceName?: string;
     brand?: string;
+    password?: string;
+    passwordConfirm?: string;
     model?: string;
     firmwareVersion?: string;
     softwareVersion?: string;
