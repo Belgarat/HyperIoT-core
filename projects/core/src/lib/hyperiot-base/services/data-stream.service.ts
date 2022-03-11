@@ -37,7 +37,7 @@ export class DataStreamService {
   eventStream: Subject<any>;
 
 
-  private baseWs = (location.protocol == 'https:') ? 'wss' : 'ws';
+  private baseWs = (location.protocol == 'https:') ? 'wss:' : 'ws:';
   private timer;
   private wsUrl = this.baseWs+'//' + location.hostname + (location.port ? ':' + location.port : '') + '/hyperiot/ws/project?projectId=';
   private ws: WebSocket;
