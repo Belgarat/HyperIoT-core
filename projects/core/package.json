@@ -10,6 +10,8 @@
     "@angular/localize": "12.2.16",
     "@angular/platform-browser-dynamic": "12.2.16",
     "@angular/material-moment-adapter": "12.2.13",
+    "@angular/forms": "12.2.16",
+    "@angular/material": "12.2.13",
     "@angular/router": "12.2.16",
     "@angular/service-worker": "12.2.16",
     "idb": "^6.1.5",
