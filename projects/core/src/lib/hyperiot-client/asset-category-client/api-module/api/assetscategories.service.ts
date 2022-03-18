@@ -27,7 +27,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class AssetscategoriesService {
 
-    protected basePath = '/hyperiot/assets/categories';
+    protected basePath = 'https://localhost/assets/categories';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

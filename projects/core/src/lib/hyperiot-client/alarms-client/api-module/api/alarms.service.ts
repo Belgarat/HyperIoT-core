@@ -19,6 +19,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { Alarm } from '../../../models/alarm';
+import { AlarmInformation } from '../../../models/alarmInformation';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
@@ -27,7 +28,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class AlarmsService {
 
-    protected basePath = '/hyperiot/alarms';
+    protected basePath = 'https://localhost/hyperiot/alarms';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -227,19 +228,19 @@ export class AlarmsService {
     }
 
     /**
-     * /hyperiot/alarms/all/{id}
-     * Service for finding all alarms of a project
-     * @param id The project id
+     * /hyperiot/alarms/all/projects/{projectId}
+     * Service for finding all alarm entities given a projectId
+     * @param projectId The project id to get list of alarm from
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findAllAlarmByProjectId(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllAlarmByProjectId(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllAlarmByProjectId(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllAlarmByProjectId(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findAllAlarmByProjectId(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllAlarmByProjectId(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllAlarmByProjectId(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllAlarmByProjectId(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling findAllAlarmByProjectId.');
+        if (projectId === null || projectId === undefined) {
+            throw new Error('Required parameter projectId was null or undefined when calling findAllAlarmByProjectId.');
         }
 
         let headers = this.defaultHeaders;
@@ -262,7 +263,7 @@ export class AlarmsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/all/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<any>(`${this.basePath}/all/projects/${encodeURIComponent(String(projectId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -368,6 +369,55 @@ export class AlarmsService {
         }
 
         return this.httpClient.post<any>(`${this.basePath}/`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/alarms/alarmInformation
+     * Service for adding a new alarm entity alongside with its events
+     * @param body 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public saveAlarmAndEvents(body?: AlarmInformation, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public saveAlarmAndEvents(body?: AlarmInformation, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public saveAlarmAndEvents(body?: AlarmInformation, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public saveAlarmAndEvents(body?: AlarmInformation, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/alarmInformation`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,

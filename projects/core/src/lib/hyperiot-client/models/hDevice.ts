@@ -19,6 +19,8 @@ export interface HDevice {
     categoryIds?: Array<number>;
     tagIds?: Array<number>;
     deviceName?: string;
+    password?: string;
+    passwordConfirm?: string;
     brand?: string;
     model?: string;
     firmwareVersion?: string;

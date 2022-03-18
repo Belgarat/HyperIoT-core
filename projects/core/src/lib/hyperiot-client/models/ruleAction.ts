@@ -20,10 +20,9 @@ export interface RuleAction {
     ruleType?: RuleAction.RuleTypeEnum;
 }
 export namespace RuleAction {
-    export type RuleTypeEnum = 'ENRICHMENT' | 'EVENT' | 'ALARM_EVENT';
+    export type RuleTypeEnum = 'ENRICHMENT' | 'EVENT';
     export const RuleTypeEnum = {
         ENRICHMENT: 'ENRICHMENT' as RuleTypeEnum,
-        EVENT: 'EVENT' as RuleTypeEnum,
-        ALARMEVENT: 'ALARM_EVENT' as RuleTypeEnum
+        EVENT: 'EVENT' as RuleTypeEnum
     };
 }

@@ -227,6 +227,52 @@ export class AlarmeventsService {
     }
 
     /**
+     * /hyperiot/alarmevents/all/alarms/{alarmId}
+     * Service for finding all alarm event entities given an alarmId
+     * @param alarmId The alarm id to get list of alarm event from
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findAllAlarmEventByAlarmId(alarmId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllAlarmEventByAlarmId(alarmId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllAlarmEventByAlarmId(alarmId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllAlarmEventByAlarmId(alarmId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (alarmId === null || alarmId === undefined) {
+            throw new Error('Required parameter alarmId was null or undefined when calling findAllAlarmEventByAlarmId.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/all/alarms/${encodeURIComponent(String(alarmId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/alarmevents
      * Service for finding all alarmevent entities
      * @param delta 
@@ -272,52 +318,6 @@ export class AlarmeventsService {
         return this.httpClient.get<any>(`${this.basePath}/`,
             {
                 params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * /hyperiot/alarmevents/events/{alarmId}
-     * Service for finding all alarms of a project
-     * @param alarmId The alarm id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findAllAlarmEvents(alarmId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllAlarmEvents(alarmId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllAlarmEvents(alarmId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllAlarmEvents(alarmId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (alarmId === null || alarmId === undefined) {
-            throw new Error('Required parameter alarmId was null or undefined when calling findAllAlarmEvents.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt-auth) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
-            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/events/${encodeURIComponent(String(alarmId))}`,
-            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

@@ -6,13 +6,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InputStream } from './inputStream';
-import { OutputStream } from './outputStream';
+import { Rule } from './rule';
 
 
-export interface DataSource { 
-    contentType?: string;
-    outputStream?: OutputStream;
-    name?: string;
-    inputStream?: InputStream;
+export interface AlarmEventDto { 
+    rule?: Rule;
+    severity?: number;
 }

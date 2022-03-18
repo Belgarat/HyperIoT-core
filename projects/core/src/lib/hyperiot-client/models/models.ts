@@ -1,6 +1,8 @@
 export * from './aCLConfig';
 export * from './alarm';
 export * from './alarmEvent';
+export * from './alarmEventDto';
+export * from './alarmInformation';
 export * from './algorithm';
 export * from './algorithmConfig';
 export * from './algorithmIOField';
@@ -15,7 +17,7 @@ export * from './bundle';
 export * from './bundleContext';
 export * from './commandInfo';
 export * from './company';
-export * from '../models/configuration';
+export * from './configuration';
 export * from './connectorConfig';
 export * from './contentDisposition';
 export * from './dashboard';
