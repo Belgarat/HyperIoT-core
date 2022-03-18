@@ -36,8 +36,10 @@ export class DataStreamService {
   isConnected: boolean;
   eventStream: Subject<any>;
 
+
+  private baseWs = (location.protocol == 'https:') ? 'wss:' : 'ws:';
   private timer;
-  private wsUrl = 'ws://' + location.hostname + (location.port ? ':' + location.port : '') + '/hyperiot/ws/project?projectId=';
+  private wsUrl = this.baseWs+'//' + location.hostname + (location.port ? ':' + location.port : '') + '/hyperiot/ws/project?projectId=';
   private ws: WebSocket;
 
   pingMessage = {
