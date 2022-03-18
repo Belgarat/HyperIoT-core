@@ -29,7 +29,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class KafkaService {
 
-    protected basePath = 'https://localhost/kafka';
+    protected basePath = '/hyperiot/kafka';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

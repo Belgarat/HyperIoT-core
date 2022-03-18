@@ -182,3 +182,12 @@
 ../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration';#
 ../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/index.ts#export.*from './model/models';##
 ../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#'../model/alarm'#'../../../models/alarm'
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#'../model/alarmInformation'#'../../../models/alarmInformation'
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#'../configuration'#'../../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/h-project-client/api-module/api/hprojects.service.ts#'../model/inputStream'#'../../../models/inputStream'#
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/api/husers.service.ts#'../model/attachment'#'../../../models/attachment'#
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api.module.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/index.ts#'./model/models'#'../../models/models'#
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/index.ts#'./configuration'#'../../models/configuration'#

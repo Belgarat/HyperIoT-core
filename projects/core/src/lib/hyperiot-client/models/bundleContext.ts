@@ -10,6 +10,6 @@ import { Bundle } from './bundle';
 
 
 export interface BundleContext { 
-    bundles?: Array<Bundle>;
     bundle?: Bundle;
+    bundles?: Array<Bundle>;
 }

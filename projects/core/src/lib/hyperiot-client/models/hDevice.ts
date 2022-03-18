@@ -22,8 +22,6 @@ export interface HDevice {
     password?: string;
     passwordConfirm?: string;
     brand?: string;
-    password?: string;
-    passwordConfirm?: string;
     model?: string;
     firmwareVersion?: string;
     softwareVersion?: string;

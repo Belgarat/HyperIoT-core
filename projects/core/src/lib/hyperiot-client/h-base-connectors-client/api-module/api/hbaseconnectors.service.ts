@@ -26,7 +26,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class HbaseconnectorsService {
 
-    protected basePath = 'https://localhost/hbaseconnectors';
+    protected basePath = '/hyperiot/hbaseconnectors';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

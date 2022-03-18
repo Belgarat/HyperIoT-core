@@ -15,7 +15,7 @@ export interface Attachment {
     headers?: { [key: string]: Array<string>; };
     object?: any;
     contentType?: MediaType;
-    contentDisposition?: ContentDisposition;
     dataHandler?: DataHandler;
     contentId?: string;
+    contentDisposition?: ContentDisposition;
 }
