@@ -18,8 +18,10 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Alarm } from '../../../models/alarm';
-import { AlarmInformation } from '../../../models/alarmInformation';
+import { Alarm } from '../../../models/alarm'
+;
+import { AlarmInformation } from '../../../models/alarmInformation'
+;
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
@@ -28,7 +30,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class AlarmsService {
 
-    protected basePath = 'https://localhost/hyperiot/alarms';
+    protected basePath = '/hyperiot/alarms';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

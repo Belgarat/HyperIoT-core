@@ -191,3 +191,4 @@
 ../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api.module.ts#'./configuration'#'../../models/configuration'#
 ../projects/core/src/lib/hyperiot-client/alarms-client/api-module/index.ts#'./model/models'#'../../models/models'#
 ../projects/core/src/lib/hyperiot-client/alarms-client/api-module/index.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#https://localhost/hyperiot/alarms#/hyperiot/alarms#

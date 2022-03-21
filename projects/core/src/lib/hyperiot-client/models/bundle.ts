@@ -16,11 +16,11 @@ export interface Bundle {
     location?: string;
     state?: number;
     version?: Version;
-    registeredServices?: Array<ServiceReferenceObject>;
     bundleContext?: BundleContext;
     headers?: DictionaryStringString;
-    symbolicName?: string;
     lastModified?: number;
-    bundleId?: number;
     servicesInUse?: Array<ServiceReferenceObject>;
+    symbolicName?: string;
+    bundleId?: number;
+    registeredServices?: Array<ServiceReferenceObject>;
 }
