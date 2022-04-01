@@ -27,7 +27,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class RolesService {
 
-    protected basePath = '/hyperiot/roles';
+    protected basePath = 'https://localhost/roles';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

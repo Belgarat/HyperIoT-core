@@ -19,8 +19,8 @@ export interface DataHandler {
     inputStream?: InputStream;
     contentType?: string;
     outputStream?: OutputStream;
-    transferDataFlavors?: Array<DataFlavor>;
     preferredCommands?: Array<CommandInfo>;
-    dataSource?: DataSource;
+    transferDataFlavors?: Array<DataFlavor>;
     allCommands?: Array<CommandInfo>;
+    dataSource?: DataSource;
 }

@@ -23,7 +23,7 @@ export interface Company {
     postalCode?: string;
     nation?: string;
     vatNumber?: string;
-    user?: HUser;
-    userOwner?: HyperIoTUser;
     huserCreator?: HUser;
+    userOwner?: HyperIoTUser;
+    user?: HUser;
 }

@@ -29,7 +29,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class HusersService {
 
-    protected basePath = '/hyperiot/husers';
+    protected basePath = 'https://localhost/husers';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

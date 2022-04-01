@@ -6,6 +6,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { AlarmEvent } from './alarmEvent';
 
 
 export interface Alarm { 
@@ -17,4 +18,5 @@ export interface Alarm {
     tagIds?: Array<number>;
     name?: string;
     inhibited?: boolean;
+    alarmEventList?: Array<AlarmEvent>;
 }

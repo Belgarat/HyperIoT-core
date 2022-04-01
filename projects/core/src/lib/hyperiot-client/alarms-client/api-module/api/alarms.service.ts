@@ -18,10 +18,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Alarm } from '../../../models/alarm'
-;
-import { AlarmInformation } from '../../../models/alarmInformation'
-;
+import { Alarm } from '../../../models/alarm';
+import { AlarmEvent } from '../../../models/alarmEvent';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
@@ -382,17 +380,29 @@ export class AlarmsService {
     }
 
     /**
-     * /hyperiot/alarms/alarmInformation
+     * /hyperiot/alarms/withEvents
      * Service for adding a new alarm entity alongside with its events
      * @param body 
+     * @param alarmName 
+     * @param isInhibited 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public saveAlarmAndEvents(body?: AlarmInformation, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public saveAlarmAndEvents(body?: AlarmInformation, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public saveAlarmAndEvents(body?: AlarmInformation, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public saveAlarmAndEvents(body?: AlarmInformation, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public saveAlarmAndEvents(body?: Array<AlarmEvent>, alarmName?: string, isInhibited?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public saveAlarmAndEvents(body?: Array<AlarmEvent>, alarmName?: string, isInhibited?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public saveAlarmAndEvents(body?: Array<AlarmEvent>, alarmName?: string, isInhibited?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public saveAlarmAndEvents(body?: Array<AlarmEvent>, alarmName?: string, isInhibited?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (alarmName !== undefined && alarmName !== null) {
+            queryParameters = queryParameters.set('alarmName', <any>alarmName);
+        }
+        if (isInhibited !== undefined && isInhibited !== null) {
+            queryParameters = queryParameters.set('isInhibited', <any>isInhibited);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -419,9 +429,10 @@ export class AlarmsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/alarmInformation`,
+        return this.httpClient.post<any>(`${this.basePath}/withEvents`,
             body,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
