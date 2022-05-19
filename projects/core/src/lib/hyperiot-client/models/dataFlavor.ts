@@ -11,7 +11,6 @@
 export interface DataFlavor { 
     mimeType?: string;
     humanPresentableName?: string;
-    primaryType?: string;
     subType?: string;
     mimeTypeSerializedObject?: boolean;
     defaultRepresentationClassAsString?: string;
@@ -25,4 +24,5 @@ export interface DataFlavor {
     flavorRemoteObjectType?: boolean;
     flavorJavaFileListType?: boolean;
     flavorTextType?: boolean;
+    primaryType?: string;
 }

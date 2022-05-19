@@ -88,7 +88,8 @@ export class DashboardOfflineDataService {
       this.hProjectId,
       rowKeyLowerBound,
       this.rowKeyUpperBound,
-      [...this.hPacketMap.keys()].toString()
+      [...this.hPacketMap.keys()].toString(),
+      ""
     ).subscribe((res) => {
       this.hPacketMap.forEach((value, key: number) => {
         const currentPacket = this.hPacketMap.get(key);
@@ -104,10 +105,10 @@ export class DashboardOfflineDataService {
     });
   }
 
-  scanAndSaveHProject(packetId): Observable<any> {
+  scanAndSaveHProject(packetId, deviceId): Observable<any> {
     return new Observable(obs => {
       const currentPacket = this.hPacketMap.get(packetId)
-      this.hprojectsService.scanHProject(this.hProjectId, currentPacket.rowKeyLowerBound, currentPacket.rowKeyUpperBound, packetId).subscribe(
+      this.hprojectsService.scanHProject(this.hProjectId, currentPacket.rowKeyLowerBound, currentPacket.rowKeyUpperBound, packetId, deviceId,).subscribe(
         res=> {
           const packetData = res;
           currentPacket.rowKeyLowerBound = packetData.rowKeyUpperBound + 1;
@@ -134,14 +135,14 @@ export class DashboardOfflineDataService {
   }
 
 
-  getData(packetId, lowerBound): Observable<any> {
+  getData(packetId, deviceId, lowerBound): Observable<any> {
     lowerBound = lowerBound * this.DEFAULT_CHUNK_LENGTH;
     if (this.hPacketMap.has(packetId)) {
       const packetSession = this.hPacketMap.get(packetId);
       if( packetSession.data.length >= lowerBound + this.DEFAULT_CHUNK_LENGTH) {
         return of(packetSession.data.slice(lowerBound, lowerBound + this.DEFAULT_CHUNK_LENGTH));
       } else {
-        return this.scanAndSaveHProject(packetId);
+        return this.scanAndSaveHProject(packetId, deviceId);
       }
     }
   }

@@ -7,7 +7,7 @@ import { CoreModule } from 'projects/core/src/lib/core.module';
 import { AuthenticationService, Configuration, ConfigurationParameters } from 'projects/core/src/public_api';
 import { ServiceTestComponent } from './test/service-test.component';
 
-import { HUserClientModule, HyperiotClientModule } from '@hyperiot/core'
+import { HyperiotClientModule } from 'core';
 
 import { AppRoutingModule } from './app-routing.module';
 

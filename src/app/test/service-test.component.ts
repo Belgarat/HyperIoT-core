@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Logger } from 'projects/core/src/lib/hyperiot-service/hyperiot-logger/logger';
-import { LoggerService } from 'projects/core/src/lib/hyperiot-service/hyperiot-logger/logger.service';
+//import { Logger } from 'projects/core/src/lib/hyperiot-service/hyperiot-logger/logger';
+//import { LoggerService } from 'projects/core/src/lib/hyperiot-service/hyperiot-logger/logger.service';
 import {
+  Logger,
+  LoggerService,
   AssetscategoriesService,
   AssetstagsService,
   AuthenticationService,
@@ -22,7 +24,6 @@ import {
   HUser,
   HUserPasswordReset,
   HusersService,
-  JWTLoginResponse,
   MailTemplate,
   MailtemplatesService,
   Permission,
@@ -31,7 +32,11 @@ import {
   RolesService,
   Rule,
   RulesService
-} from '@hyperiot/core';
+} from 'core';
+
+interface JWTLoginResponse {
+  token: string;
+}
 
 @Component({
   selector: 'app-service-test',

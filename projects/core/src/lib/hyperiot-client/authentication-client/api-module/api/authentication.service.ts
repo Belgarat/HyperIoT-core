@@ -26,7 +26,7 @@ import { Configuration }                                     from '../../../mode
 @Injectable()
 export class AuthenticationService {
 
-    protected basePath = 'https://localhost/authentication';
+    protected basePath = '/hyperiot/authentication';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

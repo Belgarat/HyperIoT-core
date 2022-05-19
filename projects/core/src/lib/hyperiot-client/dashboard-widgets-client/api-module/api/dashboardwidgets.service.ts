@@ -216,7 +216,7 @@ export class DashboardwidgetsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/all/${encodeURIComponent(String(dashboardId))}`,
+        return this.httpClient.get<any>(`${this.basePath}/configuration/all/${encodeURIComponent(String(dashboardId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

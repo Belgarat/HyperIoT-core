@@ -38,7 +38,6 @@ export * from './hyperIoTAssetOwnerImpl';
 export * from './hyperIoTBaseEntity';
 export * from './hyperIoTKafkaPermission';
 export * from './hyperIoTRole';
-export * from './hyperIoTUser';
 export * from './inputStream';
 export * from './mailTemplate';
 export * from './mappedInput';

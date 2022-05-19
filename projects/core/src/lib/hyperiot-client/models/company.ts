@@ -7,7 +7,6 @@
  * Do not edit the class manually.
  */
 import { HUser } from './hUser';
-import { HyperIoTUser } from './hyperIoTUser';
 
 
 export interface Company { 
@@ -23,7 +22,5 @@ export interface Company {
     postalCode?: string;
     nation?: string;
     vatNumber?: string;
-    huserCreator?: HUser;
-    userOwner?: HyperIoTUser;
-    user?: HUser;
+    hUserCreator?: HUser;
 }
