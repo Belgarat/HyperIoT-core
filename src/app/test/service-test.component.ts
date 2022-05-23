@@ -1,36 +1,42 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Logger } from 'projects/core/src/lib/hyperiot-service/hyperiot-logger/logger';
-import { LoggerService } from 'projects/core/src/lib/hyperiot-service/hyperiot-logger/logger.service';
-import {AuthenticationService} from '../../../projects/core/src/lib/hyperiot-client/authentication-client/api-module';
-import {HusersService} from '../../../projects/core/src/lib/hyperiot-client/h-user-client/api-module';
-import {PermissionsService} from '../../../projects/core/src/lib/hyperiot-client/permission-client/api-module';
-import {HprojectsService} from '../../../projects/core/src/lib/hyperiot-client/h-project-client/api-module';
-import {HdevicesService} from '../../../projects/core/src/lib/hyperiot-client/h-device-client/api-module';
-import {HpacketsService} from '../../../projects/core/src/lib/hyperiot-client/h-packet-client/api-module';
-import {RulesService} from '../../../projects/core/src/lib/hyperiot-client/rule-client/api-module';
-import {RolesService} from '../../../projects/core/src/lib/hyperiot-client/role-client/api-module';
-import {DashboardsService} from '../../../projects/core/src/lib/hyperiot-client/dashboard-client/api-module';
-import {AssetstagsService} from '../../../projects/core/src/lib/hyperiot-client/asset-tag-client/api-module';
-import {AssetscategoriesService} from '../../../projects/core/src/lib/hyperiot-client/asset-category-client/api-module';
-import {JWTLoginResponse} from '../../../projects/core/src/lib/hyperiot-client/models/jWTLoginResponse';
-import {ConfigurationParameters, Configuration} from '../../../projects/core/src/lib/hyperiot-client/models/configuration';
-import {HUser} from '../../../projects/core/src/lib/hyperiot-client/models/hUser';
-import {HPacketField} from '../../../projects/core/src/lib/hyperiot-client/models/hPacketField';
-import {Role} from '../../../projects/core/src/lib/hyperiot-client/models/role';
-import {Permission} from '../../../projects/core/src/lib/hyperiot-client/models/permission';
+//import { Logger } from 'projects/core/src/lib/hyperiot-service/hyperiot-logger/logger';
+//import { LoggerService } from 'projects/core/src/lib/hyperiot-service/hyperiot-logger/logger.service';
 import {
+  Logger,
+  LoggerService,
+  AssetscategoriesService,
+  AssetstagsService,
+  AuthenticationService,
+  Configuration,
+  ConfigurationParameters,
   Dashboard,
+  DashboardsService,
   DashboardWidget,
   HDevice,
+  HdevicesService,
   HPacket,
+  HPacketField,
+  HpacketsService,
   HProject,
+  HprojectsService,
+  HUser,
   HUserPasswordReset,
+  HusersService,
   MailTemplate,
   MailtemplatesService,
-  Rule
-} from 'projects/core/src/public_api';
+  Permission,
+  PermissionsService,
+  Role,
+  RolesService,
+  Rule,
+  RulesService
+} from 'core';
+
+interface JWTLoginResponse {
+  token: string;
+}
 
 @Component({
   selector: 'app-service-test',

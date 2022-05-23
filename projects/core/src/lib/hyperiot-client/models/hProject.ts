@@ -1,7 +1,4 @@
 /**
- * hyperiot HProjectAlgorithm
- * HyperIoT HProjectAlgorithm API
- *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -10,11 +7,8 @@
  * Do not edit the class manually.
  */
 import { Area } from './area';
-import { Dashboard } from './dashboard';
 import { HDevice } from './hDevice';
-import { HProjectAlgorithm } from './hProjectAlgorithm';
 import { HUser } from './hUser';
-import { Rule } from './rule';
 
 
 export interface HProject { 
@@ -30,10 +24,7 @@ export interface HProject {
     deviceCount?: number;
     statisticsCount?: number;
     rulesCount?: number;
-    devices?: Array<HDevice>;
-    dashboards?: Array<Dashboard>;
-    areas?: Array<Area>;
-    rules?: Array<Rule>;
-    hprojectalgorithms?: Array<HProjectAlgorithm>;
     pubKey?: Array<string>;
+    devices?: Array<HDevice>;
+    areas?: Array<Area>;
 }

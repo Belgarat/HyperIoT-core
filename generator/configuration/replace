@@ -166,3 +166,67 @@
 ../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration';#
 ../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/index.ts#export.*from './model/models';##
 ../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/api/alarms.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/api/alarms.service.ts#https://localhost/hyperiot/alarms#/hyperiot/alarms#
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/api/alarms.service.ts#import { Alarm } from '../model/alarm';#import { Alarm } from '../../../models/alarm';#
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/api/alarms.service.ts#void;#any;#
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/api/alarms.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/alarm-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api/alarmevents.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api/alarmevents.service.ts#https://localhost/hyperiot/alarmevents#/hyperiot/alarmevents#
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api/alarmevents.service.ts#import { AlarmEvent } from '../model/alarmEvent';#import { AlarmEvent } from '../../../models/alarmEvent';#
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api/alarmevents.service.ts#void;#any;#
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api/alarmevents.service.ts#import { Configuration }                                     from '../configuration';#import { Configuration }                                     from '../../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/api.module.ts#import { Configuration } from './configuration';#import { Configuration } from '../../models/configuration';#
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/index.ts#export.*from './model/models';##
+../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module/index.ts#export.*from './configuration';##
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#rxjs/Observable#rxjs#
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#'../model/alarm'#'../../../models/alarm'
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#'../model/alarmInformation'#'../../../models/alarmInformation'
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#'../configuration'#'../../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/h-project-client/api-module/api/hprojects.service.ts#'../model/inputStream'#'../../../models/inputStream'#
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/api/husers.service.ts#'../model/attachment'#'../../../models/attachment'#
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api.module.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/index.ts#'./model/models'#'../../models/models'#
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/index.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#https://localhost/hyperiot/alarms#/hyperiot/alarms#
+../projects/core/src/lib/hyperiot-client/alarms-client/api-module/api/alarms.service.ts#'../model/alarmEvent'#'../../../models/alarmEvent'#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#'rxjs/Observable'#'rxjs'#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#'../model/aCLConfig'#'../../../models/aCLConfig'#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#'../model/connectorConfig'#'../../../models/connectorConfig'#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#'../model/topicConfig'#'../../../models/topicConfig'#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api/kafka.service.ts#'../configuration'#'../../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/api/mailtemplates.service.ts#'rxjs/Observable'#'rxjs'#
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/api/mailtemplates.service.ts#'../model/mailTemplate'#'../../../models/mailTemplate'#
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/api/mailtemplates.service.ts#'../configuration'#'../../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/company-client/api-module/api/companies.service.ts#'rxjs/Observable'#'rxjs'#
+../projects/core/src/lib/hyperiot-client/company-client/api-module/api/companies.service.ts# '../model/company'#'../../../models/company'#
+../projects/core/src/lib/hyperiot-client/company-client/api-module/api/companies.service.ts#'../configuration'#'../../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api/algorithms.service.ts#'rxjs/Observable'#'rxjs'#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api/algorithms.service.ts#'../model/algorithm'#'../../../models/algorithm'#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api/algorithms.service.ts#'../model/algorithmConfig'#'../../../models/algorithmConfig'#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api/algorithms.service.ts#'../model/algorithmIOField'#'../../../models/algorithmIOField'#
+../projects/core/src/lib/hyperiot-client/algorithms-client/api-module/api/algorithms.service.ts#'../configuration'#'../../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#'rxjs/Observable'#'rxjs'#
+../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#'../model/area'#'../../../models/area'#
+../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#'../model/areaDevice'#'../../../models/areaDevice'#
+../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#'../model/attachment'#'../../../models/attachment'#
+../projects/core/src/lib/hyperiot-client/area-client/api-module/api/areas.service.ts#'../configuration'#'../../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/index.ts#'./model/models'#'../../models/models'#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/index.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/api.module.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/index.ts#'./model/models'#'../../models/models'#
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/index.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/kafka-connector-client/api-module/api.module.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/index.ts#'./model/models'#'../../models/models'#
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/index.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/permission-client/api-module/api.module.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/permission-client/api-module/index.ts#'./model/models'#'../../models/models'#
+../projects/core/src/lib/hyperiot-client/permission-client/api-module/index.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/api.module.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/index.ts#'./model/models'#'../../models/models'#
+../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module/index.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/h-user-client/api-module/api.module.ts#'./configuration'#'../../models/configuration'#
+../projects/core/src/lib/hyperiot-client/mail-templates-client/api-module/api.module.ts#'./configuration'#'../../models/configuration'#

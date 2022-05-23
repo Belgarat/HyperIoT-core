@@ -1,7 +1,4 @@
 /**
- * HyperIoT Area
- * HyperIoT Area API
- *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -17,8 +14,8 @@ import { MediaType } from './mediaType';
 export interface Attachment { 
     headers?: { [key: string]: Array<string>; };
     object?: any;
-    contentDisposition?: ContentDisposition;
-    contentId?: string;
     dataHandler?: DataHandler;
+    contentId?: string;
+    contentDisposition?: ContentDisposition;
     contentType?: MediaType;
 }

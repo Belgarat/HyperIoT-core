@@ -1,7 +1,4 @@
 /**
- * hyperiot HProjectAlgorithm
- * HyperIoT HProjectAlgorithm API
- *
  * OpenAPI spec version: 2.0.0
  * Contact: users@acsoftware.it
  *
@@ -10,6 +7,7 @@
  * Do not edit the class manually.
  */
 import { AssetTag } from './assetTag';
+import { BundleContext } from './bundleContext';
 
 
 export interface RuleAction { 
@@ -18,12 +16,14 @@ export interface RuleAction {
     ruleName?: string;
     tags?: Array<AssetTag>;
     active?: boolean;
+    bundleContext?: BundleContext;
     ruleType?: RuleAction.RuleTypeEnum;
 }
 export namespace RuleAction {
-    export type RuleTypeEnum = 'ENRICHMENT' | 'EVENT';
+    export type RuleTypeEnum = 'ENRICHMENT' | 'EVENT' | 'ALARM_EVENT';
     export const RuleTypeEnum = {
         ENRICHMENT: 'ENRICHMENT' as RuleTypeEnum,
-        EVENT: 'EVENT' as RuleTypeEnum
+        EVENT: 'EVENT' as RuleTypeEnum,
+        ALARMEVENT: 'ALARM_EVENT' as RuleTypeEnum
     };
 }

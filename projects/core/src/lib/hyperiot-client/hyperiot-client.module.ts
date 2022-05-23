@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { AlarmsService } from './alarms-client/api-module/api/alarms.service'
+import { AlarmeventsService } from './alarmevents-client/api-module/api/alarmevents.service';
 import { AlgorithmsService } from './algorithms-client/api-module/api/algorithms.service';
 import { AreasService } from './area-client/api-module/api/areas.service';
 import { AssetscategoriesService } from './asset-category-client/api-module/api/assetscategories.service';
@@ -29,6 +31,8 @@ import { WidgetsService } from './widgets-client/api-module/api/widgets.service'
     CommonModule
   ],
   providers: [
+    AlarmsService,
+    AlarmeventsService,
     AlgorithmsService,
     AreasService,
     AssetscategoriesService,

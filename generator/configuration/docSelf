@@ -19,3 +19,5 @@ widgets#http://localhost:8181/hyperiot/widgets/swagger.json#../projects/core/src
 hbaseconnectors#http://localhost:8181/hyperiot/hbaseconnectors/swagger.json#../projects/core/src/lib/hyperiot-client/h-base-connectors-client/api-module#
 algorithms#http://localhost:8181/hyperiot/algorithms/swagger.json#../projects/core/src/lib/hyperiot-client/algorithms-client/api-module#
 hprojectalgorithms#http://localhost:8181/hyperiot/hprojectalgorithms/swagger.json#../projects/core/src/lib/hyperiot-client/hproject-algorithms-client/api-module#
+alarms#http://localhost:8181/hyperiot/alarms/swagger.json#../projects/core/src/lib/hyperiot-client/alarms-client/api-module#
+alarmevents#http://localhost:8181/hyperiot/alarmevents/swagger.json#../projects/core/src/lib/hyperiot-client/alarmevents-client/api-module#

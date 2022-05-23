@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 
 import { AutoRegisterProjectRequest } from '../../../models/autoRegisterProjectRequest';
 import { HProject } from '../../../models/hProject';
+import { InputStream } from '../../../models/inputStream';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../../../models/configuration';
@@ -313,6 +314,52 @@ export class HprojectsService {
         ];
 
         return this.httpClient.delete<any>(`${this.basePath}/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hprojects/{id}/exports
+     * Service for export hproject
+     * @param id id from which project object will be retrieve
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public exportHProject(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public exportHProject(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public exportHProject(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public exportHProject(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling exportHProject.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/octet-stream'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}/exports`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -666,13 +713,14 @@ export class HprojectsService {
      * @param rowKeyLowerBound HBase row key lower bound
      * @param rowKeyUpperBound HBase row key upper bound
      * @param packetIds HPacket list, containing comma separated ID
+     * @param deviceIds HDevice list, containing comma separated ID
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, deviceIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, deviceIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, deviceIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, deviceIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (hProjectId === null || hProjectId === undefined) {
             throw new Error('Required parameter hProjectId was null or undefined when calling scanHProject.');
@@ -690,9 +738,16 @@ export class HprojectsService {
             throw new Error('Required parameter packetIds was null or undefined when calling scanHProject.');
         }
 
+        if (deviceIds === null || deviceIds === undefined) {
+            throw new Error('Required parameter deviceIds was null or undefined when calling scanHProject.');
+        }
+
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (packetIds !== undefined && packetIds !== null) {
             queryParameters = queryParameters.set('packetIds', <any>packetIds);
+        }
+        if (deviceIds !== undefined && deviceIds !== null) {
+            queryParameters = queryParameters.set('deviceIds', <any>deviceIds);
         }
 
         let headers = this.defaultHeaders;
@@ -733,13 +788,14 @@ export class HprojectsService {
      * @param startTime Scanning start time
      * @param endTime Scanning end time
      * @param packetIds HPacket list, containing comma separated ID
+     * @param deviceIds HDevice list, containing comma separated ID
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public timelineEventCount(projectId: number, startTime: number, endTime: number, packetIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public timelineEventCount(projectId: number, startTime: number, endTime: number, packetIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public timelineEventCount(projectId: number, startTime: number, endTime: number, packetIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public timelineEventCount(projectId: number, startTime: number, endTime: number, packetIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public timelineEventCount(projectId: number, startTime: number, endTime: number, packetIds: string, deviceIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public timelineEventCount(projectId: number, startTime: number, endTime: number, packetIds: string, deviceIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public timelineEventCount(projectId: number, startTime: number, endTime: number, packetIds: string, deviceIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public timelineEventCount(projectId: number, startTime: number, endTime: number, packetIds: string, deviceIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (projectId === null || projectId === undefined) {
             throw new Error('Required parameter projectId was null or undefined when calling timelineEventCount.');
@@ -757,9 +813,16 @@ export class HprojectsService {
             throw new Error('Required parameter packetIds was null or undefined when calling timelineEventCount.');
         }
 
+        if (deviceIds === null || deviceIds === undefined) {
+            throw new Error('Required parameter deviceIds was null or undefined when calling timelineEventCount.');
+        }
+
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (packetIds !== undefined && packetIds !== null) {
             queryParameters = queryParameters.set('packetIds', <any>packetIds);
+        }
+        if (deviceIds !== undefined && deviceIds !== null) {
+            queryParameters = queryParameters.set('deviceIds', <any>deviceIds);
         }
 
         let headers = this.defaultHeaders;
@@ -802,13 +865,14 @@ export class HprojectsService {
      * @param endTime Scanning end time
      * @param timezone Timezone Timezone of client which has invoked the method, i.e. Europe/Rome
      * @param packetIds HPacket list, containing comma separated ID
+     * @param deviceIds HDevice list, containing comma separated ID
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public timelineScan(tableName: string, step: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public timelineScan(tableName: string, step: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public timelineScan(tableName: string, step: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public timelineScan(tableName: string, step: string, startTime: number, endTime: number, timezone: string, packetIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public timelineScan(tableName: string, step: string, startTime: number, endTime: number, timezone: string, packetIds: string, deviceIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public timelineScan(tableName: string, step: string, startTime: number, endTime: number, timezone: string, packetIds: string, deviceIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public timelineScan(tableName: string, step: string, startTime: number, endTime: number, timezone: string, packetIds: string, deviceIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public timelineScan(tableName: string, step: string, startTime: number, endTime: number, timezone: string, packetIds: string, deviceIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (tableName === null || tableName === undefined) {
             throw new Error('Required parameter tableName was null or undefined when calling timelineScan.');
@@ -834,9 +898,16 @@ export class HprojectsService {
             throw new Error('Required parameter packetIds was null or undefined when calling timelineScan.');
         }
 
+        if (deviceIds === null || deviceIds === undefined) {
+            throw new Error('Required parameter deviceIds was null or undefined when calling timelineScan.');
+        }
+
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (packetIds !== undefined && packetIds !== null) {
             queryParameters = queryParameters.set('packetIds', <any>packetIds);
+        }
+        if (deviceIds !== undefined && deviceIds !== null) {
+            queryParameters = queryParameters.set('deviceIds', <any>deviceIds);
         }
 
         let headers = this.defaultHeaders;
@@ -912,6 +983,108 @@ export class HprojectsService {
         }
 
         return this.httpClient.put<any>(`${this.basePath}/`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hprojects/{projectId}/owner/{ownerId}
+     * Service for updating  hproject&#39;s owner entity
+     * @param projectId id from which hproject object will retrieve
+     * @param ownerId id of the new owner of the hproject
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateHProjectOwner(projectId: number, ownerId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateHProjectOwner(projectId: number, ownerId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateHProjectOwner(projectId: number, ownerId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateHProjectOwner(projectId: number, ownerId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (projectId === null || projectId === undefined) {
+            throw new Error('Required parameter projectId was null or undefined when calling updateHProjectOwner.');
+        }
+
+        if (ownerId === null || ownerId === undefined) {
+            throw new Error('Required parameter ownerId was null or undefined when calling updateHProjectOwner.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.put<any>(`${this.basePath}/${encodeURIComponent(String(projectId))}/owner/${encodeURIComponent(String(ownerId))}`,
+            null,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hprojects/imports
+     * Service for import a new HProject from a jsonFile
+     * @param body 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public uploadFile(body?: InputStream, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public uploadFile(body?: InputStream, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public uploadFile(body?: InputStream, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public uploadFile(body?: InputStream, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'multipart/form-data'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/imports`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,

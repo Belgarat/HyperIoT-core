@@ -1,66 +1,66 @@
 {
   "/hyperiot/authentication/*": {
-    "target": "http://karaf-microservices-test.hyperiot.cloud",
+    "target": "http://microservices-test.hyperiot.cloud",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/hyperiot/husers/*": {
-    "target": "http://karaf-microservices-test.hyperiot.cloud",
+    "target": "http://microservices-test.hyperiot.cloud",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/hyperiot/roles/*": {
-    "target": "http://karaf-microservices-test.hyperiot.cloud",
+    "target": "http://microservices-test.hyperiot.cloud",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/hyperiot/permissions/*": {
-    "target": "http://karaf-microservices-test.hyperiot.cloud",
+    "target": "http://microservices-test.hyperiot.cloud",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/hyperiot/hprojects/*": {
-    "target": "http://karaf-microservices-test.hyperiot.cloud",
+    "target": "http://microservices-test.hyperiot.cloud",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/hyperiot/hdevices/*": {
-    "target": "http://karaf-microservices-test.hyperiot.cloud",
+    "target": "http://microservices-test.hyperiot.cloud",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/hyperiot/hpackets/*": {
-    "target": "http://karaf-microservices-test.hyperiot.cloud",
+    "target": "http://microservices-test.hyperiot.cloud",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/hyperiot/rules/*": {
-    "target": "http://karaf-microservices-test.hyperiot.cloud",
+    "target": "http://microservices-test.hyperiot.cloud",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/hyperiot/dashboards/*": {
-    "target": "http://karaf-microservices-test.hyperiot.cloud",
+    "target": "http://microservices-test.hyperiot.cloud",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/hyperiot/dashboardwidgets/*": {
-    "target": "http://karaf-microservices-test.hyperiot.cloud",
+    "target": "http://microservices-test.hyperiot.cloud",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/hyperiot/assets/*": {
-    "target": "http://karaf-microservices-test.hyperiot.cloud",
+    "target": "http://microservices-test.hyperiot.cloud",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
