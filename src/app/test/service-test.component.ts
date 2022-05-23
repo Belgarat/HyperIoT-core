@@ -32,7 +32,7 @@ import {
   RolesService,
   Rule,
   RulesService
-} from 'core';
+} from 'projects/core/src/public_api'
 
 interface JWTLoginResponse {
   token: string;
@@ -92,7 +92,6 @@ export class ServiceTestComponent {
     username: '',
     password: '',
     accessToken: '',
-    basePath: null,
     withCredentials: false
   };
 
