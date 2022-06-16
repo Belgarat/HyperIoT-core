@@ -2,13 +2,16 @@
   "name": "hyperiot-core",
   "version": "0.0.1",
   "scripts": {
-    "ng": "ng",
+    "ng": "node_modules/.bin/ng",
     "start": "ng serve --proxy-config proxy.config.json",
     "startLoc": "ng serve --proxy-config proxy-local.config.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "prebuild-lib": "rm -rf ./dist ./node_modules ./package-lock.json && npm install",
+    "build-lib": "ng build core --prod",
+    "postbuild-lib": "cd dist/core && npm pack",
     "compodocCore": "npx compodoc -p projects/core/tsconfig.lib.json -d documentation/hyperiot-core",
     "publish": "gulp publish",
     "publishAll": "gulp publishAll"
