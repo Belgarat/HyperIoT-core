@@ -1,4 +1,7 @@
+#!/bin/bash
 #acsgenerator
+
+NG_VERSION=12.2.16
 
 configurationFile="./config"
 source $configurationFile
@@ -32,7 +35,7 @@ while read line; do
 	read -r -a splitted <<< "$line"
 	echo -e "${CYAN}Swagger: generating '${splitted[0]}'${NC}"
 	if [ -d ${splitted[2]} ]; then rm -r ${splitted[2]}; fi
-	java -jar $swaggerPath generate -i ${splitted[1]} -l typescript-angular -o ${splitted[2]} || error_exit "Swagger error."
+	java -jar $swaggerPath generate -i ${splitted[1]} -l typescript-angular -o ${splitted[2]} --additional-properties ngVersion=$NG_VERSION || error_exit "Swagger error."
 	cp -r ${splitted[2]}/model/* ${modelFolder}
 	cp -r ${splitted[2]}/configuration.ts ${modelFolder}
 	rm -r ${splitted[2]}/model
