@@ -25,7 +25,10 @@
       ],
       "core/*": [
         "dist/core/*"
-      ]
+      ],
+      "@models": [
+        "projects/core/src/lib/hyperiot-client/models/models"
+      ] 
     }
   }
 }
