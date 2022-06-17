@@ -3,13 +3,5 @@
   "angularCompilerOptions": {
     "compilationMode": "partial",
     "enableIvy": true
-  },
-  "compilerOptions": {
-    "baseUrl": "src/lib",
-    "paths": {
-      "acs-models": [
-        "hyperiot-client/models/models"
-      ]
-    }
   }
 }

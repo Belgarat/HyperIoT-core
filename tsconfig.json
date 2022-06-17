@@ -25,10 +25,7 @@
       ],
       "core/*": [
         "dist/core/*"
-      ],
-      "acs-models": [
-        "projects/core/src/lib/hyperiot-client/models/models"
-      ] 
+      ]
     }
   }
 }
