@@ -41,8 +41,8 @@ while read line; do
 	cp -r ${splitted[2]}/configuration.ts ${modelFolder}
 
 	# remove the model folder inside each ng module
-	rm -r ${splitted[2]}/model
-	rm ${splitted[2]}/configuration.ts
+	# rm -r ${splitted[2]}/model
+	# rm ${splitted[2]}/configuration.ts
 	counterGen=$((counterGen+1))
 done <"${docFile}"
 
@@ -57,8 +57,9 @@ done
 echo -e "\n${GREEN}CODE GENERATION COMPLETED  (${counterGen}/${counterGen})${NC}\n"
 
 
-# NOTE: the following code is used to replace the model imports 
-# in each generated ng module from swagger with the alias path 'acs-models' defined in:
+# NOTE: DEPRECATED, tsconfig type aliases are not recommended for libraries.
+
+# the following code is used to replace the model imports in each generated ng module from swagger with the alias path 'acs-models' defined in:
 # 1. tsconfig.json (for development purposes);
 # 2. tsconfig.lib.prod.json (required for the correct use of the library in the production environment)
 # 3. tsconfig.lib.json
@@ -67,13 +68,13 @@ echo -e "\n${GREEN}CODE GENERATION COMPLETED  (${counterGen}/${counterGen})${NC}
 # import { AssetTag } from '../../../models/assetTag'; ======> import { AssetTag } from 'acs-models';
 
 counterRep=0
-while read line2; do
-	counterRep=$((counterRep+1))
-	read -r -a repl <<< "$line2"
-	echo -e "${counterRep} sed: ${repl[0]}: '${repl[1]}' -> '${repl[2]}'"
-	sed -i "s@${repl[1]}@${repl[2]}@g" ${repl[0]} #WINDOWS
-	# sed -i '' "s@${repl[1]}@${repl[2]}@g" ${repl[0]} #MAC/LINUX
+# while read line2; do
+# 	counterRep=$((counterRep+1))
+# 	read -r -a repl <<< "$line2"
+# 	echo -e "${counterRep} sed: ${repl[0]}: '${repl[1]}' -> '${repl[2]}'"
+# 	sed -i "s@${repl[1]}@${repl[2]}@g" ${repl[0]} #WINDOWS
+# 	# sed -i '' "s@${repl[1]}@${repl[2]}@g" ${repl[0]} #MAC/LINUX
 	
-done <"${replaceFile}"
+# done <"${replaceFile}"
 
 echo -e "\n${GREEN}REPLACEMENT COMPLETED  (${counterRep}/${counterRep})${NC}\n"
