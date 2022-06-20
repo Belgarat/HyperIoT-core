@@ -67,7 +67,7 @@ echo -e "\n${GREEN}CODE GENERATION COMPLETED  (${counterGen}/${counterGen})${NC}
 # Example: 
 # import { AssetTag } from '../../../models/assetTag'; ======> import { AssetTag } from 'acs-models';
 
-counterRep=0
+# counterRep=0
 # while read line2; do
 # 	counterRep=$((counterRep+1))
 # 	read -r -a repl <<< "$line2"
@@ -77,4 +77,4 @@ counterRep=0
 	
 # done <"${replaceFile}"
 
-echo -e "\n${GREEN}REPLACEMENT COMPLETED  (${counterRep}/${counterRep})${NC}\n"
+# echo -e "\n${GREEN}REPLACEMENT COMPLETED  (${counterRep}/${counterRep})${NC}\n"
