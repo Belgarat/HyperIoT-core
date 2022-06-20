@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prebuild-lib": "rm -rf ./dist ./node_modules ./package-lock.json && npm install",
+    "clean": "rm -rf ./dist ./node_modules ./package-lock.json && npm install",
     "build-lib": "ng build core --configuration production",
     "postbuild-lib": "cd dist/core && npm pack",
     "compodocCore": "npx compodoc -p projects/core/tsconfig.lib.json -d documentation/hyperiot-core",
