@@ -105,10 +105,10 @@ export class DashboardOfflineDataService {
     });
   }
 
-  scanAndSaveHProject(packetId, deviceId): Observable<any> {
+  scanAndSaveHProject(packetId, deviceId, alarmState): Observable<any> {
     return new Observable(obs => {
       const currentPacket = this.hPacketMap.get(packetId)
-      this.hprojectsService.scanHProject(this.hProjectId, currentPacket.rowKeyLowerBound, currentPacket.rowKeyUpperBound, packetId, deviceId,).subscribe(
+      this.hprojectsService.scanHProject(this.hProjectId, currentPacket.rowKeyLowerBound, currentPacket.rowKeyUpperBound, packetId, deviceId, alarmState).subscribe(
         res=> {
           const packetData = res;
           currentPacket.rowKeyLowerBound = packetData.rowKeyUpperBound + 1;
@@ -135,14 +135,14 @@ export class DashboardOfflineDataService {
   }
 
 
-  getData(packetId, deviceId, lowerBound): Observable<any> {
+  getData(packetId, deviceId, alarmState, lowerBound): Observable<any> {
     lowerBound = lowerBound * this.DEFAULT_CHUNK_LENGTH;
     if (this.hPacketMap.has(packetId)) {
       const packetSession = this.hPacketMap.get(packetId);
       if( packetSession.data.length >= lowerBound + this.DEFAULT_CHUNK_LENGTH) {
         return of(packetSession.data.slice(lowerBound, lowerBound + this.DEFAULT_CHUNK_LENGTH));
       } else {
-        return this.scanAndSaveHProject(packetId, deviceId);
+        return this.scanAndSaveHProject(packetId, deviceId, alarmState);
       }
     }
   }
