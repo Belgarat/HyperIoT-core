@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { DataPacketFilter } from './data-packet-filter';
-import { Subject } from 'rxjs';
+import { Subject, ReplaySubject } from 'rxjs';
 
 import { HPacket } from '../../../public_api';
 
+const BUFFER_SIZE = 50;
+
 export class DataChannel {
   packet: DataPacketFilter;
-  subject: Subject<[any, any]>;
+  subject: ReplaySubject<[any, any]>;
   _interval: any;
 
   constructor(packet: DataPacketFilter) {
     this.packet = packet;
-    this.subject = new Subject<any>();
+    this.subject = new ReplaySubject<any>(BUFFER_SIZE);
   }
 }
 
@@ -108,6 +110,10 @@ export class DataStreamService {
   addDataStream(widgetId: string, dataPacketFilter: DataPacketFilter): DataChannel {
     // TODO: maybe allow an array of data packets to be passed in,
     //       so that a widget can receive packets from multiple sources.
+
+    if (this.dataChannels[widgetId]) {
+      return this.dataChannels[widgetId];
+    }
     const channelData = new DataChannel(dataPacketFilter);
     return this.dataChannels[widgetId] = channelData;
   }
@@ -118,7 +124,10 @@ export class DataStreamService {
    */
   removeDataChannel(widgetId: string) {
     // TODO: maybe it should also clear any pending subscriptions
-    delete this.dataChannels[widgetId];
+    // TODO use .observed if rxjs > 7
+    if (this.dataChannels[widgetId] && !this.dataChannels[widgetId].subject.observers.length) {
+      delete this.dataChannels[widgetId];
+    }
   }
 
   private onWsOpen() {
