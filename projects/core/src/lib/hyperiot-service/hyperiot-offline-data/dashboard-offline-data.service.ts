@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject, of } from "rxjs";
+import { BehaviorSubject, Observable, Subject, of } from "rxjs";
 import { HprojectsService } from '../../hyperiot-client/h-project-client/api-module';
 
 interface PacketSessionData {
   rowKeyLowerBound: number;
   rowKeyUpperBound: number;
-  totalCount: Subject<number>;
+  totalCount: BehaviorSubject<number>;
   data: any[];
 }
 
@@ -61,7 +61,7 @@ export class DashboardOfflineDataService {
         this.hPacketMap.set(packetId, {
           rowKeyLowerBound: 0,
           rowKeyUpperBound: 0,
-          totalCount: new Subject(),
+          totalCount: new BehaviorSubject(0),
           data: []
         });
         this.dashboardPackets.next([...this.hPacketMap.keys()]);
@@ -139,7 +139,7 @@ export class DashboardOfflineDataService {
     lowerBound = lowerBound * this.DEFAULT_CHUNK_LENGTH;
     if (this.hPacketMap.has(packetId)) {
       const packetSession = this.hPacketMap.get(packetId);
-      if( packetSession.data.length >= lowerBound + this.DEFAULT_CHUNK_LENGTH) {
+      if( packetSession.data.length >= lowerBound + this.DEFAULT_CHUNK_LENGTH || packetSession.data.length === packetSession.totalCount.value) {
         return of(packetSession.data.slice(lowerBound, lowerBound + this.DEFAULT_CHUNK_LENGTH));
       } else {
         return this.scanAndSaveHProject(packetId, deviceId, alarmState);
