@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { DataStreamService } from './services/data-stream.service';
+import { NgModule } from '@angular/core';
+import { DevDataService } from './dev-data-service/dev-data.service';
+import { OfflineDataService } from './offline-data-service/offline-data.service';
+import { RealtimeDataService } from './realtime-data-service/realtime-data.service';
 
 @NgModule({
   declarations: [],
@@ -11,10 +12,10 @@ import { DataStreamService } from './services/data-stream.service';
   exports: [
   ],
   providers: [
-    DataStreamService
+    DevDataService,
+    OfflineDataService,
+    RealtimeDataService,
   ]
 })
 export class HyperiotBaseModule { }
 
-export * from './services/data-stream.service';
-export * from './services/data-packet-filter';

@@ -30,7 +30,7 @@ export function apiConfigFactory(): Configuration {
     AppComponent,
     ServiceTestComponent,
     PageNotFoundComponent,
-    TestIdbComponent
+    TestIdbComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +40,7 @@ export function apiConfigFactory(): Configuration {
     CoreModule,
     HyperiotClientModule.forRoot(apiConfigFactory),
     //HUserClientModule.forRoot(apiConfigFactory),
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent]

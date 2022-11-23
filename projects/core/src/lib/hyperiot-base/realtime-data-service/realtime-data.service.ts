@@ -1,21 +1,11 @@
 import { Injectable } from '@angular/core';
-import { DataPacketFilter } from './data-packet-filter';
-import { Subject, ReplaySubject } from 'rxjs';
-
+import { Subject,Observable } from 'rxjs';
 import { HPacket } from '../../../public_api';
-
-const BUFFER_SIZE = 50;
-
-export class DataChannel {
-  packet: DataPacketFilter;
-  subject: ReplaySubject<[any, any]>;
-  _interval: any;
-
-  constructor(packet: DataPacketFilter) {
-    this.packet = packet;
-    this.subject = new ReplaySubject<any>(BUFFER_SIZE);
-  }
-}
+import { BaseDataService } from '../base-data.service';
+import { DataChannel } from '../models/data-channel';
+import { DataPacketFilter } from '../models/data-packet-filter';
+import { IDataService } from '../data.interface';
+import { RealtimeDataChannelController } from './realtimeDataChannelController';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +14,8 @@ export class DataChannel {
  * A service for connecting to HyperIoT events stream
  * via WebSocket.
  */
-export class DataStreamService {
+export class RealtimeDataService extends BaseDataService implements IDataService {
+
   /**
    * List of data channels requested by widgets.
    * Once connected to the main data stream (via websocket)
@@ -52,6 +43,7 @@ export class DataStreamService {
   packetSchema: any;
 
   constructor() {
+    super();
     this.eventStream = new Subject<any>();
   }
 
@@ -107,27 +99,11 @@ export class DataStreamService {
    * @param widgetId The widget identifier.
    * @param dataPacketFilter Data packet filter which defines the packet id and packet fields to receive.
    */
-  addDataStream(widgetId: string, dataPacketFilter: DataPacketFilter): DataChannel {
-    // TODO: maybe allow an array of data packets to be passed in,
-    //       so that a widget can receive packets from multiple sources.
-
-    if (this.dataChannels[widgetId]) {
-      return this.dataChannels[widgetId];
-    }
-    const channelData = new DataChannel(dataPacketFilter);
-    return this.dataChannels[widgetId] = channelData;
-  }
-  /**
-   * Removes a data channel.
-   *
-   * @param widgetId The widget id.
-   */
-  removeDataChannel(widgetId: string) {
-    // TODO: maybe it should also clear any pending subscriptions
-    // TODO use .observed if rxjs > 7
-    if (this.dataChannels[widgetId] && !this.dataChannels[widgetId].subject.observers.length) {
-      delete this.dataChannels[widgetId];
-    }
+   addDataChannel(widgetId: number, dataPacketFilter: DataPacketFilter): DataChannel {
+    const dataChannel = super.addDataChannel(widgetId, dataPacketFilter);
+    dataChannel.controller = new RealtimeDataChannelController();
+    (dataChannel.controller.dataStreamOutput$ as Observable<any[]>).subscribe(dataChannel.subject);
+    return dataChannel;
   }
 
   private onWsOpen() {
@@ -171,27 +147,26 @@ export class DataStreamService {
           // check if message is valid for the current
           // channel, if so emit a new event
           if (hpacket.id == channelData.packet.packetId) {
+            let fields = {};
             if(channelData.packet.wholePacketMode) {
               // emitted event is going to contain all filtered fields
-              let fields = {};
               Object.keys(channelData.packet.fields).forEach(fieldId => {
                 const field = this.getField(channelData, hpacket, fieldId)
                 if (Object.keys(field).length > 0)
                   Object.assign(fields, field);
               });
-              const timestamp = this.getTimestamp(hpacket);
-              channelData.subject.next([timestamp, fields]);
+              fields[hpacket.timestampField] = this.getTimestamp(hpacket);
             }
             else {
               // emitted event is going to contain one field
               Object.keys(channelData.packet.fields).map((fieldId: any) => {
                 const field = this.getField(channelData, hpacket, fieldId);
                 if (Object.keys(field).length > 0) {
-                  const timestamp = this.getTimestamp(hpacket);
-                  channelData.subject.next([timestamp, field]);
+                  Object.assign(fields, field);
                 }
               });
             }
+            (channelData.controller as RealtimeDataChannelController).dataStreamInput$.next([fields]);
           }
         }
       }
@@ -224,6 +199,14 @@ export class DataStreamService {
     if (hpacket.fields.map[timestampFieldName])
       return new Date(hpacket.fields.map[timestampFieldName].value.long);
     return new Date();
+  }
+
+  playStream() {
+
+  }
+
+  pauseStream() {
+    
   }
 
 }

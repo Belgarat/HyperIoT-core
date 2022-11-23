@@ -6,13 +6,6 @@ export * from './lib/core.service';
 export * from './lib/core.component';
 export * from './lib/core.module';
 
-export {
-    HyperiotBaseModule,
-    DataStreamService,
-    DataPacketFilter
-} from './lib/hyperiot-base/hyperiot-base.module';
-export { DataChannel } from './lib/hyperiot-base/services/data-stream.service';
-
 export { AlgorithmsService } from './lib/hyperiot-client/algorithms-client/api-module/index';
 export { AlarmsService } from './lib/hyperiot-client/alarms-client/api-module/index';
 export { AlarmeventsService } from './lib/hyperiot-client/alarmevents-client/api-module/index';
@@ -69,5 +62,13 @@ export * from './lib/hyperiot-service/hyperiot-logger/logger';
 export * from './lib/hyperiot-service/hyperiot-logger/logger-config';
 export * from './lib/hyperiot-service/hyperiot-logger/logger.service';
 
-export * from './lib/hyperiot-service/hyperiot-offline-data/dashboard-offline-data.service';
 export * from './lib/hyperiot-service/hyperiot-algorithm-offline-data/algorithm-offline-data.service';
+
+export { HyperiotBaseModule } from './lib/hyperiot-base/hyperiot-base.module';
+export { DataChannel } from './lib/hyperiot-base/models/data-channel';
+export { DataPacketFilter } from './lib/hyperiot-base/models/data-packet-filter';
+export { IDataService } from './lib/hyperiot-base/data.interface';
+export { RealtimeDataService } from './lib/hyperiot-base/realtime-data-service/realtime-data.service';
+export { OfflineDataService } from './lib/hyperiot-base/offline-data-service/offline-data.service';
+export { DevDataService, DevDataSettings } from './lib/hyperiot-base/dev-data-service/dev-data.service';
+export { RealtimeDataChannelController } from './lib/hyperiot-base/realtime-data-service/realtimeDataChannelController';
