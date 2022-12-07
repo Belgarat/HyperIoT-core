@@ -134,7 +134,7 @@ export class OfflineDataService extends BaseDataService {
     if(currentPacketSession.actualSubscription) {
       return currentPacketSession.actualSubscription;
     }
-    return currentPacketSession.actualSubscription = this.hprojectsService.scanHProject(this.hProjectId, currentPacketSession.rowKeyLowerBound, currentPacketSession.rowKeyUpperBound, packetId, deviceId, alarmState).pipe(
+    return currentPacketSession.actualSubscription = this.hprojectsService.scanHProject(this.hProjectId, currentPacketSession.rowKeyLowerBound, currentPacketSession.rowKeyUpperBound, this.DEFAULT_CHUNK_LENGTH, packetId, deviceId, alarmState).pipe(
       map(res => {
         const convertData = this.convertData(res.values);
         currentPacketSession.rowKeyLowerBound = res.rowKeyUpperBound + 1;
