@@ -5,6 +5,6 @@ export interface IDataService {
 
     addDataChannel(widgetId: number, dataPacketFilter: DataPacketFilter): DataChannel;
     removeDataChannel(widgetId: number): void;
-    loadNextData?(packetId, deviceId, alarmState, lowerBound, widgetId): void;
+    loadNextData?(packetId, deviceId, alarmState, widgetId): void;
     
 }

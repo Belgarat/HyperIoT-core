@@ -1,18 +1,14 @@
-import { ReplaySubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { DataPacketFilter } from './data-packet-filter';
-
-const DEFUALT_BUFFER_SIZE = 50;
-
-// TODO ha senso tipitizzare il dato che passiamo tramite il servizio?
-// { [id: string]: any; }
+import { PacketData } from './packet-data';
 
 export class DataChannel {
   packet: DataPacketFilter;
   controller?: any;
-  subject: ReplaySubject<any[]>;
+  subject: Subject<PacketData[]>;
 
-  constructor(packet: DataPacketFilter, bufferSize?: number) {
+  constructor(packet: DataPacketFilter) {
     this.packet = packet;
-    this.subject = new ReplaySubject<any>(bufferSize | DEFUALT_BUFFER_SIZE);
+    this.subject = new Subject<PacketData[]>();
   }
 }

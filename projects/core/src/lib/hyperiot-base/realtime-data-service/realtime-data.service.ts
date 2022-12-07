@@ -100,6 +100,11 @@ export class RealtimeDataService extends BaseDataService implements IDataService
    * @param dataPacketFilter Data packet filter which defines the packet id and packet fields to receive.
    */
    addDataChannel(widgetId: number, dataPacketFilter: DataPacketFilter): DataChannel {
+    // TODO migliorare logica se possbile
+    if (this.dataChannels[widgetId]) {
+      return super.addDataChannel(widgetId, dataPacketFilter);
+    }
+
     const dataChannel = super.addDataChannel(widgetId, dataPacketFilter);
     dataChannel.controller = new RealtimeDataChannelController();
     (dataChannel.controller.dataStreamOutput$ as Observable<any[]>).subscribe(dataChannel.subject);

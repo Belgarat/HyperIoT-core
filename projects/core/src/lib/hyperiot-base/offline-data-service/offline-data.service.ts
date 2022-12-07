@@ -1,22 +1,17 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map, share } from 'rxjs';
 import { HprojectsService } from '../../hyperiot-client/h-project-client/api-module';
 import { BaseDataService } from '../base-data.service';
 import { DataChannel } from '../models/data-channel';
+import { DataPacketFilter } from '../models/data-packet-filter';
+import { OfflineDataChannelController } from './OfflineDataChannelController';
 
 interface PacketSessionData {
   rowKeyLowerBound: number;
   rowKeyUpperBound: number;
   totalCount: BehaviorSubject<number>;
   data: any[];
-}
-
-export interface DataPacketFilter {
-  packetId: number;
-  fields: string[];
-  // tell to data stream service if send whole packet (filtered on the basis of selected fields)
-  // or send one field by one
-  wholePacketMode: boolean;
+  actualSubscription?: Observable<any>; // todo handle multiple data request same time (va rivisto poi con questione dati dinamici)
 }
 
 enum PageStatus {
@@ -25,7 +20,6 @@ enum PageStatus {
   New = 2,
   Error = -1
 }
-
 
 interface WidgetPacket {
   packetId: number;
@@ -49,49 +43,53 @@ export class OfflineDataService extends BaseDataService {
 
   dashboardPackets: Subject<number[]>;
 
-  hPacketMap: Map<number, PacketSessionData>;
+  hPacketSessionMap: Map<number, PacketSessionData>;
 
   constructor(
     private hprojectsService: HprojectsService,
   ) {
     super();
-    this.hPacketMap = new Map<number, PacketSessionData>();    this.countEventSubject = new Subject<PageStatus>();    this.countEventSubject = new Subject<PageStatus>();
+    this.hPacketSessionMap = new Map<number, PacketSessionData>();    this.countEventSubject = new Subject<PageStatus>();    this.countEventSubject = new Subject<PageStatus>();
     this.countEventSubject = new Subject<PageStatus>();
   }
 
   public resetService(hProjectId: number): Subject<number[]> {
     this.hProjectId = hProjectId;
     this.subscriptions = [];
-    this.hPacketMap.clear();
+    this.hPacketSessionMap.clear();
     this.dashboardPackets = new Subject<number[]>();
     return this.dashboardPackets;
   }
 
   addDataChannel(widgetId: number, dataPacketFilter: DataPacketFilter) {
+    // TODO migliorare logica se possbile
+    if (this.dataChannels[widgetId]) {
+      return super.addDataChannel(widgetId, dataPacketFilter);
+    }
 
     if (!this.subscriptions.some(x => x.widgetId === widgetId)) {
       this.subscriptions.push({ widgetId: widgetId, packetId: dataPacketFilter.packetId });
-      if (!this.hPacketMap.has(dataPacketFilter.packetId)) {
-        this.hPacketMap.set(dataPacketFilter.packetId, {
+      if (!this.hPacketSessionMap.has(dataPacketFilter.packetId)) {
+        this.hPacketSessionMap.set(dataPacketFilter.packetId, {
           rowKeyLowerBound: 0,
           rowKeyUpperBound: 0,
           totalCount: new BehaviorSubject(0),
           data: []
         });
-        this.dashboardPackets.next([...this.hPacketMap.keys()]);
+        this.dashboardPackets.next([...this.hPacketSessionMap.keys()]);
       }
     }
 
     const dataChannel = super.addDataChannel(widgetId, dataPacketFilter);
-    dataChannel.controller = this.hPacketMap.get(dataPacketFilter.packetId).totalCount;
+    dataChannel.controller = new OfflineDataChannelController(this.hPacketSessionMap.get(dataPacketFilter.packetId).totalCount);
     return dataChannel;
   }
 
   removeDataChannel(widgetId: number) {
 
     this.subscriptions.filter(y => y.widgetId !== widgetId).forEach(s=> {
-      this.hPacketMap.delete(s.packetId);
-      this.dashboardPackets.next([...this.hPacketMap.keys()]);
+      this.hPacketSessionMap.delete(s.packetId);
+      this.dashboardPackets.next([...this.hPacketSessionMap.keys()]);
     })
     this.subscriptions = this.subscriptions.filter(y => y.widgetId !== widgetId);
 
@@ -114,11 +112,11 @@ export class OfflineDataService extends BaseDataService {
       this.hProjectId,
       rowKeyLowerBound,
       this.rowKeyUpperBound,
-      [...this.hPacketMap.keys()].toString(),
+      [...this.hPacketSessionMap.keys()].toString(),
       ""
     ).subscribe((res) => {
-      this.hPacketMap.forEach((value, key: number) => {
-        const currentPacket = this.hPacketMap.get(key);
+      this.hPacketSessionMap.forEach((value, key: number) => {
+        const currentPacket = this.hPacketSessionMap.get(key);
         currentPacket.data = [];
         currentPacket.rowKeyLowerBound = rowKeyLowerBound;
         currentPacket.rowKeyUpperBound = rowKeyUpperBound;
@@ -132,32 +130,26 @@ export class OfflineDataService extends BaseDataService {
   }
 
   scanAndSaveHProject(packetId, deviceId, alarmState): Observable<any> {
-    const currentPacket = this.hPacketMap.get(packetId)
-    return this.hprojectsService.scanHProject(this.hProjectId, currentPacket.rowKeyLowerBound, currentPacket.rowKeyUpperBound, packetId, deviceId, alarmState).pipe(
+    const currentPacketSession = this.hPacketSessionMap.get(packetId)
+    if(currentPacketSession.actualSubscription) {
+      return currentPacketSession.actualSubscription;
+    }
+    return currentPacketSession.actualSubscription = this.hprojectsService.scanHProject(this.hProjectId, currentPacketSession.rowKeyLowerBound, currentPacketSession.rowKeyUpperBound, packetId, deviceId, alarmState).pipe(
       map(res => {
         const convertData = this.convertData(res.values);
-        currentPacket.rowKeyLowerBound = res.rowKeyUpperBound + 1;
-        currentPacket.data = currentPacket.data.concat(convertData);
+        currentPacketSession.rowKeyLowerBound = res.rowKeyUpperBound + 1;
+        currentPacketSession.data = currentPacketSession.data.concat(convertData);
+        currentPacketSession.actualSubscription = null;
         return convertData;
-      })
+      }),
+      share()
     );
 
-    // return new Observable(obs => {
-    //   const currentPacket = this.hPacketMap.get(packetId)
-    //   this.hprojectsService.scanHProject(this.hProjectId, currentPacket.rowKeyLowerBound, currentPacket.rowKeyUpperBound, packetId, deviceId, alarmState).subscribe(
-    //     res=> {
-    //       const packetData = res;
-    //       currentPacket.rowKeyLowerBound = packetData.rowKeyUpperBound + 1;
-    //       currentPacket.data = currentPacket.data.concat(packetData.values);
-    //       obs.next(packetData.values);
-    //     }
-    //   );
-    // });
   }
 
   public getEventCountEmpty() {
-    this.hPacketMap.forEach((value, key: number) => {
-      const currentPacket = this.hPacketMap.get(key);
+    this.hPacketSessionMap.forEach((value, key: number) => {
+      const currentPacket = this.hPacketSessionMap.get(key);
       currentPacket.data = [];
       currentPacket.rowKeyLowerBound = 0;
       currentPacket.rowKeyUpperBound = 0;
@@ -166,25 +158,37 @@ export class OfflineDataService extends BaseDataService {
   }
 
 
-  public getPacketDataSubject(hPacketId: number): Subject<number> {
-    return this.hPacketMap.has(hPacketId) ? this.hPacketMap.get(hPacketId).totalCount : null;
+  public getPacketSessionDataSubject(hPacketId: number): Subject<number> {
+    return this.hPacketSessionMap.has(hPacketId) ? this.hPacketSessionMap.get(hPacketId).totalCount : null;
   }
 
 
-  loadNextData(packetId, deviceId, alarmState, lowerBound, widgetId): void {
-    lowerBound = lowerBound * this.DEFAULT_CHUNK_LENGTH;
-    if (this.hPacketMap.has(packetId)) {
-      const packetSession = this.hPacketMap.get(packetId);
-      if( packetSession.data.length >= lowerBound + this.DEFAULT_CHUNK_LENGTH || packetSession.data.length === packetSession.totalCount.value) {
-        //get datachanel.subject.next(packetSession.data.slice(lowerBound, lowerBound + this.DEFAULT_CHUNK_LENGTH)
-        this.dataChannels[widgetId].subject.next(packetSession.data.slice(lowerBound, lowerBound + this.DEFAULT_CHUNK_LENGTH))
-      } else {
-        //get datachanel.subject.next(packetSession.data.slice(lowerBound, lowerBound + this.DEFAULT_CHUNK_LENGTH)
-        this.scanAndSaveHProject(packetId, deviceId, alarmState).subscribe(
-          res => this.dataChannels[widgetId].subject.next(res)
-        );
-      }
+  loadNextData(packetId, deviceId, alarmState, widgetId): void {
+
+    // todo si potrebbe richiamre questa funzione dal datachannel? così abbiamo tutto il contesto
+    // todo in parte già fatto spostando lowerbound nel datachannel
+    if (!this.hPacketSessionMap.has(packetId)) {
+      return;
     }
+
+    // selezione la packetSession e il dataChannel
+    const packetSession = this.hPacketSessionMap.get(packetId);
+    const dataChannel = this.dataChannels[widgetId];
+    const lowerBound = dataChannel.controller.lowerBound;
+
+    // controllo se packetSession ha già dati da inviare al canale (cache) altrimenti li richiedo alla scan
+    if(packetSession.data.length >= lowerBound + this.DEFAULT_CHUNK_LENGTH || packetSession.data.length === packetSession.totalCount.value) {
+      dataChannel.subject.next(packetSession.data.slice(lowerBound, lowerBound + this.DEFAULT_CHUNK_LENGTH));
+      dataChannel.controller.lowerBound = lowerBound + this.DEFAULT_CHUNK_LENGTH;
+    } else {
+      this.scanAndSaveHProject(packetId, deviceId, alarmState).subscribe(
+        res => {
+          dataChannel.subject.next(res);
+          dataChannel.controller.lowerBound = lowerBound + this.DEFAULT_CHUNK_LENGTH;
+        }
+      );
+    }
+
   }
 
   private convertData(packetValues: any) {
@@ -206,12 +210,3 @@ export class OfflineDataService extends BaseDataService {
   }
 
 }
-
-// TODO non posso mettere un replaySubject perché dopo tutti i widget che fanno riferimento allo stesso paccchetto
-// TODO scaricano gli stessi dati ma ognuno dovrebbe richiedere solo i suoi. Non posso mettere un canale
-// TODO per ogni widget perché la fonte dei dati deve essere la stessa se no widget con lo stesso pacchetto
-// TODO scaricheranno i dati ognuno per conto suo
-
-// TODO Quello che forse si può fare è avere tanti canali quanti i widget e inserire mano a mano i dati che vengono richiesti grazie al packetsessiondata.data
-// TODO ma anche così fando dal widget dovrei comunque attacarmi  al getPacketDataSubject per vedere eventuli reset e counter.
-// TODO a meno che non prevedo un invio di valori con il type (totalCount, data, reset...)
