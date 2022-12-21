@@ -239,6 +239,70 @@ export class HusersService {
     }
 
     /**
+     * /hyperiot/husers/account
+     * Delete user account
+     * @param userId 
+     * @param accountDeletionCode 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteAccount(userId?: number, accountDeletionCode?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteAccount(userId?: number, accountDeletionCode?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteAccount(userId?: number, accountDeletionCode?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteAccount(userId?: number, accountDeletionCode?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/x-www-form-urlencoded'
+        ];
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void | HttpParams; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (userId !== undefined) {
+            formParams = formParams.append('userId', <any>userId) || formParams;
+        }
+        if (accountDeletionCode !== undefined) {
+            formParams = formParams.append('accountDeletionCode', <any>accountDeletionCode) || formParams;
+        }
+
+        return this.httpClient.delete<any>(`${this.basePath}/account`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/husers/{id}
      * Delete User
      * @param id id from which user object will deleted
@@ -510,6 +574,49 @@ export class HusersService {
 
         return this.httpClient.post<any>(`${this.basePath}/register`,
             body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/husers/account/deletioncode
+     * Request user account unregistration. Service send mail to user with account deletion code
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public requestAccountDeletion(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public requestAccountDeletion(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public requestAccountDeletion(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public requestAccountDeletion(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.put<any>(`${this.basePath}/account/deletioncode`,
+            null,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
