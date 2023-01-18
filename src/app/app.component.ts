@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { version } from 'projects/core/package.json';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  public version: string = version;
 
   constructor() { }
 
