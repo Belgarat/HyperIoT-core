@@ -1,5 +1,46 @@
-<a routerLink="/services">Services test</a>
-<br>
-<a routerLink="/idb">Idb test</a>
-<hr>
-<router-outlet></router-outlet>
+<div id="container-core">
+  <h2>HyperIotCore v {{version}}</h2>
+  <p>HyperIotCore library includes the client SDK for consuming hyperiot services.</p>
+
+  <h3>HyperIot client</h3>
+  <p>Client sdk for interacting with hyperiot services</p>
+  <ul>
+    <li>authentication</li>
+    <li>huser</li>
+    <li>role</li>
+    <li>permission</li>
+    <li>mailTemplates</li>
+    <li>hProject</li>
+    <li>hDevice</li>
+    <li>hPacket</li>
+    <li>area</li>
+    <li>assetCategory</li>
+    <li>assetTag</li>
+    <li>rule</li>
+    <li>kafkaConnector</li>
+    <li>stormManager</li>
+    <li>company</li>
+    <li>dashboard</li>
+    <li>dashboardWidgets</li>
+    <li>widgets</li>
+    <li>hbaseconnectors</li>
+    <li>algorithms</li>
+    <li>hprojectalgorithms</li>
+    <li>alarms</li>
+    <li>alarmevents</li>
+  </ul>
+
+  <h3>HyperIot base</h3>
+  <p>Base services for packet online data reception</p>
+  <ul>
+    <li>DataStreamService</li>
+  </ul>
+
+  <h3>HyperIot service</h3>
+  <p>Services for offline packet data, algorithm data and logger</p>
+  <ul>
+    <li>AlgorithmOfflineDataService</li>
+    <li>DashboardOfflineDataService</li>
+    <li>LoggerService</li>
+  </ul>
+</div>
