@@ -4,7 +4,7 @@ Hyperiot-core project includes HyperIotCore library.
 
 HyperIotCore library includes the client SDK for consuming hyperiot services and other utility services (e.g. logger).
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.13.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.16.
 
 Node v16 is required to run this project.
 
