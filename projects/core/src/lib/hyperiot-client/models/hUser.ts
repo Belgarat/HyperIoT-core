@@ -26,6 +26,7 @@ export interface HUser {
     roles?: Array<Role>;
     active?: boolean;
     activateCode?: string;
+    deletionCode?: string;
     imagePath?: string;
     screenName?: string;
 }
