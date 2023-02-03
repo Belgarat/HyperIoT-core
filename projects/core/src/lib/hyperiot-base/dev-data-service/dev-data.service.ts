@@ -10,13 +10,18 @@ export interface DevDataSettings {
 @Injectable({
   providedIn: 'root'
 })
-export class DevDataService extends BaseDataService implements OnInit {
+export class DevDataService extends BaseDataService {
 
   settings: DevDataSettings = {
     interval: 1000
   }
 
-  ngOnInit() {
+  constructor() {
+    super();
+    this.connect();
+  }
+
+  connect() {
 
     interval(this.settings.interval).subscribe(
       res => {
@@ -28,8 +33,7 @@ export class DevDataService extends BaseDataService implements OnInit {
             const fieldName = channelData.packet.fields[fieldId];
             fields[fieldName] = Math.random();
           });
-          const timestamp = new Date();
-          channelData.subject.next([timestamp, fields]);
+          channelData.subject.next([fields]);
 
         }
       }
