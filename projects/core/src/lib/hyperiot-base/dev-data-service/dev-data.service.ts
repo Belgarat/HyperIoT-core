@@ -1,7 +1,8 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { interval } from 'rxjs';
 import { BaseDataService } from '../base-data.service';
 import { DataChannel } from '../models/data-channel';
+import { PacketData } from '../models/packet-data';
 
 export interface DevDataSettings {
   interval?: number;
@@ -13,7 +14,7 @@ export interface DevDataSettings {
 export class DevDataService extends BaseDataService {
 
   settings: DevDataSettings = {
-    interval: 1000
+    interval: 1000,
   }
 
   constructor() {
@@ -28,11 +29,12 @@ export class DevDataService extends BaseDataService {
         for (const id in this.dataChannels) {
           const channelData: DataChannel = this.dataChannels[id];
           
-          let fields = {};
+          let fields: PacketData = {};
           Object.keys(channelData.packet.fields).forEach(fieldId => {
             const fieldName = channelData.packet.fields[fieldId];
             fields[fieldName] = Math.random();
           });
+          fields.timestamp = new Date();
           channelData.subject.next([fields]);
 
         }

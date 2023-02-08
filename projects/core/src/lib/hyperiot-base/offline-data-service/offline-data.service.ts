@@ -4,6 +4,7 @@ import { HprojectsService } from '../../hyperiot-client/h-project-client/api-mod
 import { BaseDataService } from '../base-data.service';
 import { DataChannel } from '../models/data-channel';
 import { DataPacketFilter } from '../models/data-packet-filter';
+import { PacketData } from '../models/packet-data';
 import { OfflineDataChannelController } from './OfflineDataChannelController';
 
 interface PacketSessionData {
@@ -193,19 +194,13 @@ export class OfflineDataService extends BaseDataService {
 
   private convertData(packetValues: any) {
     return packetValues.map(pv => {
-      const convertedPV = {};
+      const convertedPV: PacketData = {};
       pv.fields.forEach(field => {
         convertedPV[field.name] = field.value;
       });
-      // TODO inserire conversione da numero a date
+      convertedPV.timestamp = new Date(convertedPV[pv.timestampField]);
+
       return convertedPV;
-      
-      // TODO usato foreach per chiarezza ma si può usare direttamente anche reduce()
-      // return pv.fields.reduce((prev, curr) => {
-      //   prev[curr.name] = curr.value
-      //   return prev;
-      // }, {});
-    
     });
   }
 

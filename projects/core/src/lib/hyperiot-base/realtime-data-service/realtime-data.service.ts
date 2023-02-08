@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject,Observable } from 'rxjs';
-import { HPacket } from '../../../public_api';
+import { HPacket, PacketData } from '../../../public_api';
 import { BaseDataService } from '../base-data.service';
 import { DataChannel } from '../models/data-channel';
 import { DataPacketFilter } from '../models/data-packet-filter';
@@ -152,7 +152,7 @@ export class RealtimeDataService extends BaseDataService implements IDataService
           // check if message is valid for the current
           // channel, if so emit a new event
           if (hpacket.id == channelData.packet.packetId) {
-            let fields = {};
+            let fields: PacketData = {};
             if(channelData.packet.wholePacketMode) {
               // emitted event is going to contain all filtered fields
               Object.keys(channelData.packet.fields).forEach(fieldId => {
@@ -160,7 +160,7 @@ export class RealtimeDataService extends BaseDataService implements IDataService
                 if (Object.keys(field).length > 0)
                   Object.assign(fields, field);
               });
-              fields[hpacket.timestampField] = this.getTimestamp(hpacket);
+              fields.timestamp = this.getTimestamp(hpacket);
             }
             else {
               // emitted event is going to contain one field
