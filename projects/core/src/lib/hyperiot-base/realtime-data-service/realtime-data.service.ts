@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Subject,Observable } from 'rxjs';
-import { HPacket, PacketData } from '../../../public_api';
 import { BaseDataService } from '../base-data.service';
 import { DataChannel } from '../models/data-channel';
 import { DataPacketFilter } from '../models/data-packet-filter';
 import { IDataService } from '../data.interface';
 import { RealtimeDataChannelController } from './realtimeDataChannelController';
+import { PacketData, PacketDataChunk } from '../models/packet-data';
+import { HPacket } from '../../hyperiot-client/models/hPacket';
 
 @Injectable({
   providedIn: 'root'
@@ -99,15 +100,15 @@ export class RealtimeDataService extends BaseDataService implements IDataService
    * @param widgetId The widget identifier.
    * @param dataPacketFilter Data packet filter which defines the packet id and packet fields to receive.
    */
-   addDataChannel(widgetId: number, dataPacketFilter: DataPacketFilter): DataChannel {
-    // TODO migliorare logica se possbile
+   addDataChannel(widgetId: number, dataPacketFilterList: DataPacketFilter[]): DataChannel {
+    // TODO improve following code
     if (this.dataChannels[widgetId]) {
-      return super.addDataChannel(widgetId, dataPacketFilter);
+      return super.addDataChannel(widgetId, dataPacketFilterList);
     }
 
-    const dataChannel = super.addDataChannel(widgetId, dataPacketFilter);
+    const dataChannel = super.addDataChannel(widgetId, dataPacketFilterList);
     dataChannel.controller = new RealtimeDataChannelController();
-    (dataChannel.controller.dataStreamOutput$ as Observable<any[]>).subscribe(dataChannel.subject);
+    (dataChannel.controller.dataStreamOutput$ as Observable<PacketDataChunk>).subscribe(dataChannel.subject);
     return dataChannel;
   }
 
@@ -151,28 +152,35 @@ export class RealtimeDataService extends BaseDataService implements IDataService
           const channelData: DataChannel = this.dataChannels[id];
           // check if message is valid for the current
           // channel, if so emit a new event
-          if (hpacket.id == channelData.packet.packetId) {
-            let fields: PacketData = {};
-            if(channelData.packet.wholePacketMode) {
-              // emitted event is going to contain all filtered fields
-              Object.keys(channelData.packet.fields).forEach(fieldId => {
-                const field = this.getField(channelData, hpacket, fieldId)
-                if (Object.keys(field).length > 0)
-                  Object.assign(fields, field);
-              });
-              fields.timestamp = this.getTimestamp(hpacket);
-            }
-            else {
-              // emitted event is going to contain one field
-              Object.keys(channelData.packet.fields).map((fieldId: any) => {
-                const field = this.getField(channelData, hpacket, fieldId);
-                if (Object.keys(field).length > 0) {
-                  Object.assign(fields, field);
-                }
-              });
-            }
-            (channelData.controller as RealtimeDataChannelController).dataStreamInput$.next([fields]);
-          }
+          channelData.packetFilterList
+            .filter(packetFilter => packetFilter.packetId === hpacket.id)
+            .forEach(packetFilter => {
+              let fields: PacketData = {};
+              if(packetFilter.wholePacketMode) {
+                // emitted event is going to contain all filtered fields
+                Object.keys(packetFilter.fields).forEach(fieldId => {
+                  const field = this.getField(packetFilter, hpacket, fieldId)
+                  if (Object.keys(field).length > 0)
+                    Object.assign(fields, field);
+                });
+                fields.timestamp = this.getTimestamp(hpacket);
+              }
+              else {
+                // emitted event is going to contain one field
+                Object.keys(packetFilter.fields).forEach((fieldId: any) => {
+                  const field = this.getField(packetFilter, hpacket, fieldId);
+                  if (Object.keys(field).length > 0) {
+                    Object.assign(fields, field);
+                  }
+                });
+              }
+              const packetDataChunk: PacketDataChunk = {
+                packetId: packetFilter.packetId,
+                data: [fields]
+              };
+              (channelData.controller as RealtimeDataChannelController).dataStreamInput$.next(packetDataChunk);
+            });
+          
         }
       }
     } else if (wsData.type === 'ERROR') {
@@ -182,9 +190,9 @@ export class RealtimeDataService extends BaseDataService implements IDataService
     }
   }
 
-  private getField(channelData: DataChannel, hpacket: HPacket, fieldId: any): Object {
+  private getField(packetFilter: DataPacketFilter, hpacket: HPacket, fieldId: any): Object {
     let field = {};
-    const fieldName = channelData.packet.fields[fieldId];
+    const fieldName = packetFilter.fields[fieldId];
     if (hpacket.fields.map.hasOwnProperty(fieldName)) {
       const tmpValue = hpacket.fields.map[fieldName].value;
       // based on the type, the input packet field value

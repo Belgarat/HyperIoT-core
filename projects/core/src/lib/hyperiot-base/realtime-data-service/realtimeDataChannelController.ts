@@ -1,11 +1,5 @@
-import {
-  Subject,
-  Observable,
-  merge,
-  bufferToggle,
-  mergeMap,
-  filter,
-} from "rxjs";
+import { Subject, Observable, merge, bufferToggle, mergeMap, filter } from 'rxjs';
+import { PacketDataChunk } from '../models/packet-data';
 
 export class RealtimeDataChannelController {
   private isPaused: boolean;
@@ -13,8 +7,8 @@ export class RealtimeDataChannelController {
   private play$: Subject<any> = new Subject<any>();
   private pause$: Subject<any> = new Subject<any>();
 
-  dataStreamOutput$: Observable<any[]>;
-  dataStreamInput$: Subject<any[]> = new Subject<any[]>();
+  dataStreamOutput$: Observable<PacketDataChunk>;
+  dataStreamInput$: Subject<PacketDataChunk> = new Subject<PacketDataChunk>();
 
   constructor() {
     this.dataStreamOutput$ = merge(

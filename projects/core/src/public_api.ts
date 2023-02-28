@@ -67,7 +67,7 @@ export * from './lib/hyperiot-service/hyperiot-algorithm-offline-data/algorithm-
 export { HyperiotBaseModule } from './lib/hyperiot-base/hyperiot-base.module';
 export { DataChannel } from './lib/hyperiot-base/models/data-channel';
 export { DataPacketFilter } from './lib/hyperiot-base/models/data-packet-filter';
-export { PacketData } from './lib/hyperiot-base/models/packet-data';
+export { PacketData, PacketDataChunk } from './lib/hyperiot-base/models/packet-data';
 export { IDataService } from './lib/hyperiot-base/data.interface';
 export { RealtimeDataService } from './lib/hyperiot-base/realtime-data-service/realtime-data.service';
 export { OfflineDataService } from './lib/hyperiot-base/offline-data-service/offline-data.service';

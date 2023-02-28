@@ -3,8 +3,8 @@ import { DataPacketFilter } from './models/data-packet-filter';
 
 export interface IDataService {
 
-    addDataChannel(widgetId: number, dataPacketFilter: DataPacketFilter): DataChannel;
+    addDataChannel(widgetId: number, dataPacketFilterList: DataPacketFilter[]): DataChannel;
     removeDataChannel(widgetId: number): void;
-    loadNextData?(packetId, deviceId, alarmState, widgetId): void;
+    loadNextData?(channelId: number): void;
     
 }

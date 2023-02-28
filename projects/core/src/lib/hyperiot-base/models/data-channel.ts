@@ -1,14 +1,18 @@
 import { Subject } from 'rxjs';
 import { DataPacketFilter } from './data-packet-filter';
-import { PacketData } from './packet-data';
+import { PacketDataChunk } from './packet-data';
 
 export class DataChannel {
-  packet: DataPacketFilter;
+  packetFilterList: DataPacketFilter[];
   controller?: any;
-  subject: Subject<PacketData[]>;
+  subject: Subject<PacketDataChunk>;
 
-  constructor(packet: DataPacketFilter) {
-    this.packet = packet;
-    this.subject = new Subject<PacketData[]>();
+  constructor(packetFilterList: DataPacketFilter[]) {
+    this.packetFilterList = packetFilterList;
+    this.subject = new Subject<PacketDataChunk>();
+  }
+
+  public getPacketIds(): number[] {
+    return this.packetFilterList.map(packetFilter => packetFilter.packetId);
   }
 }
