@@ -150,7 +150,7 @@ export class OfflineDataService extends BaseDataService {
    * @param packetValues
    * @returns packetData
    */
-  private convertData(packetValues: any): PacketData {
+  private convertData(packetValues: any): PacketData[] {
     return packetValues.map(pv => {
       const convertedPV: PacketData = {};
       pv.fields.forEach(field => {
