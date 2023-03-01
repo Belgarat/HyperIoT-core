@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, map } from 'rxjs';
+import { asyncScheduler, map, Observable, Subject } from 'rxjs';
 import { HprojectsService } from '../../hyperiot-client/h-project-client/api-module';
 import { BaseDataService } from '../base-data.service';
 import { DataChannel } from '../models/data-channel';
@@ -44,14 +44,24 @@ export class OfflineDataService extends BaseDataService {
     const dataChannel = super.addDataChannel(widgetId, dataPacketFilterList);
     const packetIds = this.getPacketIdsFromDataChannels();
     dataChannel.controller = new OfflineDataChannelController();
-    this.dashboardPackets.next(packetIds);
+
+    // temporary fix until the dashboard can efficiently manage widget deletion
+    asyncScheduler.schedule(() => {
+      this.dashboardPackets.next(packetIds);
+    });
+
     return dataChannel;
   }
 
   removeDataChannel(widgetId: number) {
     super.removeDataChannel(widgetId);
     const packetIds = this.getPacketIdsFromDataChannels();
-    this.dashboardPackets.next(packetIds);
+
+    // temporary fix until the dashboard can efficiently manage widget deletion
+    asyncScheduler.schedule(() => {
+      this.dashboardPackets.next(packetIds);
+    });
+
   }
 
   // Setting counter after user selection
