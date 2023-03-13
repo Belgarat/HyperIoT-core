@@ -29,6 +29,7 @@ export { DashboardsService } from './lib/hyperiot-client/dashboard-client/api-mo
 export { DashboardwidgetsService } from './lib/hyperiot-client/dashboard-widgets-client/api-module/index';
 export { CompaniesService } from './lib/hyperiot-client/company-client/api-module/index';
 export { WidgetsService } from './lib/hyperiot-client/widgets-client/api-module/index';
+export { ServicesService } from './lib/hyperiot-client/services/api-module/index';
 
 export { ApiModule as AlarmsClientModule } from './lib/hyperiot-client/alarms-client/api-module/api.module';
 export { ApiModule as AlarmeventsClientModule } from './lib/hyperiot-client/alarmevents-client/api-module/api.module';
@@ -53,6 +54,7 @@ export { ApiModule as DashboardClientModule } from './lib/hyperiot-client/dashbo
 export { ApiModule as DashboardWidgetsClientModule } from './lib/hyperiot-client/dashboard-widgets-client/api-module/api.module';
 export { ApiModule as CompanyClient } from './lib/hyperiot-client/company-client/api-module/api.module';
 export { ApiModule as WidgetsClientModule } from './lib/hyperiot-client/widgets-client/api-module/api.module';
+export { ApiModule as ServicesClientModule } from './lib/hyperiot-client/services/api-module/api.module';
 
 export { HyperiotClientModule } from './lib/hyperiot-client/hyperiot-client.module';
 

@@ -24,6 +24,7 @@ import { RolesService } from './role-client/api-module/api/roles.service';
 import { RulesService } from './rule-client/api-module/api/rules.service';
 import { StormService } from './storm-manager-client/api-module/api/storm.service';
 import { WidgetsService } from './widgets-client/api-module/api/widgets.service';
+import { ServicesService } from './services/api-module/api/services.service';
 
 @NgModule({
   declarations: [],
@@ -53,7 +54,8 @@ import { WidgetsService } from './widgets-client/api-module/api/widgets.service'
     DashboardsService,
     DashboardwidgetsService,
     CompaniesService,
-    WidgetsService
+    WidgetsService,
+    ServicesService,
   ]
 })
 export class HyperiotClientModule {
