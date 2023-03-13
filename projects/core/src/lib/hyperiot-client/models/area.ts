@@ -18,7 +18,7 @@ export interface Area {
     tagIds?: Array<number>;
     name?: string;
     description?: string;
-    imagePath?: string;
+    areaConfiguration?: string;
     areaViewType?: Area.AreaViewTypeEnum;
     mapInfo?: AreaMapInfo;
     parentArea?: Area;
