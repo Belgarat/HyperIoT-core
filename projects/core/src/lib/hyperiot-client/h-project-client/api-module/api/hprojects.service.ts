@@ -809,8 +809,6 @@ export class HprojectsService {
      * @param reportProgress flag to report request and response progress.
      */
     public scanHProject1(hProjectId: number, hPacketId: number, fieldId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public scanHProject1(hProjectId: number, hPacketId: number, fieldId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public scanHProject1(hProjectId: number, hPacketId: number, fieldId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public scanHProject1(hProjectId: number, hPacketId: number, fieldId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (hProjectId === null || hProjectId === undefined) {
@@ -842,7 +840,7 @@ export class HprojectsService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            'application/json'
+            'application/octet-stream'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -853,12 +851,13 @@ export class HprojectsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(hProjectId))}/hpacket/${encodeURIComponent(String(hPacketId))}/attachments/${encodeURIComponent(String(fieldId))}/${encodeURIComponent(String(rowKeyLowerBound))}/${encodeURIComponent(String(rowKeyUpperBound))}`,
+        return this.httpClient.get(`${this.basePath}/${encodeURIComponent(String(hProjectId))}/hpacket/${encodeURIComponent(String(hPacketId))}/attachments/${encodeURIComponent(String(fieldId))}/${encodeURIComponent(String(rowKeyLowerBound))}/${encodeURIComponent(String(rowKeyUpperBound))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
-                reportProgress: reportProgress
+                reportProgress: reportProgress,
+                responseType: 'text'
             }
         );
     }
