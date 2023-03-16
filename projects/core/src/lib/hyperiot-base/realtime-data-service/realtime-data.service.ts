@@ -199,9 +199,13 @@ export class RealtimeDataService extends BaseDataService implements IDataService
       // will be stored in the corresponding type property
       // eg. if packet field is "DOUBLE" then the effective value
       // will be stored into 'value.double' property
-      const valueKey = Object.keys(tmpValue)[0];
-      const value = hpacket.fields.map[fieldName].value[valueKey];
-      field[fieldName] = value;
+      if (!tmpValue) {
+        field[fieldName] = null;
+      } else {
+        const valueKey = Object.keys(tmpValue)[0];
+        const value = hpacket.fields.map[fieldName].value[valueKey];
+        field[fieldName] = value;
+      }
     }
     return field;
   }
