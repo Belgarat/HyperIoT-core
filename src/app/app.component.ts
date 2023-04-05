@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { version } from 'projects/core/package.json';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,7 @@ import { version } from 'projects/core/package.json';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public version: string = version;
+  public version: string = environment.version;
 
   constructor() { }
 

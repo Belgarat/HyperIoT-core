@@ -24,6 +24,7 @@ export * from './dataFlavor';
 export * from './dataHandler';
 export * from './dataSource';
 export * from './dictionary';
+export * from './dictionaryStringObject';
 export * from './dictionaryStringString';
 export * from './hDevice';
 export * from './hPacket';

@@ -227,6 +227,52 @@ export class HdevicesService {
     }
 
     /**
+     * /hyperiot/all/{projectId}/extended
+     * Service for finding all hdevice entities for a given project id
+     * @param projectId The project id to get list of devices from
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findAllHDeviceByProjectIdExtended(projectId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllHDeviceByProjectIdExtended(projectId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllHDeviceByProjectIdExtended(projectId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllHDeviceByProjectIdExtended(projectId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (projectId === null || projectId === undefined) {
+            throw new Error('Required parameter projectId was null or undefined when calling findAllHDeviceByProjectIdExtended.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/all/${encodeURIComponent(String(projectId))}/extended`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * /hyperiot/hdevices
      * Service for finding all hdevice entities
      * @param delta 
@@ -317,6 +363,165 @@ export class HdevicesService {
         ];
 
         return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hdevices/{id}/extended
+     * Service for finding hdevice
+     * @param id id from which hdevice object will retrieve
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findHDeviceExtended(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findHDeviceExtended(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findHDeviceExtended(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findHDeviceExtended(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling findHDeviceExtended.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/${encodeURIComponent(String(id))}/extended`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hdevices/resetPassword
+     * Change User Password
+     * @param hdeviceId 
+     * @param passwordResetCode 
+     * @param newPassword 
+     * @param passwordConfirm 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public resetPassword(hdeviceId?: number, passwordResetCode?: string, newPassword?: string, passwordConfirm?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public resetPassword(hdeviceId?: number, passwordResetCode?: string, newPassword?: string, passwordConfirm?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public resetPassword(hdeviceId?: number, passwordResetCode?: string, newPassword?: string, passwordConfirm?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public resetPassword(hdeviceId?: number, passwordResetCode?: string, newPassword?: string, passwordConfirm?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/x-www-form-urlencoded'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void | HttpParams; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (hdeviceId !== undefined) {
+            formParams = formParams.append('hdeviceId', <any>hdeviceId) || formParams;
+        }
+        if (passwordResetCode !== undefined) {
+            formParams = formParams.append('passwordResetCode', <any>passwordResetCode) || formParams;
+        }
+        if (newPassword !== undefined) {
+            formParams = formParams.append('newPassword', <any>newPassword) || formParams;
+        }
+        if (passwordConfirm !== undefined) {
+            formParams = formParams.append('passwordConfirm', <any>passwordConfirm) || formParams;
+        }
+
+        return this.httpClient.put<any>(`${this.basePath}/resetPassword`,
+            convertFormParamsToString ? formParams.toString() : formParams,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hdevices/{hdeviceId}/resetPasswordRequest
+     * Reset HDevice Password
+     * @param hdeviceId Id of the device
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public resetPasswordRequest(hdeviceId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public resetPasswordRequest(hdeviceId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public resetPasswordRequest(hdeviceId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public resetPasswordRequest(hdeviceId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (hdeviceId === null || hdeviceId === undefined) {
+            throw new Error('Required parameter hdeviceId was null or undefined when calling resetPasswordRequest.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.put<any>(`${this.basePath}/${encodeURIComponent(String(hdeviceId))}/resetPasswordRequest`,
+            null,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

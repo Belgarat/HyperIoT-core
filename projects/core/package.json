@@ -1,16 +1,25 @@
 {
   "name": "@hyperiot/core",
-  "version": "0.7.15",
+  "version": "1.0.7",
   "publishConfig": {
     "registry": "https://nexus.acsoftware.it/nexus/repository/acs-npm/",
     "always-auth": "true"
   },
+  "engines": {
+    "node": ">=15.0.0",
+    "npm": ">=6.0.0"
+  },
   "peerDependencies": {
-    "@angular/localize": "9.1.13",
-    "@angular/material-moment-adapter": "8.2.3",
-    "@angular/platform-browser-dynamic": "9.1.13",
-    "@angular/router": "9.1.13",
-    "@angular/service-worker": "9.1.13",
-    "idb": "^5.0.1"
+    "@angular/core": "12.2.16",
+    "@angular/localize": "12.2.16",
+    "@angular/platform-browser-dynamic": "12.2.16",
+    "@angular/router": "12.2.16",
+    "@angular/service-worker": "12.2.16",
+    "@angular/animations": "12.2.16",
+    "@angular/common": "12.2.16",
+    "@angular/compiler": "12.2.16",
+    "@angular/forms": "12.2.16",
+    "@angular/platform-browser": "12.2.16",
+    "idb": "^6.1.5"
   }
 }

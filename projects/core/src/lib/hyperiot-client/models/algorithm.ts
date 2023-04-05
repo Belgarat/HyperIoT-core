@@ -18,7 +18,16 @@ export interface Algorithm {
     name?: string;
     description?: string;
     baseConfig?: string;
-    jarName?: string;
-    jarPath?: string;
+    algorithmFileName?: string;
+    algorithmFilePath?: string;
+    type?: Algorithm.TypeEnum;
     mainClassname?: string;
+}
+export namespace Algorithm {
+    export type TypeEnum = 'STATISTICS' | 'MACHINE_LEARNING' | 'DEEP_LEARNING';
+    export const TypeEnum = {
+        STATISTICS: 'STATISTICS' as TypeEnum,
+        MACHINELEARNING: 'MACHINE_LEARNING' as TypeEnum,
+        DEEPLEARNING: 'DEEP_LEARNING' as TypeEnum
+    };
 }

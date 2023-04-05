@@ -301,15 +301,20 @@ export class AlgorithmsService {
     }
 
     /**
-     * /hyperiot/algorithms/all
+     * /hyperiot/algorithms/{algorithmType}/all
      * Service for finding all algorithm entities
+     * @param algorithmType The algorithm type 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findAllAlgorithm(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllAlgorithm(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllAlgorithm(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllAlgorithm(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findAllAlgorithm(algorithmType: 'STATISTICS' | 'MACHINE_LEARNING' | 'DEEP_LEARNING', observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllAlgorithm(algorithmType: 'STATISTICS' | 'MACHINE_LEARNING' | 'DEEP_LEARNING', observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllAlgorithm(algorithmType: 'STATISTICS' | 'MACHINE_LEARNING' | 'DEEP_LEARNING', observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllAlgorithm(algorithmType: 'STATISTICS' | 'MACHINE_LEARNING' | 'DEEP_LEARNING', observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (algorithmType === null || algorithmType === undefined) {
+            throw new Error('Required parameter algorithmType was null or undefined when calling findAllAlgorithm.');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -331,7 +336,7 @@ export class AlgorithmsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/all`,
+        return this.httpClient.get<any>(`${this.basePath}/type/${encodeURIComponent(String(algorithmType))}/all`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -342,17 +347,22 @@ export class AlgorithmsService {
     }
 
     /**
-     * /hyperiot/algorithms
+     * /hyperiot/{type}/algorithms
      * Service for finding all algorithm entities
+     * @param algorithmType The algorithm type 
      * @param delta 
      * @param page 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findAllAlgorithmPaginated(delta?: number, page?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public findAllAlgorithmPaginated(delta?: number, page?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public findAllAlgorithmPaginated(delta?: number, page?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public findAllAlgorithmPaginated(delta?: number, page?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findAllAlgorithmPaginated(algorithmType: 'STATISTICS' | 'MACHINE_LEARNING' | 'DEEP_LEARNING', delta?: number, page?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public findAllAlgorithmPaginated(algorithmType: 'STATISTICS' | 'MACHINE_LEARNING' | 'DEEP_LEARNING', delta?: number, page?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public findAllAlgorithmPaginated(algorithmType: 'STATISTICS' | 'MACHINE_LEARNING' | 'DEEP_LEARNING', delta?: number, page?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public findAllAlgorithmPaginated(algorithmType: 'STATISTICS' | 'MACHINE_LEARNING' | 'DEEP_LEARNING', delta?: number, page?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (algorithmType === null || algorithmType === undefined) {
+            throw new Error('Required parameter algorithmType was null or undefined when calling findAllAlgorithmPaginated.');
+        }
 
 
 
@@ -384,7 +394,7 @@ export class AlgorithmsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/`,
+        return this.httpClient.get<any>(`${this.basePath}/type/${encodeURIComponent(String(algorithmType))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -660,29 +670,29 @@ export class AlgorithmsService {
     }
 
     /**
-     * /hyperiot/algorithms/{algorithmId}/jar/{mainClassName}
-     * Service for updating jar of algorithm
-     * @param algorithmId Algorithm ID which updates jar for
+     * /hyperiot/algorithms/{algorithmId}/file/{mainClassName}
+     * Service for updating algorithm source file
+     * @param algorithmId Algorithm ID which updates source file for
      * @param mainClassname Classname containing main method
-     * @param body Jar file 
+     * @param body Algorithm source file 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateJar(algorithmId: number, mainClassname: string, body: Blob, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public updateJar(algorithmId: number, mainClassname: string, body: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public updateJar(algorithmId: number, mainClassname: string, body: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public updateJar(algorithmId: number, mainClassname: string, body: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateAlgorithmFile(algorithmId: number, mainClassname: string, body: Blob, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateAlgorithmFile(algorithmId: number, mainClassname: string, body: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateAlgorithmFile(algorithmId: number, mainClassname: string, body: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateAlgorithmFile(algorithmId: number, mainClassname: string, body: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (algorithmId === null || algorithmId === undefined) {
-            throw new Error('Required parameter algorithmId was null or undefined when calling updateJar.');
+            throw new Error('Required parameter algorithmId was null or undefined when calling updateAlgorithmFile.');
         }
 
         if (mainClassname === null || mainClassname === undefined) {
-            throw new Error('Required parameter mainClassname was null or undefined when calling updateJar.');
+            throw new Error('Required parameter mainClassname was null or undefined when calling updateAlgorithmFile.');
         }
 
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateJar.');
+            throw new Error('Required parameter body was null or undefined when calling updateAlgorithmFile.');
         }
 
         let headers = this.defaultHeaders;
@@ -709,7 +719,7 @@ export class AlgorithmsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<any>(`${this.basePath}/${encodeURIComponent(String(algorithmId))}/jar/${encodeURIComponent(String(mainClassname))}`,
+        return this.httpClient.put<any>(`${this.basePath}/${encodeURIComponent(String(algorithmId))}/file/${encodeURIComponent(String(mainClassname))}`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,

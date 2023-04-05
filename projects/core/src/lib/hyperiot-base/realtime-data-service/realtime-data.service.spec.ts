@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DataStreamService } from './data-stream.service';
+import { RealtimeDataService } from './realtime-data.service';
 
-describe('DataStreamService', () => {
+describe('RealtimeDataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: DataStreamService = TestBed.get(DataStreamService);
+    const service: RealtimeDataService = TestBed.get(RealtimeDataService);
     expect(service).toBeTruthy();
   });
 });

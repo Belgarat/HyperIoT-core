@@ -18,8 +18,18 @@ export interface Area {
     tagIds?: Array<number>;
     name?: string;
     description?: string;
-    imagePath?: string;
+    areaConfiguration?: string;
+    areaViewType?: Area.AreaViewTypeEnum;
     mapInfo?: AreaMapInfo;
     parentArea?: Area;
     innerArea?: Array<Area>;
+}
+export namespace Area {
+    export type AreaViewTypeEnum = 'MAP' | 'BIM_XKT' | 'BIM_IFC' | 'IMAGE';
+    export const AreaViewTypeEnum = {
+        MAP: 'MAP' as AreaViewTypeEnum,
+        BIMXKT: 'BIM_XKT' as AreaViewTypeEnum,
+        BIMIFC: 'BIM_IFC' as AreaViewTypeEnum,
+        IMAGE: 'IMAGE' as AreaViewTypeEnum
+    };
 }

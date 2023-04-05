@@ -6,7 +6,7 @@ var map = require('map-stream');
 
 var library = argv.lib;
 var version = argv.pv;
-var verifyVer = /^(\d{1,2})(\.)(\d{1,2})(\.)(\d{1,2})$/g;
+var verifyVer = /^(\d{1,2})(\.)(\d{1,2})(\.)(\d{1,2})(?:-test|-coll)?$/g;
 
 gulp.task('default', function (done) {
   console.log('\x1B[92mGulp is ok!');

@@ -712,15 +712,17 @@ export class HprojectsService {
      * @param hProjectId HProject ID from retrieve HPackets in Avro format and events
      * @param rowKeyLowerBound HBase row key lower bound
      * @param rowKeyUpperBound HBase row key upper bound
+     * @param maxResults Limit, maximum number of records, please use carefully
      * @param packetIds HPacket list, containing comma separated ID
      * @param deviceIds HDevice list, containing comma separated ID
+     * @param alarmState Alarm state , contain the state of the alarm
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, deviceIds: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, deviceIds: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, deviceIds: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, packetIds: string, deviceIds: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, maxResults: number, packetIds: string, deviceIds: string, alarmState: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, maxResults: number, packetIds: string, deviceIds: string, alarmState: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, maxResults: number, packetIds: string, deviceIds: string, alarmState: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public scanHProject(hProjectId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, maxResults: number, packetIds: string, deviceIds: string, alarmState: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (hProjectId === null || hProjectId === undefined) {
             throw new Error('Required parameter hProjectId was null or undefined when calling scanHProject.');
@@ -734,6 +736,10 @@ export class HprojectsService {
             throw new Error('Required parameter rowKeyUpperBound was null or undefined when calling scanHProject.');
         }
 
+        if (maxResults === null || maxResults === undefined) {
+            throw new Error('Required parameter maxResults was null or undefined when calling scanHProject.');
+        }
+
         if (packetIds === null || packetIds === undefined) {
             throw new Error('Required parameter packetIds was null or undefined when calling scanHProject.');
         }
@@ -742,12 +748,22 @@ export class HprojectsService {
             throw new Error('Required parameter deviceIds was null or undefined when calling scanHProject.');
         }
 
+        if (alarmState === null || alarmState === undefined) {
+            throw new Error('Required parameter alarmState was null or undefined when calling scanHProject.');
+        }
+
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (maxResults !== undefined && maxResults !== null) {
+            queryParameters = queryParameters.set('maxResults', <any>maxResults);
+        }
         if (packetIds !== undefined && packetIds !== null) {
             queryParameters = queryParameters.set('packetIds', <any>packetIds);
         }
         if (deviceIds !== undefined && deviceIds !== null) {
             queryParameters = queryParameters.set('deviceIds', <any>deviceIds);
+        }
+        if (alarmState !== undefined && alarmState !== null) {
+            queryParameters = queryParameters.set('alarmState', <any>alarmState);
         }
 
         let headers = this.defaultHeaders;
@@ -777,6 +793,71 @@ export class HprojectsService {
                 headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * /hyperiot/hprojects/{hProjectId}/hpacket/{hPacketId}/attachments/{fieldId}/{timestamp}
+     * Service for retrieving HProject attachments
+     * @param hProjectId HProject ID from retrieve HPackets in Avro format and events
+     * @param hPacketId HPacket ID
+     * @param fieldId Attachment field id
+     * @param rowKeyLowerBound Attachment Timestamp identifier
+     * @param rowKeyUpperBound Attachment Timestamp identifier
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public scanHProject1(hProjectId: number, hPacketId: number, fieldId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public scanHProject1(hProjectId: number, hPacketId: number, fieldId: number, rowKeyLowerBound: number, rowKeyUpperBound: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (hProjectId === null || hProjectId === undefined) {
+            throw new Error('Required parameter hProjectId was null or undefined when calling scanHProject1.');
+        }
+
+        if (hPacketId === null || hPacketId === undefined) {
+            throw new Error('Required parameter hPacketId was null or undefined when calling scanHProject1.');
+        }
+
+        if (fieldId === null || fieldId === undefined) {
+            throw new Error('Required parameter fieldId was null or undefined when calling scanHProject1.');
+        }
+
+        if (rowKeyLowerBound === null || rowKeyLowerBound === undefined) {
+            throw new Error('Required parameter rowKeyLowerBound was null or undefined when calling scanHProject1.');
+        }
+
+        if (rowKeyUpperBound === null || rowKeyUpperBound === undefined) {
+            throw new Error('Required parameter rowKeyUpperBound was null or undefined when calling scanHProject1.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt-auth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["AUTHORIZATION"]) {
+            headers = headers.set('AUTHORIZATION', this.configuration.apiKeys["AUTHORIZATION"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/octet-stream'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get(`${this.basePath}/${encodeURIComponent(String(hProjectId))}/hpacket/${encodeURIComponent(String(hPacketId))}/attachments/${encodeURIComponent(String(fieldId))}/${encodeURIComponent(String(rowKeyLowerBound))}/${encodeURIComponent(String(rowKeyUpperBound))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress,
+                responseType: 'text'
             }
         );
     }

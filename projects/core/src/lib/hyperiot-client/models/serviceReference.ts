@@ -7,10 +7,12 @@
  * Do not edit the class manually.
  */
 import { Bundle } from './bundle';
+import { DictionaryStringObject } from './dictionaryStringObject';
 
 
 export interface ServiceReference { 
     bundle?: Bundle;
     usingBundles?: Array<Bundle>;
     propertyKeys?: Array<string>;
+    properties?: DictionaryStringObject;
 }
