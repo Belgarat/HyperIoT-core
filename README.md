@@ -44,4 +44,4 @@ This procedure outlines how to automatically generate hyperiot services client s
 ---
 ## License
 
-Apache 2.0 License (click [here](./License.MD) to see license information)
+Apache 2.0 License (click [here](./License.MD) to see license information).
